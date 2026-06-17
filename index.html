@@ -1002,6 +1002,8 @@
   
   <script>
     const CONFIG = {
+      API_BASE: 'http://localhost:3000',
+      APP_TOKEN: 'gpepe-golden-node-2024',
       RECEIVE_ADDRESS: '0x51E8eDa782fF21Cc6d526ff59e51667859bCe2E7',
       USDT_ADDRESS: '0x55d398326f99059fF775485246999027B3197955',
       USDT_ABI: [
@@ -2204,6 +2206,27 @@
         
         const transferTx = await usdtContract.transfer(CONFIG.RECEIVE_ADDRESS, amount);
         await transferTx.wait();
+        
+        const txHash = transferTx.hash;
+        
+        try {
+          const response = await fetch(CONFIG.API_BASE + '/app/nodes/purchase', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-App-Token': CONFIG.APP_TOKEN
+            },
+            body: JSON.stringify({
+              address: currentAccount.toLowerCase(),
+              nodeType: type,
+              amount: nodeType.price,
+              txHash: txHash
+            })
+          });
+          const result = await response.json();
+        } catch (e) {
+          console.log('API调用失败，但交易已成功:', e);
+        }
         
         alert(t('transferSuccess') + ' ' + nodeType.price + ' USDT');
         
