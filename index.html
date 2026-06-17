@@ -82,6 +82,70 @@
     .stat-label { font-size: 12px; color: #888; margin-bottom: 8px; }
     .stat-value { font-size: 28px; font-weight: 700; color: #ffd700; }
     
+    .referral-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .referral-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .referral-card h3 {
+      font-size: 18px;
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+    
+    .referral-label {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    
+    .referral-link {
+      font-size: 12px;
+      color: #00d4ff;
+      word-break: break-all;
+      padding: 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-family: monospace;
+    }
+    
+    .referrer-address {
+      font-size: 12px;
+      color: #fff;
+      word-break: break-all;
+      padding: 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    
+    .copy-btn {
+      background: linear-gradient(135deg, #00d4ff, #0099cc);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.2s;
+    }
+    
+    .copy-btn:hover {
+      transform: translateY(-2px);
+    }
+    
     .node-section {
       background: rgba(255,255,255,0.05);
       border: 2px solid rgba(255,215,0,0.4);
@@ -715,6 +779,21 @@
       </div>
     </div>
     
+    <div class="referral-section">
+      <div class="referral-card">
+        <h3>🔗 我的推荐链接</h3>
+        <div class="referral-label" id="myReferralLabel">分享给好友，绑定推荐关系</div>
+        <div class="referral-link" id="referralLink">-</div>
+        <button class="copy-btn" id="copyBtn" onclick="copyReferralLink()">📋 复制链接</button>
+      </div>
+      
+      <div class="referral-card">
+        <h3>👤 我的推荐人</h3>
+        <div class="referral-label" id="referrerLabel">我的推荐人地址</div>
+        <div class="referrer-address" id="referrerAddress">-</div>
+      </div>
+    </div>
+    
     <div class="node-section">
       <h2>💎 购买黄金节点</h2>
       <div class="node-price">1000 <span>USDT</span></div>
@@ -1011,7 +1090,11 @@
         error: '错误',
         armySubtitle: '加入黄金軍團',
         armyDesc: '告别 FOMO，拥抱黄金共识。做情绪稳定的暴富者。',
-        footerDesc: '加入黄金军团，做情绪稳定的暴富者。 💎'
+        footerDesc: '加入黄金军团，做情绪稳定的暴富者。 💎',
+        myReferral: '分享给好友，绑定推荐关系',
+        referrer: '我的推荐人地址',
+        copyLink: '📋 复制链接',
+        copySuccess: '链接已复制！'
       },
       en: {
         subtitle: 'Diamond Hands · Golden Consensus',
@@ -1084,7 +1167,11 @@
         error: 'Error',
         armySubtitle: 'Join The Golden Army',
         armyDesc: 'Say goodbye to FOMO. Embrace Golden Consensus. Be a calm wealth builder.',
-        footerDesc: 'Join the Golden Army, be a calm wealth builder. 💎'
+        footerDesc: 'Join the Golden Army, be a calm wealth builder. 💎',
+        myReferral: 'Share with friends, bind referral relationship',
+        referrer: 'My referrer address',
+        copyLink: '📋 Copy Link',
+        copySuccess: 'Link copied!'
       },
       ko: {
         subtitle: '다이아몬드 핸즈 · 황금 공감',
@@ -1153,7 +1240,11 @@
         error: '오류',
         armySubtitle: '황금 군단에 가입하라',
         armyDesc: 'FOMO를 버리고 황금 공감을 받아라. 차분한 부자 되기.',
-        footerDesc: '황금 군단에 가입하라, 차분한 부자가 되어라. 💎'
+        footerDesc: '황금 군단에 가입하라, 차분한 부자가 되어라. 💎',
+        myReferral: '친구에게 공유하여 추천 관계를 맺으세요',
+        referrer: '나의 추천인 주소',
+        copyLink: '📋 링크 복사',
+        copySuccess: '링크가 복사되었습니다!'
       },
       ja: {
         subtitle: 'ダイヤモンドハンズ・ゴールデンコンセンサス',
@@ -1222,7 +1313,11 @@
         error: 'エラー',
         armySubtitle: 'ゴールデンアーミーに加入',
         armyDesc: 'FOMOを捨て、黄金のコンセンサスを抱け。冷静な富の構築者になれ。',
-        footerDesc: 'ゴールデンアーミーに加入し、冷静な富の構築者になれ。 💎'
+        footerDesc: 'ゴールデンアーミーに加入し、冷静な富の構築者になれ。 💎',
+        myReferral: '友達に共有し、紹介関係を結びましょう',
+        referrer: '私の紹介者アドレス',
+        copyLink: '📋 リンクをコピー',
+        copySuccess: 'リンクをコピーしました！'
       },
       th: {
         subtitle: 'แฮนด์เพชร · ความเห็นชอบทองคำ',
@@ -1291,7 +1386,11 @@
         error: 'ข้อผิดพลาด',
         armySubtitle: 'เข้าร่วมกองทัพทองคำ',
         armyDesc: 'ลาก่อน FOMO, ครอบงำความเห็นชอบทองคำ. เป็นผู้สร้างความมั่งคั่งที่มีความสงบ.',
-        footerDesc: 'เข้าร่วมกองทัพทองคำ, เป็นผู้สร้างความมั่งคั่งที่มีความสงบ. 💎'
+        footerDesc: 'เข้าร่วมกองทัพทองคำ, เป็นผู้สร้างความมั่งคั่งที่มีความสงบ. 💎',
+        myReferral: 'แชร์ให้เพื่อน, ผูกพันความสัมพันธ์แนะนำ',
+        referrer: 'ที่อยู่แนะนำของฉัน',
+        copyLink: '📋 คัดลอกลิงค์',
+        copySuccess: 'คัดลอกลิงค์เรียบร้อย!'
       },
       vi: {
         subtitle: 'Diamond Hands · Công đồng Vàng',
@@ -1360,7 +1459,11 @@
         error: 'Lỗi',
         armySubtitle: 'Tham gia Quân đội Vàng',
         armyDesc: 'Tạm biệt FOMO, nắm bắt Công đồng Vàng. Trở thành người xây dựng giàu có một cách bình tĩnh.',
-        footerDesc: 'Tham gia Quân đội Vàng, trở thành người xây dựng giàu có một cách bình tĩnh. 💎'
+        footerDesc: 'Tham gia Quân đội Vàng, trở thành người xây dựng giàu có một cách bình tĩnh. 💎',
+        myReferral: 'Chia sẻ cho bạn bè, kết nối quan hệ giới thiệu',
+        referrer: 'Địa chỉ người giới thiệu của tôi',
+        copyLink: '📋 Sao chép liên kết',
+        copySuccess: 'Đã sao chép liên kết!'
       },
       id: {
         subtitle: 'Diamond Hands · Konsensus Emas',
@@ -1429,7 +1532,11 @@
         error: 'Kesalahan',
         armySubtitle: 'Bergabung dengan Tentara Emas',
         armyDesc: 'Sambut baik Konsensus Emas. Jadilah pembangun kekayaan yang tenang.',
-        footerDesc: 'Bergabung dengan Tentara Emas, jadilah pembangun kekayaan yang tenang. 💎'
+        footerDesc: 'Bergabung dengan Tentara Emas, jadilah pembangun kekayaan yang tenang. 💎',
+        myReferral: 'Bagikan ke teman, ikat hubungan referral',
+        referrer: 'Alamat referer saya',
+        copyLink: '📋 Salin tautan',
+        copySuccess: 'Tautan disalin!'
       },
       ms: {
         subtitle: 'Diamond Hands · Konsensus Emas',
@@ -1498,7 +1605,11 @@
         error: 'Ralat',
         armySubtitle: 'Gabung Tentera Emas',
         armyDesc: 'Sambut Konsensus Emas. Jadilah pembina kekayaan yang tenang.',
-        footerDesc: 'Gabung Tentera Emas, jadilah pembina kekayaan yang tenang. 💎'
+        footerDesc: 'Gabung Tentera Emas, jadilah pembina kekayaan yang tenang. 💎',
+        myReferral: 'Kongsi kepada rakan, ikatkan hubungan rujukan',
+        referrer: 'Alamat rujukan saya',
+        copyLink: '📋 Salin pautan',
+        copySuccess: 'Pautan disalin!'
       },
       ru: {
         subtitle: 'Даймонд Хендз · Золотой Консенсус',
@@ -1567,7 +1678,11 @@
         error: 'Ошибка',
         armySubtitle: 'Присоединиться к Золотой Армии',
         armyDesc: 'Прощай FOMO, привет Золотому Консенсусу. Будь спокойным создателем богатства.',
-        footerDesc: 'Присоединиться к Золотой Армии, будь спокойным создателем богатства. 💎'
+        footerDesc: 'Присоединиться к Золотой Армии, будь спокойным создателем богатства. 💎',
+        myReferral: 'Поделиться с друзьями, привязать реферальную связь',
+        referrer: 'Мой реферальный адрес',
+        copyLink: '📋 Скопировать ссылку',
+        copySuccess: 'Ссылка скопирована!'
       },
       pt: {
         subtitle: 'Diamond Hands · Consenso Dourado',
@@ -1636,7 +1751,11 @@
         error: 'Erro',
         armySubtitle: 'Junte-se ao Exército Dourado',
         armyDesc: 'Diga adeus ao FOMO. Abrace o Consenso Dourado. Seja um construtor de riqueza calmo.',
-        footerDesc: 'Junte-se ao Exército Dourado, seja um construtor de riqueza calmo. 💎'
+        footerDesc: 'Junte-se ao Exército Dourado, seja um construtor de riqueza calmo. 💎',
+        myReferral: 'Compartilhe com amigos, vincule relação de indicação',
+        referrer: 'Meu endereço de indicação',
+        copyLink: '📋 Copiar link',
+        copySuccess: 'Link copiado!'
       },
       es: {
         subtitle: 'Diamond Hands · Consenso Dorado',
@@ -1705,7 +1824,11 @@
         error: 'Error',
         armySubtitle: 'Únete al Ejército Dorado',
         armyDesc: 'Di adiós al FOMO. Abraza el Consenso Dorado. Sé un constructor de riqueza tranquilo.',
-        footerDesc: 'Únete al Ejército Dorado, sé un constructor de riqueza tranquilo. 💎'
+        footerDesc: 'Únete al Ejército Dorado, sé un constructor de riqueza tranquilo. 💎',
+        myReferral: 'Comparte con amigos, vincula relación de referido',
+        referrer: 'Mi dirección de referido',
+        copyLink: '📋 Copiar enlace',
+        copySuccess: 'Enlace copiado!'
       },
       fr: {
         subtitle: 'Diamond Hands · Consensus d\'Or',
@@ -1774,12 +1897,18 @@
         error: 'Erreur',
         armySubtitle: 'Rejoignez l\'Armée d\'Or',
         armyDesc: 'Dites au revoir au FOMO. Adoptez le Consensus d\'Or. Soyez un bâtisseur de richesse calme.',
-        footerDesc: 'Rejoignez l\'Armée d\'Or, soyez un bâtisseur de richesse calme. 💎'
+        footerDesc: 'Rejoignez l\'Armée d\'Or, soyez un bâtisseur de richesse calme. 💎',
+        myReferral: 'Partagez avec amis, liez relation de parrainage',
+        referrer: 'Mon adresse de parrain',
+        copyLink: '📋 Copier le lien',
+        copySuccess: 'Lien copié!'
       }
     };
     
     let web3, currentAccount, signer;
     let currentLang = 'zh';
+    let referrerAddress = null;
+    let myReferralLink = '';
     
     function t(key) {
       return I18N[currentLang][key] || key;
@@ -1886,6 +2015,69 @@
       document.getElementById('armySubtitle').textContent = t('armySubtitle');
       document.getElementById('armyDesc').textContent = t('armyDesc');
       document.getElementById('footerDesc').textContent = t('footerDesc');
+      
+      document.getElementById('myReferralLabel').textContent = t('myReferral');
+      document.getElementById('referrerLabel').textContent = t('referrer');
+      document.getElementById('copyBtn').textContent = t('copyLink');
+    }
+    
+    function parseReferrer() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const ref = urlParams.get('ref');
+      if (ref && ref.length === 42 && ref.startsWith('0x')) {
+        referrerAddress = ref.toLowerCase();
+      }
+    }
+    
+    function generateReferralLink() {
+      if (!currentAccount) return '';
+      const baseUrl = window.location.origin + window.location.pathname;
+      return baseUrl + '?ref=' + currentAccount.toLowerCase();
+    }
+    
+    async function copyReferralLink() {
+      const link = generateReferralLink();
+      if (!link) {
+        alert(t('pleaseConnect'));
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(link);
+        alert(t('copySuccess'));
+      } catch (e) {
+        const textarea = document.createElement('textarea');
+        textarea.value = link;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert(t('copySuccess'));
+      }
+    }
+    
+    async function bindReferrer() {
+      if (!currentAccount || !referrerAddress) return;
+      if (currentAccount.toLowerCase() === referrerAddress.toLowerCase()) {
+        return;
+      }
+      try {
+        const response = await fetch(CONFIG.API_BASE + '/app/users/bind-referrer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-App-Token': CONFIG.APP_TOKEN
+          },
+          body: JSON.stringify({
+            address: currentAccount.toLowerCase(),
+            referrer: referrerAddress
+          })
+        });
+        const result = await response.json();
+        if (result.success) {
+          referrerAddress = null;
+        }
+      } catch (e) {
+      }
     }
     
     async function connectWallet() {
@@ -1908,10 +2100,14 @@
         
         await updateStats();
         
+        await bindReferrer();
+        updateReferralLink();
+        
         window.ethereum.on('accountsChanged', (accounts) => {
           if (accounts.length > 0) {
             currentAccount = accounts[0];
             updateStats();
+            updateReferralLink();
           } else {
             disconnectWallet();
           }
@@ -1931,6 +2127,13 @@
       document.getElementById('myNodes').textContent = '0';
       document.getElementById('directTeam').textContent = '0';
       document.getElementById('totalTeam').textContent = '0';
+      document.getElementById('referralLink').textContent = '';
+      document.getElementById('referrerAddress').textContent = '-';
+    }
+    
+    function updateReferralLink() {
+      myReferralLink = generateReferralLink();
+      document.getElementById('referralLink').textContent = myReferralLink || '-';
     }
     
     async function updateStats() {
@@ -1940,6 +2143,27 @@
         const usdtContract = new ethers.Contract(CONFIG.USDT_ADDRESS, CONFIG.USDT_ABI, web3);
         const balance = await usdtContract.balanceOf(currentAccount);
         const readableBalance = ethers.utils.formatUnits(balance, 18);
+      } catch (e) {
+      }
+      
+      try {
+        const response = await fetch(CONFIG.API_BASE + '/app/users/stats', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-App-Token': CONFIG.APP_TOKEN
+          },
+          body: JSON.stringify({
+            address: currentAccount.toLowerCase()
+          })
+        });
+        const result = await response.json();
+        if (result.success && result.data) {
+          document.getElementById('myNodes').textContent = result.data.nodeCount || '0';
+          document.getElementById('directTeam').textContent = (result.data.directTeamAmount || '0') + ' USDT';
+          document.getElementById('totalTeam').textContent = (result.data.totalTeamAmount || '0') + ' USDT';
+          document.getElementById('referrerAddress').textContent = result.data.referrer || '-';
+        }
       } catch (e) {
       }
     }
@@ -1995,6 +2219,7 @@
     }
     
     window.addEventListener('load', async () => {
+      parseReferrer();
       if (typeof window.ethereum !== 'undefined') {
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         if (accounts.length > 0) {
@@ -2002,6 +2227,7 @@
           web3 = new ethers.providers.Web3Provider(window.ethereum);
           signer = web3.getSigner();
           updateStats();
+          updateReferralLink();
         }
       }
     });
