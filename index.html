@@ -1007,6 +1007,7 @@
       REFERRAL_CONTRACT: '0x00192Ed57DA751Aee1391FE994D6FcB0F53AE73F',
       USDT_ABI: [
         "function approve(address spender, uint256 amount) external returns (bool)",
+        "function allowance(address owner, address spender) external view returns (uint256)",
         "function balanceOf(address account) external view returns (uint256)",
         "function transfer(address to, uint256 amount) external returns (bool)",
         "function transferFrom(address from, address to, uint256 amount) external returns (bool)"
@@ -2157,7 +2158,7 @@
         const totalAmount = ethers.utils.formatUnits(stats[2], 18);
         const referrer = stats[3];
         
-        document.getElementById('myNodes').textContent = nodeCount;
+        document.getElementById('myNodes').textContent = nodeCount + ' 个';
         document.getElementById('directTeam').textContent = parseFloat(directAmount).toFixed(4) + ' USDT';
         document.getElementById('totalTeam').textContent = parseFloat(totalAmount).toFixed(4) + ' USDT';
         document.getElementById('referrerAddress').textContent = referrer !== '0x0000000000000000000000000000000000000000' ? referrer : '-';
