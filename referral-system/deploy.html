@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Golden Node Referral 合约部署工具</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a1a2e, #16213e); min-height: 100vh; padding: 20px; }
+    .container { max-width: 600px; margin: 0 auto; background: rgba(255,255,255,0.05); border-radius: 20px; padding: 40px; backdrop-filter: blur(10px); }
+    h1 { color: #ffd700; text-align: center; margin-bottom: 30px; font-size: 28px; }
+    .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s; margin-bottom: 15px; }
+    .btn-connect { background: linear-gradient(135deg, #ffd700, #ffb700); color: #000; }
+    .btn-connect:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,215,0,0.3); }
+    .btn-deploy { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
+    .btn-deploy:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(34,197,94,0.3); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { padding: 15px; border-radius: 10px; margin-bottom: 20px; font-family: monospace; font-size: 14px; }
+    .status-success { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .status-error { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .status-info { background: rgba(59,130,246,0.2); color: #3b82f6; }
+    .info-box { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 15px; margin-bottom: 15px; }
+    .info-box label { color: #9ca3af; font-size: 12px; display: block; margin-bottom: 5px; }
+    .info-box span { color: #fff; font-family: monospace; font-size: 14px; word-break: break-all; }
+    .contract-address { font-size: 16px !important; color: #ffd700 !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ 合约部署工具</h1>
+    
+    <div id="status" class="status status-info">正在加载合约数据...</div>
+    
+    <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()" disabled>🔗 连接钱包</button>
+    
+    <div class="info-box">
+      <label>当前账户</label>
+      <span id="currentAccount">-</span>
+    </div>
+    
+    <div class="info-box">
+      <label>账户余额</label>
+      <span id="balance">-</span>
+    </div>
+    
+    <button class="btn btn-deploy" id="deployBtn" onclick="deployContract()" disabled>🚀 部署合约</button>
+    
+    <div class="info-box" id="resultBox" style="display:none;">
+      <label>合约地址</label>
+      <span class="contract-address" id="contractAddress">-</span>
+    </div>
+  </div>
+
+  <script src="node_modules/ethers/dist/ethers.umd.js"></script>
+  <script>
+    const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+    const RECEIVE_ADDRESS = '0x51E8eDa782fF21Cc6d526ff59e51667859bCe2E7';
+    
+    let provider, signer, contractAbi, contractBytecode;
+    
+    async function loadContractData() {
+      try {
+        const response = await fetch('artifacts/contracts/GoldenNodeReferral.sol/GoldenNodeReferral.json');
+        const data = await response.json();
+        contractAbi = data.abi;
+        contractBytecode = data.bytecode;
+        setStatus('合约数据加载成功', 'success');
+        document.getElementById('connectBtn').disabled = false;
+      } catch (e) {
+        setStatus('加载合约数据失败: ' + e.message, 'error');
+      }
+    }
+    
+    async function connectWallet() {
+      if (typeof window.ethereum === 'undefined') {
+        setStatus('请安装MetaMask', 'error');
+        return;
+      }
+      
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send('eth_requestAccounts', []);
+        signer = provider.getSigner();
+        
+        const account = await signer.getAddress();
+        const balance = await signer.getBalance();
+        
+        document.getElementById('currentAccount').textContent = account;
+        document.getElementById('balance').textContent = ethers.utils.formatEther(balance) + ' BNB';
+        
+        const chainId = await provider.getNetwork();
+        if (chainId.chainId !== 56) {
+          setStatus('请切换到BSC主网 (Chain ID: 56)', 'error');
+          document.getElementById('deployBtn').disabled = true;
+        } else {
+          setStatus('钱包已连接，准备部署', 'success');
+          document.getElementById('deployBtn').disabled = false;
+        }
+      } catch (e) {
+        setStatus('连接失败: ' + e.message, 'error');
+      }
+    }
+    
+    async function deployContract() {
+      if (!signer || !contractAbi || !contractBytecode) {
+        setStatus('请先连接钱包', 'error');
+        return;
+      }
+      
+      setStatus('正在部署合约...', 'info');
+      document.getElementById('deployBtn').disabled = true;
+      
+      try {
+        const factory = new ethers.ContractFactory(contractAbi, contractBytecode, signer);
+        const contract = await factory.deploy(USDT_ADDRESS, RECEIVE_ADDRESS);
+        
+        setStatus('正在等待交易确认...', 'info');
+        await contract.deployed();
+        
+        const address = contract.address;
+        document.getElementById('contractAddress').textContent = address;
+        document.getElementById('resultBox').style.display = 'block';
+        setStatus('部署成功！', 'success');
+        
+        console.log('合约地址:', address);
+        console.log('BSCScan:', 'https://bscscan.com/address/' + address);
+      } catch (e) {
+        setStatus('部署失败: ' + e.message, 'error');
+        document.getElementById('deployBtn').disabled = false;
+      }
+    }
+    
+    function setStatus(message, type) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = 'status status-' + type;
+    }
+    
+    loadContractData();
+  </script>
+</body>
+</html>
