@@ -1369,6 +1369,442 @@
         width: 100%;
       }
     }
+
+    /* 幸运大转盘 */
+    .wheel-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .wheel-wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-top: 40px solid #ffd700;
+      z-index: 10;
+      filter: drop-shadow(0 4px 10px rgba(255, 215, 0, 0.5));
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+      box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.4),
+        0 0 60px rgba(255, 69, 0, 0.2),
+        inset 0 0 30px rgba(0, 0, 0, 0.3);
+      border: 8px solid #ffd700;
+    }
+
+    .wheel-segment {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      top: 0;
+      right: 0;
+      transform-origin: 0% 100%;
+      overflow: hidden;
+    }
+
+    .wheel-segment-inner {
+      position: absolute;
+      left: -100%;
+      width: 200%;
+      height: 200%;
+      text-align: center;
+      padding-top: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .wheel-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #ffd700, #ff8c00);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 5;
+      box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.6),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .wheel-cost {
+      font-size: 18px;
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .wheel-history {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .wheel-history-title {
+      font-size: 14px;
+      color: #ffd700;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .wheel-history-list {
+      max-height: 100px;
+      overflow-y: auto;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .wheel-history-item {
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    }
+
+    /* 创建角色弹窗 */
+    .create-char-modal .class-select {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .create-char-modal .class-option {
+      padding: 15px;
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: rgba(139, 92, 246, 0.1);
+    }
+
+    .create-char-modal .class-option:hover {
+      border-color: rgba(139, 92, 246, 0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+    }
+
+    .create-char-modal .class-option.selected {
+      border-color: #a855f7;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(168, 85, 247, 0.2));
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.4);
+    }
+
+    .create-char-modal .class-icon {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .create-char-modal .class-name {
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .create-char-modal .class-desc {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .char-name-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      color: #ffd700;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .char-name-input:focus {
+      outline: none;
+      border-color: #ffd700;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    }
+
+    /* 战斗动画增强 */
+    .battle-scene {
+      position: relative;
+      min-height: 300px;
+      background: 
+        linear-gradient(180deg, rgba(20, 10, 40, 0.8) 0%, rgba(40, 20, 60, 0.8) 100%);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      overflow: hidden;
+    }
+
+    .battle-scene::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 20% 80%, rgba(255, 69, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .battle-character {
+      position: absolute;
+      bottom: 30px;
+      left: 50px;
+      font-size: 60px;
+      z-index: 5;
+      filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+    }
+
+    .battle-boss {
+      position: absolute;
+      bottom: 30px;
+      right: 50px;
+      font-size: 80px;
+      z-index: 5;
+      filter: drop-shadow(0 0 30px rgba(255, 69, 0, 0.5));
+      animation: bossIdle 2s ease-in-out infinite;
+    }
+
+    @keyframes bossIdle {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.02); }
+    }
+
+    .battle-hp-bar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      z-index: 10;
+    }
+
+    .hp-bar-container {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.5);
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hp-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #86efac);
+      transition: width 0.5s;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    }
+
+    .hp-bar-fill.boss {
+      background: linear-gradient(90deg, #ef4444, #f87171);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
+
+    .hp-bar-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 11px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .hp-bar-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .hp-label {
+      font-size: 11px;
+      color: #fff;
+      margin-bottom: 5px;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    /* 技能特效增强 */
+    .fireball-effect {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ff6b00, #ff4500, #ff0000);
+      box-shadow: 0 0 30px #ff4500, 0 0 60px #ff6b00;
+      z-index: 100;
+      animation: fireballFly 0.6s ease-in forwards;
+    }
+
+    @keyframes fireballFly {
+      0% { left: 20%; bottom: 50%; transform: scale(0.5); opacity: 1; }
+      50% { transform: scale(1.2); }
+      100% { left: 70%; bottom: 50%; transform: scale(0.8); opacity: 0.8; }
+    }
+
+    .thunder-effect {
+      position: absolute;
+      width: 6px;
+      height: 150px;
+      background: linear-gradient(180deg, #00ffff, #0080ff, transparent);
+      z-index: 100;
+      animation: thunderStrike 0.4s ease-out forwards;
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #0080ff;
+    }
+
+    @keyframes thunderStrike {
+      0% { top: 0; opacity: 0; height: 0; }
+      30% { opacity: 1; }
+      100% { top: 30%; opacity: 0; height: 150px; }
+    }
+
+    .meteor-effect {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff, #ff6b00, #ff0000);
+      z-index: 100;
+      animation: meteorFall 0.8s ease-in forwards;
+      box-shadow: 0 0 20px #ff6b00, -20px -20px 40px #ff4500;
+    }
+
+    @keyframes meteorFall {
+      0% { top: -20px; right: -20px; opacity: 0; }
+      20% { opacity: 1; }
+      100% { top: 60%; right: 20%; opacity: 0.8; }
+    }
+
+    .ice-shard {
+      position: absolute;
+      width: 15px;
+      height: 30px;
+      background: linear-gradient(180deg, #87ceeb, #00bfff, #4169e1);
+      z-index: 100;
+      animation: iceThrow 0.5s linear forwards;
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      box-shadow: 0 0 15px #00bfff;
+    }
+
+    @keyframes iceThrow {
+      0% { left: 25%; bottom: 50%; transform: rotate(0deg); opacity: 1; }
+      100% { left: 65%; bottom: 50%; transform: rotate(720deg); opacity: 0; }
+    }
+
+    .combo-text {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 
+        0 0 20px #ffd700,
+        0 0 40px #ff6b00,
+        3px 3px 0 #8b4513;
+      z-index: 200;
+      animation: comboShow 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes comboShow {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      30% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      70% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(0.8) translateY(-30px); opacity: 0; }
+    }
+
+    .damage-number {
+      position: absolute;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff4500;
+      text-shadow: 2px 2px 0 #000, 0 0 10px #ff6b00;
+      z-index: 150;
+      animation: damageFloat 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    .damage-number.crit {
+      font-size: 36px;
+      color: #ffd700;
+      text-shadow: 2px 2px 0 #8b0000, 0 0 20px #ffd700;
+    }
+
+    @keyframes damageFloat {
+      0% { transform: translateY(0) scale(0.5); opacity: 0; }
+      30% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+      100% { transform: translateY(-60px) scale(1); opacity: 0; }
+    }
+
+    .battle-log-enhanced {
+      max-height: 120px;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 12px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .battle-log-enhanced p {
+      padding: 3px 0;
+      color: #a78bfa;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .battle-log-enhanced p:last-child {
+      border-bottom: none;
+    }
+
+    .battle-log-enhanced .player-action {
+      color: #86efac;
+    }
+
+    .battle-log-enhanced .boss-action {
+      color: #f87171;
+    }
+
+    .battle-log-enhanced .crit-action {
+      color: #ffd700;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -1404,7 +1840,16 @@
     </div>
 
     <!-- 角色信息 -->
-    <div class="character-section" id="characterSection" style="display:none;">
+    <div class="character-section" id="characterSection">
+      <div id="noCharHint" style="text-align: center; padding: 30px;">
+        <div style="font-size: 48px; margin-bottom: 15px;">🎮</div>
+        <div style="font-size: 18px; color: #fff; margin-bottom: 10px;">还没有创建角色</div>
+        <div style="font-size: 14px; color: #9ca3af; margin-bottom: 20px;">创建你的传奇英雄，开启冒险之旅</div>
+        <button class="btn btn-primary" onclick="showCreateCharModal()" style="padding: 15px 40px;">
+          立即创建
+        </button>
+      </div>
+      <div id="charInfoDisplay" style="display: none;">
       <div class="character-header">
         <div class="character-avatar">🧙</div>
         <div>
@@ -1485,6 +1930,7 @@
         <div class="game-tab active" onclick="switchTab('synthesize')">装备合成</div>
         <div class="game-tab" onclick="switchTab('quests')">任务系统</div>
         <div class="game-tab" onclick="switchTab('boss')">BOSS挑战</div>
+        <div class="game-tab" onclick="switchTab('wheel')">幸运转盘</div>
         <div class="game-tab" onclick="switchTab('leaderboard')">战力排行</div>
       </div>
 
@@ -1509,7 +1955,29 @@
         </div>
       </div>
 
-      <!-- 战力排行榜 -->
+      
+      <!-- 幸运大转盘 -->
+      <div class="game-panel" id="wheelPanel">
+        <div class="wheel-container">
+          <div class="wheel-cost">每次消耗 50 传奇币</div>
+          <div class="wheel-wrapper">
+            <div class="wheel-pointer"></div>
+            <div class="wheel" id="luckyWheel">
+              <div class="wheel-center">🎰</div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="spinWheel()" style="padding: 15px 40px; font-size: 18px;">
+            开始抽奖
+          </button>
+          <div class="wheel-history">
+            <div class="wheel-history-title">🎁 中奖记录</div>
+            <div class="wheel-history-list" id="wheelHistory">
+              <p>暂无记录，快来抽奖吧！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- 战力排行榜 -->
       <div class="game-panel" id="leaderboardPanel">
         <div class="leaderboard-container">
           <div class="leaderboard-title">🏆 战力排行榜</div>
@@ -1526,6 +1994,7 @@
           <div class="my-rank" id="myRankDisplay"></div>
         </div>
       </div>
+          </div>
     </div>
 
     <!-- 装备栏 -->
@@ -1537,7 +2006,39 @@
     </div>
   </div>
 
-  <!-- 消息提示 -->
+  
+  <!-- 创建角色弹窗 -->
+  <div class="modal create-char-modal" id="createCharModal">
+    <div class="modal-content">
+      <div class="modal-close" onclick="closeCreateCharModal()">&times;</div>
+      <h2 style="text-align: center; color: #ffd700; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">
+        ⚔️ 创建角色
+      </h2>
+      <input type="text" class="char-name-input" id="charNameInput" placeholder="输入角色名称" maxlength="10">
+      <div class="section-title" style="font-size: 16px; margin-bottom: 15px;">选择职业</div>
+      <div class="class-select" id="classSelect">
+        <div class="class-option selected" data-class="warrior" onclick="selectClass('warrior')">
+          <div class="class-icon">⚔️</div>
+          <div class="class-name">战士</div>
+          <div class="class-desc">高攻击 近战王者</div>
+        </div>
+        <div class="class-option" data-class="mage" onclick="selectClass('mage')">
+          <div class="class-icon">🧙</div>
+          <div class="class-name">法师</div>
+          <div class="class-desc">魔法爆发 远程输出</div>
+        </div>
+        <div class="class-option" data-class="archer" onclick="selectClass('archer')">
+          <div class="class-icon">🏹</div>
+          <div class="class-name">弓箭手</div>
+          <div class="class-desc">敏捷致命 连续攻击</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width: 100%; margin-top: 20px; padding: 15px;" onclick="confirmCreateChar()">
+        开始冒险
+      </button>
+    </div>
+  </div>
+<!-- 消息提示 -->
   <div class="toast" id="toast"></div>
 
   <!-- 加载动画 -->
@@ -1784,6 +2285,10 @@
       if (tab === 'leaderboard') {
         renderLeaderboard();
       }
+      if (tab === 'wheel') {
+        updateWheelHistory();
+      }
+      SoundManager.playButton();
     }
 
     function getPower(char) {
@@ -2208,7 +2713,614 @@
       }
     };
 
+
+    // ============= 幸运大转盘 =============
+    const wheelRewards = [
+      { name: '100传奇币', icon: '💰', value: 100, color: '#ff6b00', type: 'coin' },
+      { name: '50传奇币', icon: '🪙', value: 50, color: '#f59e0b', type: 'coin' },
+      { name: '200传奇币', icon: '💎', value: 200, color: '#8b5cf6', type: 'coin' },
+      { name: '谢谢参与', icon: '😊', value: 0, color: '#6b7280', type: 'none' },
+      { name: '经验药水', icon: '🧪', value: 50, color: '#22c55e', type: 'exp' },
+      { name: '30传奇币', icon: '🎁', value: 30, color: '#ec4899', type: 'coin' },
+      { name: '500传奇币', icon: '👑', value: 500, color: '#ffd700', type: 'coin' },
+      { name: '强化石', icon: '💠', value: 80, color: '#06b6d4', type: 'stone' }
+    ];
+
+    let wheelHistory = [];
+    let isSpinning = false;
+
+    function initWheel() {
+      const wheel = document.getElementById('luckyWheel');
+      if (!wheel) return;
+      
+      const segmentAngle = 360 / wheelRewards.length;
+      wheelRewards.forEach((reward, index) => {
+        const segment = document.createElement('div');
+        segment.className = 'wheel-segment';
+        const angle = index * segmentAngle;
+        segment.style.transform = `rotate(${angle}deg) skewY(${segmentAngle - 90}deg)`;
+        
+        const inner = document.createElement('div');
+        inner.className = 'wheel-segment-inner';
+        inner.style.background = reward.color + '40';
+        inner.style.transform = `skewY(${90 - segmentAngle}deg) rotate(${segmentAngle / 2}deg)`;
+        inner.innerHTML = `<div style="font-size: 20px; margin-top: 10px;">${reward.icon}</div><div style="font-size: 10px;">${reward.name}</div>`;
+        
+        segment.appendChild(inner);
+        wheel.appendChild(segment);
+      });
+    }
+
+    async function spinWheel() {
+      if (isSpinning) {
+        showToast('抽奖中，请稍候...', 'error');
+        return;
+      }
+
+      const cost = 50;
+      if (currentKoalaBalance < cost) {
+        showToast('传奇币不足！', 'error');
+        return;
+      }
+
+      isSpinning = true;
+      const wheel = document.getElementById('luckyWheel');
+      
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(cost.toString(), decimals);
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        const rewardIndex = Math.floor(Math.random() * wheelRewards.length);
+        const reward = wheelRewards[rewardIndex];
+        
+        const segmentAngle = 360 / wheelRewards.length;
+        const targetAngle = 360 * 5 + (360 - rewardIndex * segmentAngle - segmentAngle / 2);
+        
+        wheel.style.transform = `rotate(${targetAngle}deg)`;
+
+        SoundManager.playButton();
+        
+        setTimeout(async () => {
+          if (reward.type === 'coin') {
+            currentKoalaBalance += reward.value;
+            character.exp += 20;
+            showToast(`🎉 恭喜获得 ${reward.name}！`, 'success');
+          } else if (reward.type === 'exp') {
+            character.exp += 100;
+            showToast(`🎉 恭喜获得 ${reward.name}！经验+100`, 'success');
+          } else if (reward.type === 'stone') {
+            character.atk += 5;
+            character.exp += 30;
+            showToast(`🎉 恭喜获得 ${reward.name}！攻击+5`, 'success');
+          } else {
+            showToast('😊 谢谢参与，下次好运！', 'error');
+          }
+
+          wheelHistory.unshift({
+            reward: reward.name,
+            icon: reward.icon,
+            time: new Date().toLocaleTimeString()
+          });
+          if (wheelHistory.length > 10) wheelHistory.pop();
+          updateWheelHistory();
+
+          if (character.exp >= character.level * 200) {
+            character.level++;
+            character.exp -= character.level * 200;
+            showToast(`🎊 升级！当前Lv.${character.level}`, 'success');
+          }
+
+          updateCharacter();
+          updateGameUI();
+          
+          isSpinning = false;
+        }, 4200);
+
+      } catch (e) {
+        showToast('抽奖失败: ' + e.message, 'error');
+        isSpinning = false;
+      }
+    }
+
+    function updateWheelHistory() {
+      const historyEl = document.getElementById('wheelHistory');
+      if (!historyEl) return;
+      
+      if (wheelHistory.length === 0) {
+        historyEl.innerHTML = '<p>暂无记录，快来抽奖吧！</p>';
+        return;
+      }
+      
+      historyEl.innerHTML = wheelHistory.map(h => 
+        `<div class="wheel-history-item">${h.icon} ${h.reward} <span style="float: right;">${h.time}</span></div>`
+      ).join('');
+    }
+
+    // ============= 创建角色系统 =============
+    let selectedClass = 'warrior';
+    let characterCreated = false;
+
+    function showCreateCharModal() {
+      document.getElementById('createCharModal').classList.add('active');
+    }
+
+    function closeCreateCharModal() {
+      document.getElementById('createCharModal').classList.remove('active');
+    }
+
+    function selectClass(cls) {
+      selectedClass = cls;
+      document.querySelectorAll('.create-char-modal .class-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      document.querySelector(`.create-char-modal .class-option[data-class="${cls}"]`).classList.add('selected');
+      SoundManager.playButton();
+    }
+
+    function confirmCreateChar() {
+      const name = document.getElementById('charNameInput').value.trim();
+      if (!name) {
+        showToast('请输入角色名称', 'error');
+        return;
+      }
+      if (name.length < 2) {
+        showToast('角色名称至少2个字符', 'error');
+        return;
+      }
+
+      character.name = name;
+      character.class = selectedClass;
+      
+      if (selectedClass === 'warrior') {
+        character.atk = 15;
+        character.def = 8;
+        character.hp = 120;
+      } else if (selectedClass === 'mage') {
+        character.atk = 12;
+        character.def = 5;
+        character.hp = 80;
+      } else {
+        character.atk = 10;
+        character.def = 6;
+        character.hp = 100;
+      }
+
+      characterCreated = true;
+      localStorage.setItem('koala_legend_char', JSON.stringify(character));
+      
+      document.getElementById('noCharHint').style.display = 'none';
+      document.getElementById('charInfoDisplay').style.display = 'block';
+      document.getElementById('inventorySection').style.display = 'block';
+      
+      closeCreateCharModal();
+      updateCharacter();
+      initGame();
+      
+      showToast('角色创建成功！开始你的传奇之旅吧！', 'success');
+      SoundManager.playVictory();
+    }
+
+    // ============= 增强版BOSS战斗 =============
+    let currentBoss = null;
+    let playerHp = 100;
+    let bossHp = 100;
+    let battleActive = false;
+    let battleLogEnhanced = [];
+
+    function fightBoss(bossId) {
+      const boss = bossData.find(b => b.id === bossId);
+      if (!boss) return;
+
+      if (!characterCreated) {
+        showToast('请先创建角色！', 'error');
+        showCreateCharModal();
+        return;
+      }
+
+      if (currentKoalaBalance < boss.cost) {
+        showToast('传奇币不足！', 'error');
+        return;
+      }
+
+      // 显示战斗场景
+      showBattleScene(boss);
+    }
+
+    function showBattleScene(boss) {
+      // 创建战斗场景弹窗
+      const modal = document.createElement('div');
+      modal.className = 'modal';
+      modal.id = 'battleModal';
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 600px; width: 95%;">
+          <div class="modal-close" onclick="closeBattleModal()">&times;</div>
+          <h2 style="text-align: center; color: #f87171; margin-bottom: 15px; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);">
+            ⚔️ BOSS战 - ${boss.name}
+          </h2>
+          
+          <div class="battle-scene" id="battleScene">
+            <div class="battle-hp-bar">
+              <div class="hp-bar-wrapper">
+                <div class="hp-label">${character.name}</div>
+                <div class="hp-bar-container">
+                  <div class="hp-bar-fill" id="playerHpBar" style="width: 100%;"></div>
+                </div>
+              </div>
+              <div class="hp-bar-wrapper">
+                <div class="hp-label" style="text-align: right;">${boss.name}</div>
+                <div class="hp-bar-container">
+                  <div class="hp-bar-fill boss" id="bossHpBar" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="battle-character" id="battlePlayer">${getClassIcon()}</div>
+            <div class="battle-boss" id="battleBoss">${boss.icon}</div>
+          </div>
+          
+          <div class="battle-log-enhanced" id="battleLogEnhanced"></div>
+          
+          <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button class="btn btn-primary" style="flex: 1;" onclick="playerAttack()">
+              ⚔️ 普通攻击
+            </button>
+            <button class="btn btn-game" style="flex: 1;" onclick="playerSkill()">
+              ✨ 技能攻击
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.classList.add('active');
+
+      currentBoss = boss;
+      playerHp = character.hp;
+      bossHp = boss.hp || 200;
+      battleActive = true;
+      battleLogEnhanced = [];
+
+      addBattleLog(`⚔️ ${boss.name} 出现了！`, 'boss-action');
+      updateBattleUI();
+    }
+
+    function getClassIcon() {
+      const icons = { warrior: '⚔️', mage: '🧙', archer: '🏹' };
+      return icons[character.class] || '⚔️';
+    }
+
+    function updateBattleUI() {
+      const playerBar = document.getElementById('playerHpBar');
+      const bossBar = document.getElementById('bossHpBar');
+      if (playerBar) playerBar.style.width = (playerHp / character.hp * 100) + '%';
+      if (bossBar) bossBar.style.width = (bossHp / (currentBoss?.hp || 200) * 100) + '%';
+    }
+
+    function addBattleLog(msg, type = '') {
+      battleLogEnhanced.push({ msg, type });
+      if (battleLogEnhanced.length > 20) battleLogEnhanced.shift();
+      
+      const logEl = document.getElementById('battleLogEnhanced');
+      if (logEl) {
+        logEl.innerHTML = battleLogEnhanced.map(l => 
+          `<p class="${l.type}">${l.msg}</p>`
+        ).join('');
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+    }
+
+    function playerAttack() {
+      if (!battleActive) return;
+
+      const isCrit = Math.random() < 0.2;
+      let damage = character.atk + Math.floor(Math.random() * 10);
+      if (isCrit) damage = Math.floor(damage * 2);
+
+      bossHp -= damage;
+      if (bossHp < 0) bossHp = 0;
+
+      const scene = document.getElementById('battleScene');
+      const player = document.getElementById('battlePlayer');
+      
+      player.style.animation = 'none';
+      player.offsetHeight;
+      player.style.animation = 'slash 0.3s ease-out';
+
+      showSkillEffectEnhanced(scene);
+      
+      showDamageNumber(scene, damage, isCrit, 'boss');
+      
+      if (isCrit) {
+        addBattleLog(`💥 暴击！你对 ${currentBoss.name} 造成 ${damage} 点伤害！`, 'crit-action');
+        showComboText(scene, '暴击！');
+      } else {
+        addBattleLog(`⚔️ 你对 ${currentBoss.name} 造成 ${damage} 点伤害`, 'player-action');
+      }
+
+      SoundManager.playAttack();
+      updateBattleUI();
+
+      if (bossHp <= 0) {
+        battleVictory();
+        return;
+      }
+
+      setTimeout(() => bossAttack(), 800);
+    }
+
+    function playerSkill() {
+      if (!battleActive) return;
+
+      const isCrit = Math.random() < 0.3;
+      let damage = Math.floor(character.atk * 1.8 + Math.random() * 20);
+      if (isCrit) damage = Math.floor(damage * 2);
+
+      bossHp -= damage;
+      if (bossHp < 0) bossHp = 0;
+
+      const scene = document.getElementById('battleScene');
+      
+      // 根据职业释放不同技能
+      if (character.class === 'warrior') {
+        showWarriorSkill(scene);
+      } else if (character.class === 'mage') {
+        showMageSkill(scene);
+      } else {
+        showArcherSkill(scene);
+      }
+
+      showDamageNumber(scene, damage, isCrit, 'boss');
+      
+      if (isCrit) {
+        addBattleLog(`🌟 技能暴击！造成 ${damage} 点伤害！`, 'crit-action');
+        showComboText(scene, '必杀！');
+      } else {
+        addBattleLog(`✨ 释放技能！造成 ${damage} 点伤害`, 'player-action');
+      }
+
+      SoundManager.playAttack();
+      updateBattleUI();
+
+      if (bossHp <= 0) {
+        battleVictory();
+        return;
+      }
+
+      setTimeout(() => bossAttack(), 1000);
+    }
+
+    function showSkillEffectEnhanced(scene) {
+      if (!scene) return;
+      const cls = character.class || 'warrior';
+
+      if (cls === 'warrior') {
+        const slash = document.createElement('div');
+        slash.className = 'slash-effect';
+        slash.style.left = '30%';
+        slash.style.top = '50%';
+        scene.appendChild(slash);
+        setTimeout(() => slash.remove(), 500);
+      } else if (cls === 'mage') {
+        const circle = document.createElement('div');
+        circle.className = 'magic-circle';
+        circle.style.left = '70%';
+        circle.style.top = '50%';
+        circle.style.transform = 'translate(-50%, -50%)';
+        scene.appendChild(circle);
+        setTimeout(() => circle.remove(), 600);
+      } else {
+        const arrow = document.createElement('div');
+        arrow.className = 'arrow-projectile';
+        arrow.textContent = '🏹';
+        arrow.style.left = '25%';
+        arrow.style.top = '50%';
+        scene.appendChild(arrow);
+        setTimeout(() => arrow.remove(), 500);
+      }
+    }
+
+    function showWarriorSkill(scene) {
+      if (!scene) return;
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const slash = document.createElement('div');
+          slash.className = 'slash-effect';
+          slash.style.left = (25 + i * 15) + '%';
+          slash.style.top = (40 + i * 10) + '%';
+          slash.style.transform = `rotate(${-20 + i * 20}deg)`;
+          scene.appendChild(slash);
+          setTimeout(() => slash.remove(), 500);
+        }, i * 100);
+      }
+      scene.classList.add('shake');
+      setTimeout(() => scene.classList.remove('shake'), 300);
+    }
+
+    function showMageSkill(scene) {
+      if (!scene) return;
+      
+      const circle = document.createElement('div');
+      circle.className = 'magic-circle';
+      circle.style.left = '70%';
+      circle.style.top = '50%';
+      circle.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      scene.appendChild(circle);
+      setTimeout(() => circle.remove(), 800);
+
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          const fireball = document.createElement('div');
+          fireball.className = 'fireball-effect';
+          fireball.style.left = (20 + Math.random() * 30) + '%';
+          fireball.style.bottom = (40 + Math.random() * 20) + '%';
+          scene.appendChild(fireball);
+          setTimeout(() => fireball.remove(), 700);
+        }, i * 80);
+      }
+    }
+
+    function showArcherSkill(scene) {
+      if (!scene) return;
+      
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          const arrow = document.createElement('div');
+          arrow.className = 'ice-shard';
+          arrow.style.left = '20%';
+          arrow.style.bottom = (35 + i * 5) + '%';
+          arrow.style.animationDelay = (i * 50) + 'ms';
+          scene.appendChild(arrow);
+          setTimeout(() => arrow.remove(), 600);
+        }, i * 60);
+      }
+    }
+
+    function showDamageNumber(scene, damage, isCrit, target) {
+      if (!scene) return;
+      const dmg = document.createElement('div');
+      dmg.className = 'damage-number' + (isCrit ? ' crit' : '');
+      dmg.textContent = '-' + damage;
+      dmg.style.right = target === 'boss' ? '20%' : '25%';
+      dmg.style.left = target === 'boss' ? 'auto' : '20%';
+      dmg.style.top = '35%';
+      scene.appendChild(dmg);
+      setTimeout(() => dmg.remove(), 1000);
+    }
+
+    function showComboText(scene, text) {
+      if (!scene) return;
+      const combo = document.createElement('div');
+      combo.className = 'combo-text';
+      combo.textContent = text;
+      scene.appendChild(combo);
+      setTimeout(() => combo.remove(), 1000);
+    }
+
+    function bossAttack() {
+      if (!battleActive) return;
+
+      const damage = 10 + Math.floor(Math.random() * 15);
+      playerHp -= damage;
+      if (playerHp < 0) playerHp = 0;
+
+      const scene = document.getElementById('battleScene');
+      const boss = document.getElementById('battleBoss');
+      
+      boss.style.animation = 'none';
+      boss.offsetHeight;
+      boss.style.animation = 'bossIdle 2s ease-in-out infinite';
+
+      const meteor = document.createElement('div');
+      meteor.className = 'meteor-effect';
+      scene.appendChild(meteor);
+      setTimeout(() => meteor.remove(), 800);
+
+      showDamageNumber(scene, damage, false, 'player');
+      addBattleLog(`💢 ${currentBoss.name} 对你造成 ${damage} 点伤害`, 'boss-action');
+      
+      SoundManager.playHit();
+      updateBattleUI();
+
+      if (playerHp <= 0) {
+        battleDefeat();
+      }
+    }
+
+    async function battleVictory() {
+      battleActive = false;
+      
+      const expGain = 100 + Math.floor(Math.random() * 100);
+      const coinGain = Math.floor(currentBoss.cost * 0.5);
+      
+      character.exp += expGain;
+      character.atk += 3;
+      character.def += 2;
+      character.hp += 10;
+      currentKoalaBalance += coinGain;
+
+      if (character.exp >= character.level * 200) {
+        character.level++;
+        character.exp -= character.level * 200;
+        showToast(`🎊 升级！当前Lv.${character.level}`, 'success');
+      }
+
+      addBattleLog(`🎉 胜利！获得 ${expGain} 经验，${coinGain} 传奇币`, 'crit-action');
+      SoundManager.playVictory();
+
+      // 扣除入场费
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(currentBoss.cost.toString(), decimals);
+        await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+      } catch (e) {
+        console.log('Deduction failed:', e);
+      }
+
+      updateCharacter();
+      await updateBalances();
+      updateGameUI();
+
+      setTimeout(() => {
+        showToast(`击败 ${currentBoss.name}！获得 ${expGain}经验 + ${coinGain}传奇币`, 'success');
+      }, 500);
+    }
+
+    function battleDefeat() {
+      battleActive = false;
+      addBattleLog('💀 你被击败了...', 'boss-action');
+      showToast('战斗失败，下次再来！', 'error');
+      
+      // 还是要扣除入场费
+      (async () => {
+        try {
+          const decimals = await koalaContract.decimals();
+          const costAmount = ethers.utils.parseUnits(currentBoss.cost.toString(), decimals);
+          await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+          await updateBalances();
+        } catch (e) {
+          console.log('Deduction failed:', e);
+        }
+      })();
+    }
+
+    function closeBattleModal() {
+      const modal = document.getElementById('battleModal');
+      if (modal) modal.remove();
+      battleActive = false;
+      currentBoss = null;
+    }
+
+    // ============= 自动播放音乐 =============
+    function tryPlayBGM() {
+      SoundManager.playBGM();
+    }
+
+    document.addEventListener('click', function firstClick() {
+      tryPlayBGM();
+      document.removeEventListener('click', firstClick);
+    }, { once: true });
+    // 初始化转盘
+    initWheel();
+    
+    // 加载角色数据
+    const savedChar = localStorage.getItem('koala_legend_char');
+    if (savedChar) {
+      try {
+        character = { ...character, ...JSON.parse(savedChar) };
+        characterCreated = true;
+        document.getElementById('noCharHint').style.display = 'none';
+        document.getElementById('charInfoDisplay').style.display = 'block';
+        updateCharacter();
+      } catch (e) {
+        console.log('Failed to load character:', e);
+      }
+    }
+
     SoundManager.init();
+    
+    // 尝试自动播放（需要用户交互）
+    setTimeout(tryPlayBGM, 1000);
     
   </script>
   
