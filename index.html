@@ -998,7 +998,7 @@
   
   <script>
     // 配置
-    const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
+    const KOALA_ADDRESS = '0xa878b1b268021fd339cfc8939a574fb0369a5555';
     const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
     const RECEIVE_ADDRESS = '0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04';
     
@@ -1141,8 +1141,10 @@
         document.getElementById('koalaBalance').textContent = currentKoalaBalance.toFixed(2);
 
         updateGameUI();
+        showToast('余额已更新', 'success');
       } catch (e) {
         console.error('获取余额失败:', e);
+        showToast('获取余额失败，请重试', 'error');
       }
     }
 
