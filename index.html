@@ -3,3330 +3,1642 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>考拉传奇人生 - 链上传奇DApp</title>
+  <title>MDC最新生态</title>
+  <link rel="preconnect" href="https://fonts.googleapis.cn">
+  <link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
+  <link href="https://fonts.googleapis.cn/css2?family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+  <!-- DApp 图标（TP / 钱包浏览器「最近使用」展示） -->
+  <link rel="icon" type="image/png" href="bmc-logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="bmc-logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="bmc-logo.png">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta property="og:title" content="MMC最新生态">
+  <meta property="og:description" content="MMC 原生代币 · 全球最新 · MMC 通缩机制">
+  <meta property="og:image" content="bmc-logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="bmc-logo.png">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
+    :root {
+      /* 强调色（主题可覆盖） */
+      --teal: #2dd4bf;
+      --emerald: #10b981;
+      --gold: #f5c451;
+      --gold-soft: #ffe49b;
+      --gold-deep: #f0a93a;
+      --h1-from: #d9fff4;
+
+      /* 页面底色 */
+      --page-1: #06080d;
+      --page-2: #0a1018;
+      --page-3: #070b12;
+      --glow-teal: rgba(45,212,191,0.12);
+      --glow-gold: rgba(245,196,81,0.10);
+      --glow-emerald: rgba(16,185,129,0.10);
+
+      /* 文字 */
+      --ink: #e6edf3;
+      --text-strong: #ffffff;
+      --text-body: #aeb7c7;
+      --text-soft: #c2cad8;
+      --muted: #8a93a6;
+      --footer: #5d6678;
+
+      /* 表面 / 描边 / 内衬 */
+      --line: rgba(255,255,255,0.08);
+      --glass: linear-gradient(160deg, rgba(20,28,40,0.78), rgba(10,15,24,0.86));
+      --inset: rgba(0,0,0,0.28);
+      --inset-2: rgba(0,0,0,0.26);
+      --inset-3: rgba(0,0,0,0.32);
+      --nav-bg: linear-gradient(180deg, rgba(8,11,18,0.92), rgba(8,11,18,0.6));
+      --nlink-bg: rgba(255,255,255,0.04);
+      --nlink-bg-hover: rgba(255,255,255,0.1);
+      --nlink-color: #cbd5e1;
+
+      /* 按钮文字（叠在彩色渐变上） */
+      --btn-ink: #04130f;
+      --btn-gold-ink: #1a1304;
+
+      /* 抽屉 / 弹窗 */
+      --panel: linear-gradient(180deg,#0a121e,#070b12);
+      --modal-bg: linear-gradient(160deg, #131c28, #0b121c);
+    }
+
+    /* ===== 高级米白主题 ===== */
+    body[data-theme="cream"] {
+      --teal: #3f9d8f;
+      --emerald: #2f9e6f;
+      --gold: #b28a45;
+      --gold-soft: #caa25b;
+      --gold-deep: #8f6d33;
+      --h1-from: #6f6653;
+
+      --page-1: #f6efe1;
+      --page-2: #efe6d4;
+      --page-3: #e7ddca;
+      --glow-teal: rgba(63,157,143,0.10);
+      --glow-gold: rgba(178,138,69,0.14);
+      --glow-emerald: rgba(47,158,111,0.08);
+
+      --ink: #2c2620;
+      --text-strong: #241f18;
+      --text-body: #5c5344;
+      --text-soft: #4a4335;
+      --muted: #948a74;
+      --footer: #9a8f78;
+
+      --line: rgba(160,128,66,0.22);
+      --glass: linear-gradient(160deg, rgba(251,246,236,0.94), rgba(246,239,225,0.96));
+      --inset: rgba(255,255,255,0.5);
+      --inset-2: rgba(255,255,255,0.45);
+      --inset-3: rgba(255,255,255,0.55);
+      --nav-bg: linear-gradient(180deg, rgba(246,239,225,0.96), rgba(246,239,225,0.82));
+      --nlink-bg: rgba(160,128,66,0.06);
+      --nlink-bg-hover: rgba(160,128,66,0.14);
+      --nlink-color: #6f6653;
+
+      --btn-ink: #fffaf0;
+      --btn-gold-ink: #fffaf0;
+
+      --panel: linear-gradient(180deg,#fbf6ec,#f3ead8);
+      --modal-bg: linear-gradient(160deg, #fbf6ec, #f2e7ce);
+    }
+
+    /* ===== 曜石黑金主题 ===== */
+    body[data-theme="obsidian"] {
+      --teal: #e6c878;
+      --emerald: #c99a3a;
+      --gold: #f5c451;
+      --gold-soft: #ffe49b;
+      --gold-deep: #e0a838;
+      --h1-from: #fff2cf;
+
+      --page-1: #0a0906;
+      --page-2: #100d08;
+      --page-3: #080706;
+      --glow-teal: rgba(230,200,120,0.10);
+      --glow-gold: rgba(245,196,81,0.12);
+      --glow-emerald: rgba(201,154,58,0.08);
+
+      --ink: #f0e9dc;
+      --text-strong: #fff6e6;
+      --text-body: #cbbfa6;
+      --text-soft: #d8ccb2;
+      --muted: #9a8f78;
+      --footer: #6b6250;
+
+      --line: rgba(245,196,81,0.14);
+      --glass: linear-gradient(160deg, rgba(30,25,15,0.82), rgba(16,13,8,0.9));
+      --inset: rgba(0,0,0,0.4);
+      --inset-2: rgba(0,0,0,0.38);
+      --inset-3: rgba(0,0,0,0.45);
+      --nav-bg: linear-gradient(180deg, rgba(14,11,6,0.94), rgba(14,11,6,0.66));
+      --nlink-bg: rgba(245,196,81,0.05);
+      --nlink-bg-hover: rgba(245,196,81,0.14);
+      --nlink-color: #d8ccb2;
+
+      --btn-ink: #1a1304;
+      --btn-gold-ink: #1a1304;
+
+      --panel: linear-gradient(180deg,#141009,#0a0806);
+      --modal-bg: linear-gradient(160deg,#1c160c,#0f0b06);
+    }
+
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
-      min-height: 100vh;
-      background: 
-        radial-gradient(ellipse at 20% 10%, rgba(255, 215, 0, 0.15) 0%, transparent 40%),
-        radial-gradient(ellipse at 80% 20%, rgba(255, 69, 0, 0.2) 0%, transparent 40%),
-        radial-gradient(ellipse at 50% 80%, rgba(138, 43, 226, 0.25) 0%, transparent 45%),
-        radial-gradient(ellipse at 10% 90%, rgba(0, 191, 255, 0.1) 0%, transparent 35%),
-        linear-gradient(135deg, #0d0515 0%, #1a0a2e 25%, #0f172a 50%, #1e1b4b 75%, #0d0515 100%);
-      color: #e0e0e0;
+      font-family: 'Microsoft YaHei', 'PingFang SC', 'SimHei', sans-serif;
+      color: var(--ink);
+      line-height: 1.75;
+      background:
+        radial-gradient(ellipse at 15% 0%, var(--glow-teal) 0%, transparent 42%),
+        radial-gradient(ellipse at 88% 8%, var(--glow-gold) 0%, transparent 44%),
+        radial-gradient(ellipse at 50% 100%, var(--glow-emerald) 0%, transparent 48%),
+        linear-gradient(160deg, var(--page-1) 0%, var(--page-2) 45%, var(--page-3) 100%);
+      background-attachment: fixed;
       overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(255, 215, 0, 0.02) 2px,
-          rgba(255, 215, 0, 0.02) 4px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 2px,
-          rgba(138, 43, 226, 0.02) 2px,
-          rgba(138, 43, 226, 0.02) 4px
-        );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: 
-        radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(255, 69, 0, 0.05) 0%, transparent 50%);
-      animation: bgFloat 20s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes bgFloat {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(20px, -20px) rotate(1deg); }
-      66% { transform: translate(-20px, 20px) rotate(-1deg); }
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: 
-        linear-gradient(180deg, rgba(20, 10, 40, 0.95) 0%, rgba(10, 5, 20, 0.9) 100%);
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, transparent, #ffd700, #ff6b00, #ffd700, transparent) 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-      z-index: 1000;
-      backdrop-filter: blur(20px);
-      box-shadow: 
-        0 4px 30px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 215, 0, 0.1);
-    }
-
-    .nav-logo {
-      font-size: 22px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-      position: relative;
-      animation: logoGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes logoGlow {
-      0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
-      50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
-    }
-
-    .nav-wallet {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .wallet-address {
-      font-size: 12px;
-      color: #ffd700;
-      font-family: monospace;
-      max-width: 150px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      background: rgba(255, 215, 0, 0.1);
-      padding: 6px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-    }
-
-    .sound-btn {
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 50%;
-      background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 69, 0, 0.2));
-      color: #ffd700;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid rgba(255, 215, 0, 0.3);
-      box-shadow: 
-        0 4px 15px rgba(255, 215, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .sound-btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 
-        0 8px 25px rgba(255, 215, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      border-color: #ffd700;
-    }
-
-    .btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn-connect {
-      background: 
-        linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
-      color: #1a0a00;
-      box-shadow: 
-        0 4px 20px rgba(255, 215, 0, 0.4),
-        0 8px 40px rgba(255, 140, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
-      border: 1px solid rgba(255, 215, 0, 0.5);
-    }
-
-    .btn-connect:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(255, 215, 0, 0.5),
-        0 12px 50px rgba(255, 140, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-connect:active {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: 
-        linear-gradient(135deg, #ff6b00 0%, #ff4500 50%, #ff6b00 100%);
-      color: #fff;
-      box-shadow: 
-        0 4px 20px rgba(255, 107, 0, 0.4),
-        0 8px 40px rgba(255, 69, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 107, 0, 0.5);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(255, 107, 0, 0.5),
-        0 12px 50px rgba(255, 69, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-primary:active {
-      transform: translateY(-1px);
-    }
-
-    .btn-partner {
-      background: 
-        linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #22c55e 100%);
-      color: #fff;
-      box-shadow: 
-        0 4px 20px rgba(34, 197, 94, 0.4),
-        0 8px 40px rgba(22, 163, 74, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(34, 197, 94, 0.5);
-    }
-
-    .btn-partner:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(34, 197, 94, 0.5),
-        0 12px 50px rgba(22, 163, 74, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .btn-game {
-      background: 
-        linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #7c3aed 100%);
-      color: #fff;
-      box-shadow: 
-        0 4px 20px rgba(124, 58, 237, 0.4),
-        0 8px 40px rgba(168, 85, 247, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(124, 58, 237, 0.5);
-    }
-
-    .btn-game:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 8px 30px rgba(124, 58, 237, 0.5),
-        0 12px 50px rgba(168, 85, 247, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none !important;
-      filter: grayscale(30%);
-    }
-
-    .main-container {
-      margin-top: 90px;
-      padding: 20px;
-      max-width: 850px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .status-card {
-      background: 
-        linear-gradient(135deg, rgba(20, 10, 40, 0.8) 0%, rgba(30, 20, 60, 0.8) 100%);
-      border-radius: 20px;
-      padding: 25px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      margin-bottom: 25px;
-      backdrop-filter: blur(20px);
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .status-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #ffd700, transparent);
-    }
-
-    .status-header {
-      font-size: 20px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-
-    .status-header::before {
-      content: '\26A1';
-      font-size: 24px;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-    }
-
-    .balance-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .balance-item {
-      background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 69, 0, 0.05) 100%);
-      padding: 18px;
-      border-radius: 15px;
-      text-align: center;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .balance-item::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .balance-item:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 215, 0, 0.5);
-      box-shadow: 
-        0 10px 30px rgba(255, 215, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .balance-item:hover::before {
-      opacity: 1;
-    }
-
-    .balance-label {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .balance-value {
-      font-size: 22px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-family: monospace;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-
-    .recharge-section {
-      background: 
-        linear-gradient(135deg, rgba(20, 10, 40, 0.8) 0%, rgba(40, 20, 30, 0.8) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(255, 69, 0, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .recharge-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #ff6b00, transparent);
-    }
-
-    .section-title {
-      font-size: 22px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ff6b00 0%, #ffd700 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 25px;
-      text-align: center;
-      text-shadow: 0 0 30px rgba(255, 107, 0, 0.3);
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #ff6b00, transparent);
-      margin: 10px auto 0;
-      border-radius: 2px;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-label {
-      font-size: 13px;
-      color: #9ca3af;
-      margin-bottom: 10px;
-      display: block;
-      font-weight: 500;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 12px;
-      background: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(20, 10, 30, 0.4) 100%);
-      color: #ffd700;
-      font-size: 14px;
-      font-family: monospace;
-      transition: all 0.3s;
-      box-shadow: 
-        inset 0 2px 5px rgba(0, 0, 0, 0.3),
-        0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .input-field:focus {
-      outline: none;
-      border-color: #ffd700;
-      box-shadow: 
-        inset 0 2px 5px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(255, 215, 0, 0.2);
-      background: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(20, 10, 30, 0.5) 100%);
-    }
-
-    .presets {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .preset-btn {
-      flex: 1;
-      min-width: 80px;
-      padding: 10px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 10px;
-      background: rgba(255, 215, 0, 0.05);
-      color: #e0e0e0;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .preset-btn:hover {
-      border-color: rgba(255, 215, 0, 0.5);
-      background: rgba(255, 215, 0, 0.1);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.1);
-    }
-
-    .preset-btn.active {
-      background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 69, 0, 0.2) 100%);
-      border-color: #ffd700;
-      color: #ffd700;
-      box-shadow: 
-        0 0 20px rgba(255, 215, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .partner-section {
-      background: 
-        linear-gradient(135deg, rgba(20, 40, 20, 0.8) 0%, rgba(10, 30, 20, 0.8) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .partner-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #22c55e, transparent);
-    }
-
-    .partner-section .section-title {
-      background: linear-gradient(135deg, #22c55e 0%, #86efac 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .partner-section .section-title::after {
-      background: linear-gradient(90deg, transparent, #22c55e, transparent);
-    }
-
-    .partner-info {
-      background: rgba(34, 197, 94, 0.1);
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(34, 197, 94, 0.2);
-    }
-
-    .partner-info p {
-      margin-bottom: 10px;
-      color: #86efac;
-      font-size: 14px;
-    }
-
-    .partner-info p:last-child {
-      margin-bottom: 0;
-    }
-
-    .character-section {
-      background: 
-        linear-gradient(135deg, rgba(30, 20, 60, 0.8) 0%, rgba(50, 30, 80, 0.8) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(138, 43, 226, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .character-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
-    }
-
-    .character-info {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 25px;
-      border-bottom: 1px solid rgba(138, 43, 226, 0.2);
-    }
-
-    .character-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: 
-        linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      box-shadow: 
-        0 0 30px rgba(139, 92, 246, 0.5),
-        inset 0 2px 0 rgba(255, 255, 255, 0.3);
-      border: 3px solid rgba(139, 92, 246, 0.5);
-    }
-
-    .character-detail {
-      flex: 1;
-    }
-
-    .character-name {
-      font-size: 20px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 8px;
-      text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-    }
-
-    .character-class {
-      color: #a78bfa;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .character-level {
-      color: #ffd700;
+      transition: color .35s ease;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+    /* 导航 */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 22px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 18px; letter-spacing: .5px; }
+    .brand .mark {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 18px rgba(168,85,247,0.45);
+    }
+    .logo-ico { width: 100%; height: 100%; display: block; }
+    .logo-img { width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 50%; }
+    .logo-badge {
+      width: 66px; height: 66px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 28px rgba(168,85,247,0.5);
+    }
+    .brand .grad { background: linear-gradient(120deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-actions { display: flex; align-items: center; gap: 9px; }
+    .nlink {
+      padding: 9px 14px; border-radius: 10px; font-size: 13px; font-weight: 700;
+      text-decoration: none; color: var(--nlink-color); border: 1px solid var(--line);
+      background: var(--nlink-bg); transition: all .2s; white-space: nowrap;
+    }
+    .nlink:hover { background: var(--nlink-bg-hover); color: var(--text-strong); }
+    .btn-wallet {
+      padding: 10px 18px; border-radius: 11px; font-size: 13px; font-weight: 800; cursor: pointer;
+      border: none; color: var(--btn-ink);
+      background: linear-gradient(135deg, var(--teal), var(--emerald));
+      box-shadow: 0 6px 20px rgba(45,212,191,0.35);
+      transition: all .2s; white-space: nowrap;
+    }
+    .btn-wallet:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(45,212,191,0.5); }
+    .btn-wallet.connected { background: var(--nlink-bg); color: var(--teal); border: 1px solid var(--line); font-family: monospace; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 70px 20px 40px; }
+    .eyebrow {
+      display: inline-block; font-size: 12px; letter-spacing: 4px; color: var(--gold);
+      padding: 6px 18px; border: 1px solid rgba(245,196,81,0.4); border-radius: 30px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5.2vw, 54px); font-weight: 900; line-height: 1.08; letter-spacing: 1px;
+      background: linear-gradient(120deg, var(--h1-from) 0%, var(--teal) 40%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 8px 40px rgba(45,212,191,0.3));
+    }
+    .hero .slogan { font-size: clamp(18px, 3.6vw, 30px); font-weight: 800; margin: 14px 0 6px; letter-spacing: 6px; color: var(--text-strong); }
+
+    .hero .native-line { display: inline-block; font-size: clamp(13px, 2.2vw, 16px); font-weight: 800; color: var(--btn-ink); background: linear-gradient(135deg, var(--teal), var(--emerald)); padding: 9px 22px; border-radius: 30px; margin: 12px 0 4px; box-shadow: 0 8px 26px rgba(16,185,129,0.35); }
+    .hero .sub { font-size: clamp(14px, 2.4vw, 17px); color: var(--muted); max-width: 620px; margin: 14px auto 30px; }
+    .hero .sub b { color: var(--text-strong); }
+    .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta {
+      padding: 15px 30px; border-radius: 13px; font-size: 15px; font-weight: 800; cursor: pointer;
+      border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all .25s;
+    }
+    .cta-gold { color: var(--btn-gold-ink); background: linear-gradient(135deg, var(--gold), var(--gold-deep)); box-shadow: 0 8px 26px rgba(245,196,81,0.4); }
+    .cta-gold:hover { transform: translateY(-3px); box-shadow: 0 12px 34px rgba(245,196,81,0.55); }
+    .cta-ghost { color: var(--teal); border: 1px solid rgba(45,212,191,0.5); background: rgba(45,212,191,0.08); }
+    .cta-ghost:hover { background: rgba(45,212,191,0.16); transform: translateY(-3px); }
+
+    /* QQ 二维码弹窗 */
+    #qq-qr-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+    .qq-qr-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); }
+    .qq-qr-box { position: relative; background: linear-gradient(160deg, rgba(30,30,50,0.98), rgba(20,20,40,0.99)); border: 1px solid rgba(168,85,247,0.5); border-radius: 20px; padding: 28px; max-width: 320px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .qq-qr-close { position: absolute; top: 12px; right: 14px; width: 32px; height: 32px; line-height: 32px; font-size: 24px; color: var(--muted); cursor: pointer; border-radius: 50%; border: 1px solid var(--line); }
+    .qq-qr-close:hover { color: #fff; border-color: var(--gold); }
+    .qq-qr-title { font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 20px; }
+    .qq-qr-img { width: 220px; height: 220px; border-radius: 12px; border: 2px solid rgba(168,85,247,0.4); }
+    .qq-qr-hint { font-size: 14px; color: var(--muted); margin-top: 14px; }
+
+    .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; max-width: 880px; margin: 46px auto 0; }
+    .hstat { padding: 20px 12px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); }
+    .hstat .v { font-size: clamp(18px,3vw,24px); font-weight: 900; background: linear-gradient(135deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hstat .l { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+    /* 上线倒计时 */
+    .launch-cd {
+      margin: 30px auto 0; max-width: 880px; padding: 26px 22px; border-radius: 22px; text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(245,196,81,0.16) 0%, transparent 62%),
+        var(--glass);
+      border: 1px solid rgba(245,196,81,0.4);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .lcd-head { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; letter-spacing: 3px; color: var(--gold); font-weight: 800; }
+    .lcd-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); animation: lcdPulse 1.6s infinite; }
+    @keyframes lcdPulse { 0% { box-shadow: 0 0 0 0 rgba(245,196,81,0.55); } 70% { box-shadow: 0 0 0 12px rgba(245,196,81,0); } 100% { box-shadow: 0 0 0 0 rgba(245,196,81,0); } }
+    .lcd-timer { display: flex; align-items: flex-start; justify-content: center; gap: 10px; margin: 18px 0 12px; }
+    .lcd-cell { min-width: 78px; padding: 14px 8px; border-radius: 14px; background: var(--inset-3); border: 1px solid var(--line); }
+    .lcd-num { font-size: clamp(30px,7vw,46px); font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; background: linear-gradient(135deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .lcd-unit { font-size: 12px; color: var(--muted); margin-top: 8px; letter-spacing: 2px; }
+    .lcd-sep { font-size: clamp(24px,5vw,38px); font-weight: 900; color: var(--gold); line-height: 1.5; }
+    .lcd-date { font-size: 14.5px; color: var(--text-soft); letter-spacing: 1px; }
+    .lcd-date b { color: var(--gold); }
+    .lcd-live { display: none; font-size: clamp(20px,4.4vw,30px); font-weight: 900; letter-spacing: 2px; margin: 10px 0; background: linear-gradient(120deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .launch-cd.live .lcd-timer { display: none; }
+    .launch-cd.live .lcd-live { display: block; }
+    @media (max-width: 520px) { .lcd-cell { min-width: 62px; } .lcd-sep { display: none; } .lcd-timer { gap: 8px; } }
+
+    /* 通用区块 */
+    section.block { padding: 56px 0 8px; }
+    .sec-head { text-align: center; margin-bottom: 34px; }
+    .sec-tag { font-size: 12px; letter-spacing: 3px; color: var(--teal); }
+    .sec-title { font-size: clamp(24px,4.4vw,38px); font-weight: 900; margin-top: 6px; }
+    .sec-title .g { background: linear-gradient(120deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sec-desc { color: var(--muted); margin-top: 10px; font-size: 15px; }
+
+    .grid { display: grid; gap: 16px; }
+    .g2 { grid-template-columns: repeat(2,1fr); }
+    .g3 { grid-template-columns: repeat(3,1fr); }
+    .g4 { grid-template-columns: repeat(4,1fr); }
+
+    .card {
+      background: var(--glass); border: 1px solid var(--line); border-radius: 18px; padding: 24px 22px;
+      transition: transform .25s, border-color .25s;
+    }
+    .card:hover { transform: translateY(-5px); border-color: rgba(45,212,191,0.35); }
+    .card .ct { font-size: 17px; font-weight: 800; color: var(--text-strong); margin-bottom: 7px; }
+    .card .cd { font-size: 13.5px; color: var(--text-body); line-height: 1.75; }
+    .card .cd b { color: var(--gold); }
+
+    /* 创世卡牌招募板块 */
+    .shareholder {
+      position: relative; margin: 24px 0; padding: 44px 30px; border-radius: 26px; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% 0%, rgba(245,196,81,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 0% 100%, rgba(45,212,191,0.16) 0%, transparent 55%),
+        var(--glass);
+      border: 1px solid rgba(245,196,81,0.35);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+    }
+    .sh-badge { display: inline-block; font-size: 12px; letter-spacing: 3px; color: var(--gold); padding: 6px 16px; border: 1px solid rgba(245,196,81,0.5); border-radius: 24px; }
+    .sh-title { font-size: clamp(26px,5vw,44px); font-weight: 900; margin: 16px 0 6px; }
+    .sh-title .g { background: linear-gradient(120deg, var(--gold), var(--gold-soft)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sh-price { font-size: clamp(15px,2.6vw,19px); color: var(--text-soft); margin-bottom: 26px; }
+    .sh-price b { color: var(--gold); font-size: 1.25em; }
+
+    .benefits { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-bottom: 30px; }
+    .benefit {
+      display: flex; gap: 14px; padding: 20px; border-radius: 16px;
+      background: var(--inset); border: 1px solid rgba(245,196,81,0.18);
+    }
+    .benefit .bt { font-size: 16px; font-weight: 800; color: var(--text-strong); margin-bottom: 3px; }
+    .benefit .bd { font-size: 13px; color: var(--text-body); line-height: 1.7; }
+
+    .sh-action { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+
+    /* 创世卡牌销售进度条 */
+    .genesis-progress-wrap { width:100%; max-width:520px; background:rgba(0,0,0,0.35); border:1px solid rgba(45,212,191,0.25); border-radius:14px; padding:18px 22px; }
+    .gp-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .gp-label { font-size:14px; color:var(--text-body); font-weight:700; }
+    .gp-count { font-size:14px; color:var(--gold); font-weight:700; }
+    .gp-count b { font-size:20px; }
+    .gp-bar-bg { position:relative; width:100%; height:24px; background:rgba(45,212,191,0.12); border-radius:12px; overflow:hidden; }
+    .gp-bar-fill { height:100%; background:linear-gradient(90deg,#4ade80,#f5c451,#ef4444); border-radius:12px; transition:width .8s cubic-bezier(.22,1,.36,1); box-shadow:0 0 12px rgba(74,222,128,0.5); }
+    .gp-pct { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:13px; font-weight:900; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,0.8); }
+    .gp-raised { margin-top:10px; font-size:12px; color:var(--text-dim); text-align:center; font-family:monospace; }
+    .gp-raised b { color:var(--teal); font-size:13px; }
+    .gp-sep { margin:0 6px; opacity:0.5; }
+    .btn-share {
+      width: 100%; max-width: 480px; padding: 20px; border-radius: 16px; border: none; cursor: pointer;
+      font-size: 18px; font-weight: 900; letter-spacing: 1px; color: var(--btn-gold-ink);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 60%, var(--gold) 100%);
+      box-shadow: 0 12px 36px rgba(245,196,81,0.45); transition: all .25s;
+    }
+    .btn-share:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 18px 48px rgba(245,196,81,0.6); }
+    .btn-share:disabled { opacity: .55; cursor: not-allowed; filter: grayscale(20%); }
+    .btn-share-mdc {
+      color: var(--teal); background: rgba(45,212,191,0.10);
+      border: 1.5px solid rgba(45,212,191,0.55); box-shadow: 0 8px 24px rgba(45,212,191,0.18);
       font-size: 16px;
-      font-weight: bold;
     }
-
-    .character-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .stat-item {
-      background: rgba(139, 92, 246, 0.1);
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      transition: all 0.3s;
-    }
-
-    .stat-item:hover {
-      transform: translateY(-3px);
-      border-color: rgba(139, 92, 246, 0.5);
-      box-shadow: 0 5px 20px rgba(139, 92, 246, 0.2);
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: #9ca3af;
-      margin-bottom: 5px;
-    }
-
-    .stat-value {
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .exp-bar {
-      width: 100%;
-      height: 12px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 8px;
-      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
-    }
-
-    .exp-fill {
-      height: 100%;
-      background: 
-        linear-gradient(90deg, #8b5cf6 0%, #ec4899 50%, #8b5cf6 100%);
-      background-size: 200% 100%;
-      border-radius: 6px;
-      transition: width 0.5s;
-      animation: expShine 3s linear infinite;
-      box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-    }
-
-    @keyframes expShine {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-
-    .exp-text {
-      font-size: 12px;
-      color: #9ca3af;
-      text-align: center;
-    }
-
-    .game-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .game-tab {
-      flex: 1;
-      min-width: 100px;
-      padding: 12px 20px;
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      border-radius: 12px;
-      color: #a78bfa;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .game-tab:hover {
-      border-color: rgba(139, 92, 246, 0.5);
-      background: rgba(139, 92, 246, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .game-tab.active {
-      background: 
-        linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-      color: #fff;
-      border-color: #a855f7;
-      box-shadow: 
-        0 4px 20px rgba(124, 58, 237, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .game-panel {
-      display: none;
-    }
-
-    .game-panel.active {
-      display: block;
-      animation: fadeInUp 0.5s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .equipment-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-    }
-
-    .equipment-item {
-      background: 
-        linear-gradient(135deg, rgba(30, 20, 50, 0.8) 0%, rgba(40, 30, 70, 0.8) 100%);
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .equipment-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
-      transition: left 0.5s;
-    }
-
-    .equipment-item:hover {
-      transform: translateY(-5px) scale(1.02);
-      border-color: rgba(139, 92, 246, 0.6);
-      box-shadow: 
-        0 10px 30px rgba(139, 92, 246, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .equipment-item:hover::before {
-      left: 100%;
-    }
-
-    .equipment-item.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      filter: grayscale(50%);
-    }
-
-    .equipment-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    .equipment-name {
-      font-size: 13px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .equipment-cost {
-      font-size: 12px;
-      color: #ffd700;
-    }
-
-    .quest-list, .boss-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .quest-item, .boss-item {
-      background: 
-        linear-gradient(135deg, rgba(30, 20, 50, 0.8) 0%, rgba(40, 30, 70, 0.8) 100%);
-      padding: 20px;
-      border-radius: 15px;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s;
-      box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .quest-item:hover, .boss-item:hover {
-      border-color: rgba(139, 92, 246, 0.5);
-      transform: translateX(5px);
-      box-shadow: 
-        0 8px 30px rgba(139, 92, 246, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .quest-info, .boss-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .quest-icon, .boss-icon {
-      font-size: 32px;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(139, 92, 246, 0.2);
-      border-radius: 12px;
-    }
-
-    .quest-name, .boss-name {
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .quest-desc, .boss-desc {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 5px;
-    }
-
-    .quest-reward, .boss-reward {
-      font-size: 12px;
-      color: #ffd700;
-    }
-
-    .quest-action, .boss-action {
-      flex-shrink: 0;
-    }
-
-    .leaderboard-container {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      padding: 20px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-    }
-
-    .leaderboard-title {
-      font-size: 20px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-align: center;
-      margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-
-    .leaderboard-header {
-      display: grid;
-      grid-template-columns: 50px 1fr 80px 60px 80px;
-      gap: 10px;
-      padding: 12px 15px;
-      background: rgba(255, 215, 0, 0.1);
-      border-radius: 10px;
-      font-size: 12px;
-      color: #ffd700;
-      font-weight: bold;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-    }
-
-    .leaderboard-list {
-      list-style: none;
-      max-height: 350px;
-      overflow-y: auto;
-    }
-
-    .leaderboard-list li {
-      display: grid;
-      grid-template-columns: 50px 1fr 80px 60px 80px;
-      gap: 10px;
-      padding: 12px 15px;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-      font-size: 13px;
-      align-items: center;
-      transition: all 0.3s;
-    }
-
-    .leaderboard-list li:hover {
-      background: rgba(255, 215, 0, 0.05);
-      padding-left: 20px;
-    }
-
-    .rank-number {
-      font-weight: bold;
-      color: #9ca3af;
-    }
-
-    .rank-number.top-1 {
-      color: #ffd700;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    }
-
-    .rank-number.top-2 {
-      color: #c0c0c0;
-      text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
-    }
-
-    .rank-number.top-3 {
-      color: #cd7f32;
-      text-shadow: 0 0 10px rgba(205, 127, 50, 0.5);
-    }
-
-    .my-rank {
-      margin-top: 15px;
-      padding: 15px;
-      background: 
-        linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 69, 0, 0.1) 100%);
-      border-radius: 12px;
-      text-align: center;
-      color: #ffd700;
-      font-size: 14px;
-      font-weight: bold;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
-    }
-
-    .inventory-section {
-      background: 
-        linear-gradient(135deg, rgba(20, 30, 50, 0.8) 0%, rgba(30, 40, 60, 0.8) 100%);
-      border-radius: 20px;
-      padding: 25px;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .inventory-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 30px;
-      right: 30px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-    }
-
-    .inventory-section .section-title {
-      background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .inventory-section .section-title::after {
-      background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-    }
-
-    .inventory-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 10px;
-    }
-
-    .inventory-slot {
-      aspect-ratio: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border: 2px dashed rgba(59, 130, 246, 0.2);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      transition: all 0.3s;
-    }
-
-    .inventory-slot.filled {
-      border-style: solid;
-      border-color: rgba(59, 130, 246, 0.5);
-      background: 
-        linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-    }
-
-    .battle-log {
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 20px;
-      max-height: 150px;
-      overflow-y: auto;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      font-size: 12px;
-    }
-
-    .battle-log p {
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
-      color: #a78bfa;
-    }
-
-    .battle-log p:last-child {
-      border-bottom: none;
-    }
-
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      backdrop-filter: blur(5px);
-    }
-
-    .loading-overlay.active {
-      display: flex;
-    }
-
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(255, 215, 0, 0.2);
-      border-top-color: #ffd700;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .toast {
-      position: fixed;
-      top: 90px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      padding: 15px 30px;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: bold;
-      z-index: 3000;
-      opacity: 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .toast.success {
-      background: 
-        linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
-    }
-
-    .toast.error {
-      background: 
-        linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-    }
-
+    .btn-share-mdc:hover:not(:disabled) { box-shadow: 0 14px 36px rgba(45,212,191,0.32); }
+    .sh-note { font-size: 12.5px; color: var(--muted); text-align: center; }
+    .addr-line {
+      display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;
+      font-family: monospace; font-size: 12.5px; color: var(--teal);
+      background: rgba(45,212,191,0.08); padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(45,212,191,0.2);
+    }
+    .copy-mini { cursor: pointer; border: 1px solid rgba(45,212,191,0.4); background: rgba(45,212,191,0.12); color: var(--teal); font-size: 11px; padding: 3px 9px; border-radius: 7px; }
+    .copy-mini:hover { background: rgba(45,212,191,0.25); }
+
+    /* 列表/规则 */
+    ul.rules { list-style: none; }
+    ul.rules li { position: relative; padding: 9px 0 9px 26px; font-size: 14.5px; color: var(--text-soft); }
+    ul.rules li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-weight: 900; }
+    ul.rules li b { color: var(--gold); }
+
+    .pie { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    .pie-item { padding: 18px 20px; border-radius: 14px; background: var(--inset-2); border: 1px solid var(--line); display: flex; align-items: center; gap: 16px; }
+    .pie-pct { font-size: 26px; font-weight: 900; min-width: 70px; background: linear-gradient(135deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .pie-d .pt { font-weight: 800; color: var(--text-strong); font-size: 15px; }
+    .pie-d .pd { font-size: 12.5px; color: var(--muted); }
+
+    /* M1-M6 等级权益表 */
+    .mtable-wrap { overflow-x: auto; margin-top: 18px; border-radius: 16px; border: 1px solid var(--line); -webkit-overflow-scrolling: touch; }
+    .mtable { width: 100%; border-collapse: collapse; min-width: 540px; background: var(--inset-2); }
+    .mtable th, .mtable td { padding: 13px 10px; text-align: center; font-size: 13.5px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .mtable thead th { background: linear-gradient(135deg, rgba(45,212,191,0.16), rgba(245,196,81,0.12)); color: var(--text-strong); font-weight: 800; letter-spacing: .5px; }
+    .mtable tbody tr:last-child td { border-bottom: none; }
+    .mtable tbody tr:hover { background: rgba(45,212,191,0.06); }
+    .mtable .lv { font-weight: 900; font-size: 15px; background: linear-gradient(135deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .mtable .rate { color: var(--gold); font-weight: 800; }
+    .mtable td b { color: var(--text-strong); }
+
+    .step { position: relative; padding: 16px 18px 16px 56px; border-radius: 14px; background: var(--inset-2); border: 1px solid var(--line); margin-bottom: 12px; }
+    .step .num { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--btn-ink); background: linear-gradient(135deg, var(--teal), var(--emerald)); }
+    .step .st { font-weight: 800; color: var(--text-strong); font-size: 15px; }
+    .step .sd { font-size: 13px; color: var(--text-body); }
+    .step .sd code { color: var(--teal); font-size: 12px; word-break: break-all; }
+
+    /* 社区 */
+    .community { text-align: center; margin: 30px 0; padding: 50px 24px; border-radius: 24px; background: var(--glass); border: 1px solid var(--line); }
+    .community .vis { font-size: clamp(24px,5vw,40px); font-weight: 900; letter-spacing: 4px; background: linear-gradient(120deg, var(--teal), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .community .name { color: var(--muted); margin-top: 12px; letter-spacing: 2px; }
+
+    footer { text-align: center; padding: 40px 20px 56px; color: var(--footer); font-size: 12.5px; border-top: 1px solid var(--line); margin-top: 30px; }
+
+    /* 弹窗 */
+    .modal-mask { position: fixed; inset: 0; background: rgba(3,5,9,0.75); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
+    .modal-mask.show { display: flex; }
     .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
+      max-width: 420px; width: 100%; border-radius: 20px; padding: 30px 26px; text-align: center;
+      background: var(--modal-bg); border: 1px solid rgba(45,212,191,0.3);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+    .modal .m-title { font-size: 19px; font-weight: 800; color: var(--text-strong); margin-bottom: 10px; }
+    .modal .m-text { font-size: 14px; color: var(--text-body); line-height: 1.8; word-break: break-word; }
+    .modal .m-text a { color: var(--teal); }
+    .modal .m-btn { margin-top: 22px; padding: 12px 28px; border-radius: 11px; border: none; cursor: pointer; font-weight: 800; color: var(--btn-ink); background: linear-gradient(135deg, var(--teal), var(--emerald)); }
+
+    @media (max-width: 760px) {
+      .g3, .g4, .benefits, .pie { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: repeat(2,1fr); }
+      .nlink { display: none; }
+      .nav-actions .nlink.keep { display: inline-block; }
+    }
+
+    /* 水墨画卷 · 首页悬挂 */
+    .ink-wrap { display: flex; justify-content: center; padding: 16px 16px 0; }
+    .ink-scroll { position: relative; width: 100%; max-width: 720px; filter: drop-shadow(0 18px 46px rgba(0,0,0,0.55)); }
+    .ink-roller {
+      height: 16px; margin: 0 -10px; border-radius: 8px; position: relative; z-index: 3;
+      background: linear-gradient(180deg, #7a5a2a, #3a2a12 55%, #5e451f);
+      box-shadow: inset 0 2px 3px rgba(255,255,255,0.22), inset 0 -3px 6px rgba(0,0,0,0.55);
+    }
+    .ink-roller::before, .ink-roller::after {
+      content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 12px; height: 24px; border-radius: 4px;
+      background: linear-gradient(180deg, #d8b466, #835f24); box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    }
+    .ink-roller::before { left: -8px; } .ink-roller::after { right: -8px; }
+    .ink-silk {
+      position: relative; overflow: hidden; padding: 26px 28px 20px;
+      background: linear-gradient(180deg, rgba(245,238,223,0.97), rgba(231,221,199,0.97));
+      border-left: 7px solid rgba(120,90,40,0.4); border-right: 7px solid rgba(120,90,40,0.4);
+    }
+    .ink-bg {
+      position: absolute; inset: 0; background-size: cover; background-position: center 32%;
+      opacity: 0.22; mix-blend-mode: multiply; filter: grayscale(100%) contrast(1.05); pointer-events: none;
+    }
+    .ink-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(245,238,223,0.55), transparent 30%, transparent 70%, rgba(231,221,199,0.7));
+    }
+    .ink-grid { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 22px; }
+    .ink-couplet {
+      writing-mode: vertical-rl; text-orientation: upright; letter-spacing: 6px; line-height: 1.7; color: #2a2a2a;
+      font-family: 'Ma Shan Zheng', 'STKaiti', '华文楷体', 'KaiTi', '楷体', cursive; font-size: clamp(14px, 2.2vw, 19px);
+    }
+    .ink-center { text-align: center; }
+    .ink-title {
+      font-family: 'Ma Shan Zheng', 'STXingkai', '华文行楷', 'STKaiti', '华文楷体', 'KaiTi', '楷体', cursive;
+      font-size: clamp(30px, 6.4vw, 56px); font-weight: 400; color: #141414; letter-spacing: 3px; line-height: 1.18;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    }
+    .ink-title .dot { color: #9a2a18; padding: 0 4px; }
+    .ink-mid { margin-top: 8px; font-family: 'Ma Shan Zheng', 'STKaiti', '华文楷体', 'KaiTi', '楷体', cursive; font-size: clamp(13px, 2.2vw, 18px); color: #3a342a; letter-spacing: 3px; }
+    .ink-prose {
+      position: relative; z-index: 1; max-width: 600px; margin: 16px auto 0; text-align: center; letter-spacing: 1px; color: #464034;
+      font-family: 'Ma Shan Zheng', 'STKaiti', '华文楷体', 'KaiTi', '楷体', cursive; font-size: clamp(12px, 2vw, 14.5px); line-height: 1.95;
+    }
+    @media (max-width: 760px) {
+      .ink-grid { flex-direction: column; gap: 6px; }
+      .ink-couplet { writing-mode: horizontal-tb; letter-spacing: 3px; font-size: 15px; }
+    }
+
+    /* 去中心化声明条 */
+    .sh-statement {
+      margin: 0 auto 26px; max-width: 720px; text-align: center; padding: 14px 20px; border-radius: 14px;
+      font-size: clamp(14px, 2.4vw, 16px); font-weight: 700; color: var(--gold-soft);
+      background: linear-gradient(135deg, rgba(245,196,81,0.14), rgba(45,212,191,0.08)); border: 1px solid rgba(245,196,81,0.4);
+    }
+
+    /* ===== 右侧弹出菜单导航（新增板块） ===== */
+    .menu-btn {
+      display: inline-flex; align-items: center; gap: 7px; cursor: pointer; white-space: nowrap;
+      padding: 10px 15px; border-radius: 11px; font-size: 13px; font-weight: 800;
+      color: var(--nlink-color); border: 1px solid var(--line); background: var(--nlink-bg); transition: all .2s;
+    }
+    .menu-btn:hover { background: var(--nlink-bg-hover); color: var(--text-strong); }
+    .menu-mask {
+      position: fixed; inset: 0; z-index: 900; background: rgba(3,5,9,0.6); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .menu-mask.show { opacity: 1; pointer-events: auto; }
+    .drawer {
+      position: fixed; top: 0; right: 0; z-index: 1000; height: 100%; width: 300px; max-width: 84vw;
+      display: flex; flex-direction: column; transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+      background: var(--panel); border-left: 1px solid rgba(45,212,191,0.2);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+    .drawer.show { transform: translateX(0); }
+    .drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; border-bottom: 1px solid var(--line); }
+    .drawer-brand { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 15px; }
+    .drawer-brand .mark { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; }
+    .drawer-close { width: 36px; height: 36px; border-radius: 9px; border: none; background: transparent; color: var(--muted); font-size: 24px; line-height: 1; cursor: pointer; }
+    .drawer-close:hover { color: var(--text-strong); background: var(--nlink-bg); }
+    .drawer-wallet { padding: 8px 18px; border-bottom: 1px solid var(--line); }
+    .drawer-wallet .btn-wallet { width: 100%; }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 14px 10px; }
+    .drawer-group { margin-bottom: 14px; }
+    .drawer-group-label { padding: 0 12px; margin-bottom: 5px; font-size: 11px; letter-spacing: 2px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .drawer-link {
+      display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px;
+      font-size: 14px; font-weight: 700; color: var(--nlink-color); text-decoration: none; margin-bottom: 3px; transition: all .2s;
+    }
+    .drawer-link:hover { background: rgba(45,212,191,0.1); color: var(--text-strong); }
+    .drawer-link .di { width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .drawer-link .di svg { width: 20px; height: 20px; display: block; }
+    .drawer-foot { padding: 16px 18px; border-top: 1px solid var(--line); text-align: center; font-size: 11px; color: var(--footer); line-height: 1.7; }
+
+    /* ===== 主题 / 语言切换（抽屉内） ===== */
+    .switch-seg {
+      display: flex; gap: 6px; padding: 4px; margin: 0 2px 4px;
+      background: var(--nlink-bg); border: 1px solid var(--line); border-radius: 12px;
+    }
+    .switch-seg button {
+      flex: 1; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 800;
+      padding: 9px 6px; border-radius: 9px; border: none; background: transparent; color: var(--nlink-color); transition: all .2s;
+    }
+    .switch-seg button.active { color: var(--btn-ink); background: linear-gradient(135deg, var(--teal), var(--emerald)); box-shadow: 0 4px 14px rgba(45,212,191,0.3); }
+    .theme-opts { display: flex; flex-direction: column; gap: 8px; padding: 0 2px; }
+    .theme-opt {
+      display: flex; align-items: center; gap: 12px; cursor: pointer; text-align: left; width: 100%;
+      padding: 10px 12px; border-radius: 12px; font-family: inherit; font-size: 13.5px; font-weight: 700;
+      color: var(--nlink-color); background: var(--nlink-bg); border: 1px solid var(--line); transition: all .2s;
+    }
+    .theme-opt:hover { background: var(--nlink-bg-hover); }
+    .theme-opt.active { border-color: var(--gold); color: var(--text-strong); box-shadow: 0 0 0 1px var(--gold) inset; }
+    .theme-opt .sw { display: flex; gap: 4px; flex-shrink: 0; }
+    .theme-opt .sw i { width: 14px; height: 14px; border-radius: 50%; display: block; border: 1px solid rgba(0,0,0,0.15); }
+    .theme-opt .tn { flex: 1; }
+    .theme-opt .tk { margin-left: auto; font-size: 15px; color: var(--gold); opacity: 0; }
+    .theme-opt.active .tk { opacity: 1; }
+
+    /* ===== 公告栏组件 ===== */
+    .announcement-bar {
+      position: fixed; top: 62px; left: 0; right: 0; z-index: 800;
+      background: linear-gradient(90deg, rgba(245,196,81,0.95), rgba(168,85,247,0.95));
       backdrop-filter: blur(10px);
+      display: flex; align-items: center; height: 38px;
+      padding: 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-
-    .modal.active {
-      display: flex;
+    .announcement-bar.hidden { display: none; }
+    .ann-icon {
+      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+      color: #fff; font-weight: 900; font-size: 13px; margin-right: 10px;
     }
-
-    .modal-content {
-      background: 
-        linear-gradient(135deg, rgba(30, 20, 60, 0.95) 0%, rgba(20, 10, 40, 0.95) 100%);
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 400px;
-      width: 90%;
-      border: 2px solid rgba(255, 215, 0, 0.3);
-      position: relative;
-      box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.6),
-        0 0 100px rgba(139, 92, 246, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .ann-icon::before {
+      content: '📢'; font-size: 16px;
+      animation: shake 2s infinite;
     }
-
-    @keyframes modalIn {
-      from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: rgba(255, 255, 255, 0.1);
-      color: #9ca3af;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-    }
-
-    .class-select {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin: 20px 0;
-    }
-
-    .class-option {
-      padding: 20px;
-      border: 2px solid rgba(139, 92, 246, 0.3);
-      border-radius: 15px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      background: rgba(139, 92, 246, 0.1);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .class-option:hover {
-      border-color: rgba(139, 92, 246, 0.6);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-    }
-
-    .class-option.selected {
-      border-color: #a855f7;
-      background: 
-        linear-gradient(135deg, rgba(124, 58, 237, 0.3) 0%, rgba(168, 85, 247, 0.2) 100%);
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
-    }
-
-    .class-icon {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-
-    .class-name {
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .class-desc {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-
-    .slash-effect {
-      position: absolute;
-      width: 80px;
-      height: 5px;
-      background: linear-gradient(90deg, #ff4500, #ffd700, transparent);
-      border-radius: 3px;
-      box-shadow: 0 0 15px #ff4500, 0 0 30px #ffd700;
-      z-index: 100;
-      animation: slash 0.4s ease-out forwards;
-    }
-
-    @keyframes slash {
-      0% { transform: translateX(0) rotate(0deg); opacity: 1; }
-      50% { transform: translateX(80px) rotate(45deg); opacity: 0.8; }
-      100% { transform: translateX(150px) rotate(90deg); opacity: 0; }
-    }
-
-    .magic-circle {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      border: 3px solid #9333ea;
-      border-radius: 50%;
-      z-index: 100;
-      animation: magicCircle 0.6s ease-out forwards;
-      box-shadow: 0 0 20px #9333ea, inset 0 0 20px rgba(147, 51, 234, 0.3);
-    }
-
-    @keyframes magicCircle {
-      0% { transform: scale(0) rotate(0deg); opacity: 1; }
-      50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
-      100% { transform: scale(1) rotate(360deg); opacity: 0; }
-    }
-
-    .arrow-projectile {
-      position: absolute;
-      font-size: 20px;
-      z-index: 100;
-      animation: arrowFly 0.5s linear forwards;
-      filter: drop-shadow(0 0 10px #22c55e);
-    }
-
-    @keyframes arrowFly {
-      0% { transform: translateX(0); opacity: 1; }
-      100% { transform: translateX(300px); opacity: 0; }
-    }
-
-    .shake {
-      animation: shake 0.2s ease-in-out;
-    }
-
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-10px); }
-      75% { transform: translateX(10px); }
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-15deg); }
+      75% { transform: rotate(15deg); }
     }
-
-    @media (max-width: 600px) {
-      .navbar {
-        height: 60px;
-        padding: 0 15px;
-      }
-
-      .nav-logo {
-        font-size: 18px;
-      }
-
-      .wallet-address {
-        display: none;
-      }
-
-      .main-container {
-        margin-top: 75px;
-        padding: 15px;
-      }
-
-      .balance-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .character-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .game-tabs {
-        flex-wrap: wrap;
-      }
-
-      .leaderboard-header,
-      .leaderboard-list li {
-        grid-template-columns: 40px 1fr 60px 50px 60px;
-        font-size: 11px;
-      }
-
-      .quest-item, .boss-item {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-      }
-
-      .quest-action, .boss-action {
-        width: 100%;
-      }
-
-      .quest-action .btn, .boss-action .btn {
-        width: 100%;
-      }
+    .ann-content {
+      flex: 1; overflow: hidden; height: 100%;
+      display: flex; align-items: center;
     }
-
-    /* 幸运大转盘 */
-    .wheel-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+    .ann-scroll {
+      display: flex; align-items: center; white-space: nowrap;
+      animation: marquee 30s linear infinite;
+      color: #fff; font-size: 13px; font-weight: 600;
     }
-
-    .wheel-wrapper {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin-bottom: 20px;
+    .ann-item {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding-right: 60px;
     }
-
-    .wheel-pointer {
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-top: 40px solid #ffd700;
-      z-index: 10;
-      filter: drop-shadow(0 4px 10px rgba(255, 215, 0, 0.5));
+    .ann-tag {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 800; margin-right: 8px; flex-shrink: 0;
     }
-
-    .wheel {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      position: relative;
-      transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-      box-shadow: 
-        0 0 30px rgba(255, 215, 0, 0.4),
-        0 0 60px rgba(255, 69, 0, 0.2),
-        inset 0 0 30px rgba(0, 0, 0, 0.3);
-      border: 8px solid #ffd700;
+    .ann-tag.urgent { background: #ff4757; color: #fff; }
+    .ann-tag.event { background: #2ed573; color: #fff; }
+    .ann-tag.update { background: #70a1ff; color: #fff; }
+    .ann-tag.info { background: #ffa502; color: #fff; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
-
-    .wheel-segment {
-      position: absolute;
-      width: 50%;
-      height: 50%;
-      top: 0;
-      right: 0;
-      transform-origin: 0% 100%;
-      overflow: hidden;
+    .ann-close {
+      width: 24px; height: 24px; border: none; background: rgba(255,255,255,0.2);
+      color: #fff; border-radius: 50%; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; transition: all .2s;
     }
-
-    .wheel-segment-inner {
-      position: absolute;
-      left: -100%;
-      width: 200%;
-      height: 200%;
-      text-align: center;
-      padding-top: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
+    .ann-close:hover { background: rgba(255,255,255,0.4); }
+    .ann-list-btn {
+      margin-left: 8px; padding: 4px 10px; border: none;
+      background: rgba(255,255,255,0.2); color: #fff;
+      border-radius: 12px; font-size: 12px; font-weight: 700;
+      cursor: pointer; flex-shrink: 0; transition: all .2s;
     }
+    .ann-list-btn:hover { background: rgba(255,255,255,0.4); }
 
-    .wheel-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle, #ffd700, #ff8c00);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      z-index: 5;
-      box-shadow: 
-        0 0 20px rgba(255, 215, 0, 0.6),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+    /* 公告列表弹窗 */
+    .ann-modal {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+      display: none; align-items: flex-start; justify-content: center;
+      padding: 0;
     }
-
-    .wheel-cost {
-      font-size: 18px;
-      color: #ffd700;
-      margin-bottom: 15px;
-      font-weight: bold;
+    .ann-modal.show { display: flex; }
+    .ann-modal-content {
+      width: 100%; max-width: 560px; max-height: 95vh; margin-top: 0;
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 0 0 20px 20px; overflow: hidden; display: flex; flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
-
-    .wheel-history {
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+    .ann-modal-header {
+      padding: 20px; border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(135deg, rgba(245,196,81,0.15), rgba(168,85,247,0.15));
     }
-
-    .wheel-history-title {
-      font-size: 14px;
-      color: #ffd700;
-      margin-bottom: 10px;
-      font-weight: bold;
+    .ann-modal-title {
+      font-size: 18px; font-weight: 900; color: var(--text-strong);
+      display: flex; align-items: center; gap: 8px;
     }
-
-    .wheel-history-list {
-      max-height: 100px;
-      overflow-y: auto;
-      font-size: 12px;
-      color: #9ca3af;
+    .ann-modal-close {
+      width: 32px; height: 32px; border: none; background: var(--nlink-bg);
+      color: var(--muted); border-radius: 8px; cursor: pointer;
+      font-size: 18px; display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
     }
-
-    .wheel-history-item {
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    .ann-modal-close:hover { background: var(--nlink-bg-hover); color: var(--text-strong); }
+    .ann-modal-body {
+      flex: 1; overflow-y: auto; padding: 16px;
     }
-
-    /* 创建角色弹窗 */
-    .create-char-modal .class-select {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 20px 0;
+    .ann-card {
+      background: var(--glass); border: 1px solid var(--line);
+      border-radius: 16px; padding: 16px; margin-bottom: 12px;
+      transition: all .2s;
     }
-
-    .create-char-modal .class-option {
-      padding: 15px;
-      border: 2px solid rgba(139, 92, 246, 0.3);
-      border-radius: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      background: rgba(139, 92, 246, 0.1);
+    .ann-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+    .ann-card.pinned { border-color: var(--gold); box-shadow: 0 0 20px rgba(245,196,81,0.15); }
+    .ann-card-header {
+      display: flex; align-items: start; gap: 10px; margin-bottom: 10px;
     }
-
-    .create-char-modal .class-option:hover {
-      border-color: rgba(139, 92, 246, 0.6);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+    .ann-card-title {
+      font-size: 15px; font-weight: 800; color: var(--text-strong);
+      line-height: 1.4; flex: 1;
     }
-
-    .create-char-modal .class-option.selected {
-      border-color: #a855f7;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(168, 85, 247, 0.2));
-      box-shadow: 0 0 25px rgba(124, 58, 237, 0.4);
+    .ann-card-date {
+      font-size: 12px; color: var(--muted); white-space: nowrap;
     }
-
-    .create-char-modal .class-icon {
-      font-size: 36px;
-      margin-bottom: 8px;
+    .ann-card-content {
+      font-size: 13px; color: var(--text-body); line-height: 1.8;
+      white-space: pre-wrap;
     }
-
-    .create-char-modal .class-name {
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 5px;
-      font-size: 14px;
+    .ann-card-pin {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; color: var(--gold); font-weight: 700;
     }
-
-    .create-char-modal .class-desc {
-      font-size: 11px;
-      color: #9ca3af;
+    .ann-empty {
+      text-align: center; padding: 40px 20px;
+      color: var(--muted); font-size: 14px;
     }
-
-    .char-name-input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.4);
-      color: #ffd700;
-      font-size: 14px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .char-name-input:focus {
-      outline: none;
-      border-color: #ffd700;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-    }
-
-    /* 战斗动画增强 */
-    .battle-scene {
-      position: relative;
-      min-height: 300px;
-      background: 
-        linear-gradient(180deg, rgba(20, 10, 40, 0.8) 0%, rgba(40, 20, 60, 0.8) 100%);
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(139, 92, 246, 0.3);
-      overflow: hidden;
-    }
-
-    .battle-scene::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(ellipse at 20% 80%, rgba(255, 69, 0, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .battle-character {
-      position: absolute;
-      bottom: 30px;
-      left: 50px;
-      font-size: 60px;
-      z-index: 5;
-      filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
-    }
-
-    .battle-boss {
-      position: absolute;
-      bottom: 30px;
-      right: 50px;
-      font-size: 80px;
-      z-index: 5;
-      filter: drop-shadow(0 0 30px rgba(255, 69, 0, 0.5));
-      animation: bossIdle 2s ease-in-out infinite;
-    }
-
-    @keyframes bossIdle {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.02); }
-    }
-
-    .battle-hp-bar {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      z-index: 10;
-    }
-
-    .hp-bar-container {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.5);
-      height: 20px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .hp-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #22c55e, #86efac);
-      transition: width 0.5s;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
-    }
-
-    .hp-bar-fill.boss {
-      background: linear-gradient(90deg, #ef4444, #f87171);
-      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-    }
-
-    .hp-bar-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 11px;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-    }
-
-    .hp-bar-wrapper {
-      position: relative;
-      flex: 1;
-    }
-
-    .hp-label {
-      font-size: 11px;
-      color: #fff;
-      margin-bottom: 5px;
-      font-weight: bold;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-    }
-
-    /* 技能特效增强 */
-    .fireball-effect {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ff6b00, #ff4500, #ff0000);
-      box-shadow: 0 0 30px #ff4500, 0 0 60px #ff6b00;
-      z-index: 100;
-      animation: fireballFly 0.6s ease-in forwards;
-    }
-
-    @keyframes fireballFly {
-      0% { left: 20%; bottom: 50%; transform: scale(0.5); opacity: 1; }
-      50% { transform: scale(1.2); }
-      100% { left: 70%; bottom: 50%; transform: scale(0.8); opacity: 0.8; }
-    }
-
-    .thunder-effect {
-      position: absolute;
-      width: 6px;
-      height: 150px;
-      background: linear-gradient(180deg, #00ffff, #0080ff, transparent);
-      z-index: 100;
-      animation: thunderStrike 0.4s ease-out forwards;
-      box-shadow: 0 0 20px #00ffff, 0 0 40px #0080ff;
-    }
-
-    @keyframes thunderStrike {
-      0% { top: 0; opacity: 0; height: 0; }
-      30% { opacity: 1; }
-      100% { top: 30%; opacity: 0; height: 150px; }
-    }
-
-    .meteor-effect {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #fff, #ff6b00, #ff0000);
-      z-index: 100;
-      animation: meteorFall 0.8s ease-in forwards;
-      box-shadow: 0 0 20px #ff6b00, -20px -20px 40px #ff4500;
-    }
-
-    @keyframes meteorFall {
-      0% { top: -20px; right: -20px; opacity: 0; }
-      20% { opacity: 1; }
-      100% { top: 60%; right: 20%; opacity: 0.8; }
-    }
-
-    .ice-shard {
-      position: absolute;
-      width: 15px;
-      height: 30px;
-      background: linear-gradient(180deg, #87ceeb, #00bfff, #4169e1);
-      z-index: 100;
-      animation: iceThrow 0.5s linear forwards;
-      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-      box-shadow: 0 0 15px #00bfff;
-    }
-
-    @keyframes iceThrow {
-      0% { left: 25%; bottom: 50%; transform: rotate(0deg); opacity: 1; }
-      100% { left: 65%; bottom: 50%; transform: rotate(720deg); opacity: 0; }
-    }
-
-    .combo-text {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 48px;
-      font-weight: bold;
-      color: #ffd700;
-      text-shadow: 
-        0 0 20px #ffd700,
-        0 0 40px #ff6b00,
-        3px 3px 0 #8b4513;
-      z-index: 200;
-      animation: comboShow 1s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes comboShow {
-      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-      30% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-      70% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(0.8) translateY(-30px); opacity: 0; }
-    }
-
-    .damage-number {
-      position: absolute;
-      font-size: 24px;
-      font-weight: bold;
-      color: #ff4500;
-      text-shadow: 2px 2px 0 #000, 0 0 10px #ff6b00;
-      z-index: 150;
-      animation: damageFloat 1s ease-out forwards;
-      pointer-events: none;
-    }
-
-    .damage-number.crit {
-      font-size: 36px;
-      color: #ffd700;
-      text-shadow: 2px 2px 0 #8b0000, 0 0 20px #ffd700;
-    }
-
-    @keyframes damageFloat {
-      0% { transform: translateY(0) scale(0.5); opacity: 0; }
-      30% { transform: translateY(-20px) scale(1.2); opacity: 1; }
-      100% { transform: translateY(-60px) scale(1); opacity: 0; }
-    }
-
-    .battle-log-enhanced {
-      max-height: 120px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      padding: 10px 15px;
-      font-size: 12px;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-    }
-
-    .battle-log-enhanced p {
-      padding: 3px 0;
-      color: #a78bfa;
-      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
-    }
-
-    .battle-log-enhanced p:last-child {
-      border-bottom: none;
-    }
-
-    .battle-log-enhanced .player-action {
-      color: #86efac;
-    }
-
-    .battle-log-enhanced .boss-action {
-      color: #f87171;
-    }
-
-    .battle-log-enhanced .crit-action {
-      color: #ffd700;
-      font-weight: bold;
+    @media (max-width: 640px) {
+      .announcement-bar { top: 58px; height: 36px; }
+      .ann-scroll { font-size: 12px; }
+      .ann-list-btn { display: none; }
+      .ann-modal-content { max-height: 90vh; }
     }
   </style>
 </head>
 <body>
-  <!-- 导航栏 -->
-  <nav class="navbar">
-    <div class="nav-logo">⚔️ 考拉传奇人生</div>
-    <div class="nav-wallet">
-      <button class="sound-btn" id="soundBtn" onclick="SoundManager.toggleMute()" title="关闭音效">🎵</button>
-      <span class="wallet-address" id="walletAddress">未连接</span>
-      <button class="btn btn-connect" id="connectBtn" onclick="connectWallet()">连接钱包</button>
+  <!-- BMC Logo · 使用蓝鲸品牌图片 (bmc-logo.png) -->
+
+  <!-- 导航 -->
+  <nav class="nav" id="top">
+    <div class="brand"><span class="mark"><img class="logo-img" src="bmc-logo.png" alt="BMC"></span><span data-i18n="brand_nav">MMC<span class="grad"> · MDC理财工具</span></span></div>
+    <div class="nav-actions">
+      <button class="btn-wallet" id="walletBtn" onclick="connectWallet()">连接钱包</button>
+      <button class="menu-btn" onclick="openMenu()" aria-label="打开菜单" data-i18n="menu_btn">菜单</button>
     </div>
   </nav>
 
-  <!-- 主内容 -->
-  <div class="main-container">
-    <!-- 状态卡片 -->
-    <div class="status-card">
-      <div class="status-header">我的资产</div>
-      <div class="balance-grid">
-        <div class="balance-item">
-          <div class="balance-label">考拉传奇币</div>
-          <div class="balance-value" id="koalaBalance">0</div>
-        </div>
-        <div class="balance-item">
-          <div class="balance-label">USDT余额</div>
-          <div class="balance-value" id="usdtBalance">0</div>
-        </div>
-        <div class="balance-item">
-          <div class="balance-label">BNB余额</div>
-          <div class="balance-value" id="bnbBalance">0</div>
-        </div>
-      </div>
+  <!-- 右侧弹出菜单导航（新增板块） -->
+  <div class="menu-mask" id="menuMask" onclick="closeMenu()"></div>
+  <aside class="drawer" id="drawer" aria-label="导航菜单">
+    <div class="drawer-head">
+      <div class="drawer-brand"><span class="mark"><img class="logo-img" src="bmc-logo.png" alt="BMC"></span><span data-i18n="brand_drawer">MMC<span class="grad"> · 导航</span></span></div>
+      <button class="drawer-close" onclick="closeMenu()" aria-label="关闭菜单">&times;</button>
     </div>
-
-    <!-- 角色信息 -->
-    <div class="character-section" id="characterSection">
-      <div id="noCharHint" style="text-align: center; padding: 30px;">
-        <div style="font-size: 48px; margin-bottom: 15px;">🎮</div>
-        <div style="font-size: 18px; color: #fff; margin-bottom: 10px;">还没有创建角色</div>
-        <div style="font-size: 14px; color: #9ca3af; margin-bottom: 20px;">创建你的传奇英雄，开启冒险之旅</div>
-        <button class="btn btn-primary" onclick="showCreateCharModal()" style="padding: 15px 40px;">
-          立即创建
-        </button>
-      </div>
-      <div id="charInfoDisplay" style="display: none;">
-      <div class="character-header">
-        <div class="character-avatar">🧙</div>
-        <div>
-          <div class="character-name" id="charName">传奇勇士</div>
-          <div class="character-level">Lv.<span id="charLevel">1</span></div>
-        </div>
-      </div>
-      <div class="character-stats">
-        <div class="stat-item">
-          <div class="stat-label">攻击力</div>
-          <div class="stat-value" id="statAtk">10</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">防御力</div>
-          <div class="stat-value" id="statDef">5</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">生命值</div>
-          <div class="stat-value" id="statHp">100</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">经验值</div>
-          <div class="stat-value" id="statExp">0</div>
-        </div>
-      </div>
+    <div class="drawer-wallet">
+      <button class="btn-wallet" id="walletBtn2" onclick="connectWallet()">连接钱包</button>
     </div>
-
-    <!-- 充值区域 -->
-    <div class="recharge-section">
-      <div class="section-title">💎 充值传奇人生</div>
-      <div class="input-group">
-        <label class="input-label">充值传奇人生币数量</label>
-        <div class="presets">
-          <button class="preset-btn" onclick="setRechargeAmount(10)">10 传奇币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(50)">50 传奇币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(100)">100 传奇币</button>
-          <button class="preset-btn" onclick="setRechargeAmount(300)">300 传奇币</button>
-        </div>
-        <input type="number" class="input-field" id="rechargeAmount" placeholder="输入传奇人生币数量" step="1">
-      </div>
-      <div class="input-group">
-        <label class="input-label">收款地址</label>
-        <input type="text" class="input-field" id="receiveAddress" 
-               value="0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04" readonly>
-      </div>
-      <button class="btn btn-primary" id="rechargeBtn" onclick="rechargeKoala()" disabled>
-        充值传奇人生
-      </button>
-    </div>
-
-    <!-- 地推合伙人区域 -->
-    <div class="partner-section">
-      <div class="section-title">🤝 地推合伙人招募</div>
-      <div class="partner-info">
-        <div class="partner-price">100 USDT / 份</div>
-        <div class="partner-desc">成为地推合伙人，共享平台收益</div>
-      </div>
-      <div class="input-group">
-        <label class="input-label">购买份数</label>
-        <div class="presets">
-          <button class="preset-btn active" onclick="setPartnerCount(1)">1份</button>
-        </div>
-        <input type="number" class="input-field" id="partnerCount" value="1" min="1" max="1" readonly>
-      </div>
-      <div class="input-group">
-        <label class="input-label">应付金额: <span id="partnerTotal">100</span> USDT</label>
-      </div>
-      <button class="btn btn-partner" id="partnerBtn" onclick="becomePartner()" disabled>
-        成为合伙人
-      </button>
-    </div>
-
-    <!-- 游戏区域 -->
-    <div class="game-section">
-      <div class="game-title">🎮 传奇人生 · 链上游戏</div>
-      
-      <div class="game-tabs">
-        <div class="game-tab active" onclick="switchTab('synthesize')">装备合成</div>
-        <div class="game-tab" onclick="switchTab('quests')">任务系统</div>
-        <div class="game-tab" onclick="switchTab('boss')">BOSS挑战</div>
-        <div class="game-tab" onclick="switchTab('wheel')">幸运转盘</div>
-        <div class="game-tab" onclick="switchTab('leaderboard')">战力排行</div>
-      </div>
-
-      <!-- 装备合成 -->
-      <div class="game-panel active" id="synthesizePanel">
-        <div class="equipment-grid" id="equipmentGrid">
-          <!-- 动态生成 -->
+    <nav class="drawer-body">
+      <div class="drawer-group">
+        <div class="drawer-group-label" data-i18n="dg_lang">语言 / LANGUAGE</div>
+        <div class="switch-seg" id="langSeg">
+          <button type="button" data-lang="zh" onclick="setLang('zh')">中文</button>
+          <button type="button" data-lang="en" onclick="setLang('en')">English</button>
         </div>
       </div>
-
-      <!-- 任务系统 -->
-      <div class="game-panel" id="questsPanel">
-        <div class="quest-list" id="questList">
-          <!-- 动态生成 -->
-        </div>
-      </div>
-
-      <!-- BOSS挑战 -->
-      <div class="game-panel" id="bossPanel">
-        <div class="quest-list" id="bossList">
-          <!-- 动态生成 -->
-        </div>
-      </div>
-
-      
-      <!-- 幸运大转盘 -->
-      <div class="game-panel" id="wheelPanel">
-        <div class="wheel-container">
-          <div class="wheel-cost">每次消耗 50 传奇币</div>
-          <div class="wheel-wrapper">
-            <div class="wheel-pointer"></div>
-            <div class="wheel" id="luckyWheel">
-              <div class="wheel-center">🎰</div>
-            </div>
-          </div>
-          <button class="btn btn-primary" onclick="spinWheel()" style="padding: 15px 40px; font-size: 18px;">
-            开始抽奖
+      <div class="drawer-group">
+        <div class="drawer-group-label" data-i18n="dg_theme">主题 / 颜色切换</div>
+        <div class="theme-opts" id="themeOpts">
+          <button type="button" class="theme-opt" data-theme-key="midnight" onclick="setTheme('midnight')">
+            <span class="sw"><i style="background:#2dd4bf"></i><i style="background:#f5c451"></i><i style="background:#0a1018"></i></span>
+            <span class="tk">✓</span>
           </button>
-          <div class="wheel-history">
-            <div class="wheel-history-title">🎁 中奖记录</div>
-            <div class="wheel-history-list" id="wheelHistory">
-              <p>暂无记录，快来抽奖吧！</p>
-            </div>
+          <button type="button" class="theme-opt" data-theme-key="cream" onclick="setTheme('cream')">
+            <span class="sw"><i style="background:#f6efe1"></i><i style="background:#b28a45"></i><i style="background:#3f9d8f"></i></span>
+            <span class="tk">✓</span>
+          </button>
+          <button type="button" class="theme-opt" data-theme-key="obsidian" onclick="setTheme('obsidian')">
+            <span class="sw"><i style="background:#100d08"></i><i style="background:#f5c451"></i><i style="background:#e6c878"></i></span>
+            <span class="tk">✓</span>
+          </button>
+        </div>
+      </div>
+      <div class="drawer-group">
+        <div class="drawer-group-label" data-i18n="dg_home">主页</div>
+        <a class="drawer-link" href="#top" onclick="goTop(event)"><span class="di"><img src="bmc-logo.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_home">首页</span></a>
+        <a class="drawer-link" href="#" onclick="showAnnouncementList(); closeMenu(); return false;"><span class="di"><img src="bmc-logo.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_announce">📢 公告中心</span></a>
+      </div>
+      <div class="drawer-group">
+        <div class="drawer-group-label" data-i18n="dg_trade">交易</div>
+        <a class="drawer-link" href="swap.html"><span class="di"><img src="bmc-logo.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_swap">MMC SWAP 兑换</span></a>
+      </div>
+      <div class="drawer-group">
+        <div class="drawer-group-label" data-i18n="dg_eco">生态权益</div>
+        <a class="drawer-link" href="#genesis" onclick="closeMenu()"><span class="di"><img src="card-genesis.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_genesis">创世卡牌认购</span></a>
+        <a class="drawer-link" href="#cards" onclick="closeMenu()"><span class="di"><img src="card-genesis.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_cards">创世卡牌权益</span></a>
+        <a class="drawer-link" href="#perfcards" onclick="closeMenu()"><span class="di"><img src="card-perf.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_perf">业绩卡牌</span></a>
+      </div>
+      <div class="drawer-group">
+        <div class="drawer-group-label" data-i18n="dg_docs">全球最新生态资料</div>
+        <a class="drawer-link" href="docs/mmc-whitepaper.html"><span class="di"><img src="bmc-logo.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_wp">项目白皮书</span></a>
+        <a class="drawer-link" href="docs/mmc-ppt.html"><span class="di"><img src="bmc-logo.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_ppt">讲解课件</span></a>
+      </div>
+      <div class="drawer-group">
+        <div class="drawer-group-label" data-i18n="dg_join">参与</div>
+        <a class="drawer-link" href="#join" onclick="closeMenu()"><span class="di"><img src="bmc-logo.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></span><span data-i18n="nav_join">如何参与</span></a>
+      </div>
+    </nav>
+    <div class="drawer-foot" data-i18n="drawer_foot">© 2026 MMC · MDC共建社区<br>遇见造化 · 我命由我</div>
+  </aside>
+
+  <!-- 公告列表弹窗 -->
+  <div class="ann-modal" id="annModal">
+    <div class="ann-modal-content" onclick="event.stopPropagation()">
+      <div class="ann-modal-header">
+        <div class="ann-modal-title">📢 MDC 官方公告</div>
+        <button class="ann-modal-close" onclick="hideAnnouncementList()">×</button>
+      </div>
+      <div class="ann-modal-body" id="annModalBody">
+        <!-- 公告列表将由JavaScript动态生成 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 水墨画卷 · 首页悬挂 -->
+  <section class="ink-wrap">
+    <div class="ink-scroll">
+      <div class="ink-roller"></div>
+      <div class="ink-silk">
+        <div class="ink-bg" style="background-image:url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=traditional%20Chinese%20ink%20wash%20painting%20shanshui%20landscape%2C%20misty%20mountains%20and%20river%2C%20pine%20trees%2C%20monochrome%20black%20ink%20on%20rice%20paper%2C%20minimalist%2C%20large%20negative%20space%2C%20sumi-e%2C%20elegant%20atmospheric%20mist%2C%20no%20text&image_size=landscape_16_9');"></div>
+        <div class="ink-grid">
+          <div class="ink-center">
+            <div class="ink-title">遇见造化<span class="dot">·</span>我命由我</div>
+            <div class="ink-mid">天道铺局　人心落子　·　万般定数　皆可重塑</div>
+          </div>
+        </div>
+        <p class="ink-prose">造化，是天地机缘、宿命起落、世间定数<br>遇见造化，便是直面人生所有既定际遇——困境与馈赠<br>造化予境遇，我自写余生</p>
+      </div>
+      <div class="ink-roller"></div>
+    </div>
+  </section>
+
+  <!-- Hero -->
+  <header class="hero wrap">
+    <span class="eyebrow" data-i18n="hero_eyebrow">MMC · MDC 生态原生代币 · 全球最新</span>
+    <h1 data-i18n="hero_h1">MMC-MDC 原生代币</h1>
+    <div class="slogan" data-i18n="hero_slogan">遇见造化 · 我命由我</div>
+    <p class="native-line" data-i18n="hero_native"><b>MMC = MDC 生态原生代币</b>　·　与 MDC 生态同根同源</p>
+    <p class="sub" data-i18n="hero_sub"><b>MMC 是 MDC 生态的原生代币</b>：通缩为核 · LP 挖矿产出 · <b>$1000 前只能卖不能买</b>，达 $1000 自动开放买盘。链上持续销毁，稀缺即价值。</p>
+    <div class="hero-cta">
+      <a class="cta cta-gold" href="#genesis" data-i18n="hero_cta_genesis">创世卡牌 · 限量 120 张</a>
+       </div>
+    <div class="hero-cta" style="margin-top:24px;">
+      <a class="cta cta-gold" href="https://mdcdefi.com" target="_blank" rel="noopener" style="padding: 18px 42px; font-size: 17px; font-weight: 900; letter-spacing: 2px;">MDC超级生态一</a>
+      <a class="cta cta-gold" href="https://mmcdefi.com/?ref=0x35b348194A7B33347834649D19a4D6379Bf69663#/deposit" target="_blank" rel="noopener" style="padding: 18px 42px; font-size: 17px; font-weight: 900; letter-spacing: 2px;">MDC超级生态二</a>
+    </div>
+    <div class="hero-cta" style="margin-top:14px;">
+      <a class="cta cta-ghost" href="https://qm.qq.com/q/xYk0JRxhn4" target="_blank" rel="noopener" aria-label="QQ 群">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:-3px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 2.95-1.75 3.92 1.71.29 3.31 1.02 4.59 2.14.65-.39 1.23-.82 1.71-1.31-1.5-.98-3.11-1.52-4.55-1.75zm1.36 10.4c-1.91-.83-4.06-1.34-6.04-1.34-1.98 0-4.13.51-6.04 1.34-.39-.65-.7-1.36-.91-2.1-.83 1.26-1.35 2.68-1.35 4.2 0 .69.07 1.36.2 2.01 2.08-1.3 4.74-2.04 7.55-2.04s5.47.74 7.55 2.04c.13-.65.2-1.32.2-2.01 0-1.52-.52-2.94-1.35-4.2-.21.74-.52 1.45-.91 2.1zM12 17.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6zm0-5.2c-.88 0-1.6.72-1.6 1.6s.72 1.6 1.6 1.6 1.6-.72 1.6-1.6-.72-1.6-1.6-1.6z"/></svg>
+        QQ 群
+      </a>
+      <button class="cta cta-ghost" type="button" style="font-family:inherit;cursor:pointer;" onclick="copyText('https://t.me/SunDaoGlobal', this)" data-i18n="hero_cta_copytg">复制 TG 链接</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="v" data-i18n="hstat1_v">100 万枚</div><div class="l" data-i18n="hstat1_l">发行总量</div></div>
+      <div class="hstat"><div class="v" data-i18n="hstat2_v">每日 2%</div><div class="l" data-i18n="hstat2_l">LP 底池通缩</div></div>
+      <div class="hstat"><div class="v" data-i18n="hstat3_v">$1000</div><div class="l" data-i18n="hstat3_l">自动开放买盘</div></div>
+      <div class="hstat"><div class="v" data-i18n="hstat4_v">仅 120 张</div><div class="l" data-i18n="hstat4_l">创世卡牌限量</div></div>
+    </div>
+
+    <div class="launch-cd" id="launchCountdown">
+      <div class="lcd-head" data-i18n="lcd_head"><span class="lcd-dot"></span>距正式上线</div>
+      <div class="lcd-timer">
+        <div class="lcd-cell"><div class="lcd-num" id="cdDays">--</div><div class="lcd-unit" data-i18n="lcd_days">天</div></div>
+        <div class="lcd-sep">:</div>
+        <div class="lcd-cell"><div class="lcd-num" id="cdHours">--</div><div class="lcd-unit" data-i18n="lcd_hrs">时</div></div>
+        <div class="lcd-sep">:</div>
+        <div class="lcd-cell"><div class="lcd-num" id="cdMins">--</div><div class="lcd-unit" data-i18n="lcd_min">分</div></div>
+        <div class="lcd-sep">:</div>
+        <div class="lcd-cell"><div class="lcd-num" id="cdSecs">--</div><div class="lcd-unit" data-i18n="lcd_sec">秒</div></div>
+      </div>
+      <div class="lcd-live" data-i18n="lcd_live">MMC 已正式上线</div>
+      <div class="lcd-date" data-i18n="lcd_date"><b>2026 年 7 月 21 日 10:08</b> · 正式上线</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 创世卡牌招募 -->
+    <section class="block" id="genesis">
+      <div class="shareholder">
+        <div style="text-align:center;">
+          <div style="margin-bottom:20px;"><img src="card-genesis.png" alt="创世卡牌" style="max-width:200px;border-radius:16px;box-shadow:0 12px 40px rgba(245,196,81,0.45);"></div>
+          <span class="sh-badge" data-i18n="gen_badge">GENESIS CARD · 创世卡牌招募</span>
+          <div class="sh-title" data-i18n="gen_title">成为 <span class="g">MMC 创世股东 · Genesis Card</span></div>
+          <div class="sh-price" data-i18n="gen_price">全网仅 <b>120 张</b> · 首批 <b>60 张</b>面向初创股东开放 · 每地址限购 1 张</div>
+        </div>
+
+        <div class="benefits">
+          <div class="benefit">
+            <div><div class="bt" data-i18n="gen_b1t">卖税分红 · 终身权益</div><div class="bd" data-i18n="gen_b1d">全网每一笔卖出税，创世卡牌独享——<b>买盘开放前分 20%</b>，开放后分 <b>2%</b>，持卡即被动收租。</div></div>
+          </div>
+          <div class="benefit">
+            <div><div class="bt" data-i18n="gen_b2t">全网撤池分红 · 10% MMC</div><div class="bd" data-i18n="gen_b2d">任何人撤出 MMC-LP，创世卡牌持有者共同瓜分其中 <b>10% 的 MMC</b>，越多人撤、卡牌越赚。</div></div>
+          </div>
+          <div class="benefit">
+            <div><div class="bt" data-i18n="gen_b3t">恒定稀缺 · 仅 120 张</div><div class="bd" data-i18n="gen_b3d">总量恒定、<b>分完即止</b>、每地址仅限 1 张，创世身份不可复制，稀缺即价值。</div></div>
           </div>
         </div>
       </div>
-<!-- 战力排行榜 -->
-      <div class="game-panel" id="leaderboardPanel">
-        <div class="leaderboard-container">
-          <div class="leaderboard-title">🏆 战力排行榜</div>
-          <div class="leaderboard-header">
-            <span>排名</span>
-            <span>玩家</span>
-            <span>职业</span>
-            <span>等级</span>
-            <span>战力</span>
-          </div>
-          <ul class="leaderboard-list" id="leaderboardList">
-            <!-- 动态生成 -->
+    </section>
+
+    <!-- 核心机制 -->
+    <section class="block" id="mechanism">
+      <div class="sec-head">
+        <div class="sec-tag">CORE MECHANISM</div>
+        <div class="sec-title" data-i18n="mech_title">核心 <span class="g">通缩机制</span></div>
+        <div class="sec-desc" data-i18n="mech_desc">$1000 前只能卖不能买，唯有 LP 挖矿产出；达 $1000 自动开放买盘。LP 底池<b>每日通缩 2%</b>，越销越稀缺。</div>
+      </div>
+
+      <div class="sec-head" style="margin-bottom:14px;">
+        <div class="sec-title" style="font-size:clamp(18px,3vw,24px);" data-i18n="mech_sub1">每日 <span class="g">2% 通缩分配</span></div>
+      </div>
+      <div class="grid g3" style="margin-bottom:16px;">
+        <div class="card"><div class="ct" data-i18n="mech_c1t">0.2% 黑洞销毁</div><div class="cd" data-i18n="mech_c1d">代币<b>永久销毁</b>，流通量不可逆缩减，稀缺持续放大。</div></div>
+        <div class="card"><div class="ct" data-i18n="mech_c2t">0.6% MDC-LP 质押分红</div><div class="cd" data-i18n="mech_c2d">把 <b>MDC 的 LP（MDC+USDT）</b>质押在官网，按<b>算力权重</b>每天分得通缩的 0.6% MMC。算力加成：质押 4 月 <b>0.5 倍</b>、7 月 <b>1 倍</b>、9 月 <b>1.5 倍</b>、12 月 <b>2 倍</b>。</div></div>
+        <div class="card"><div class="ct" data-i18n="mech_c3t">1.2% MMC 流动性挖矿</div><div class="cd" data-i18n="mech_c3d">组 <b>MMC 流动性</b>挖矿，按<b>区块实时分红</b>，持币挖矿即享被动收益。</div></div>
+      </div>
+
+      <div class="sec-head" style="margin:30px 0 14px;">
+        <div class="sec-title" style="font-size:clamp(18px,3vw,24px);" data-i18n="mech_sub2">买卖 <span class="g">税率机制</span></div>
+      </div>
+      <div class="grid g2" style="margin-bottom:16px;">
+        <div class="card">
+          <div class="ct" data-i18n="mech_tax1t">买盘开放前（< $1000）</div>
+          <ul class="rules" data-i18n="mech_tax1d">
+            <li>买入：<b>不开放</b>，只能卖 · 唯 LP 挖矿产出</li>
+            <li>卖税 <b>24%</b>：创世卡牌 <b>20%</b></li>
+            <li>团队业绩公约卡牌 <b>2%</b></li>
+            <li>回流底池归黑洞 <b>2%</b></li>
           </ul>
-          <div class="my-rank" id="myRankDisplay"></div>
+        </div>
+        <div class="card">
+          <div class="ct" data-i18n="mech_tax2t">买盘开放后（≥ $1000）</div>
+          <ul class="rules" data-i18n="mech_tax2d">
+            <li>买税 <b>0</b>，自由买入</li>
+            <li>卖税下调为 <b>6%</b></li>
+            <li>创世卡牌由 20% 下调为 <b>2%</b></li>
+            <li>业绩卡牌 <b>2%</b> + 回流底池 <b>2%</b></li>
+          </ul>
         </div>
       </div>
-          </div>
-    </div>
 
-    <!-- 装备栏 -->
-    <div class="inventory-section" id="inventorySection" style="display:none;">
-      <div class="status-header">我的装备栏</div>
-      <div class="inventory-grid" id="inventoryGrid">
-        <!-- 动态生成 -->
+      <div class="grid g2">
+        <div class="card">
+          <div class="ct" data-i18n="mech_sell_t">卖出机制</div>
+          <div class="cd" data-i18n="mech_sell_d">在任意去中心swap,如博饼等，<b>MMC</b>自由交易，<b>MDC</b>马上到账钱包。</div>
+        </div>
+        <div class="card">
+          <div style="font-size:13px;color:#ff6b00;margin-bottom:10px;"><b>⚠️ 撤LP和交易代币，必须在去中心化SWAP进行</b></div>
+          <div class="ct" data-i18n="mech_lp_t">撤 MMC-LP 规则</div>
+          <ul class="rules" data-i18n="mech_lp_d">
+            <li>MDC <b>全部到账</b></li>
+            <li>MMC <b>70% 销毁</b></li>
+            <li>MMC <b>20% 到账钱包</b></li>
+            <li>MMC <b>10% 创世卡牌</b></li>
+          </ul>
+        </div>
       </div>
+      <div class="sh-statement" style="margin-top:22px;" data-i18n="mech_state">完全去中心化 · 合约规则全部上链固化，任何人都无法更改代码与规则。</div>
+    </section>
+
+    <!-- 资金分配 -->
+    <section class="block" id="allocation">
+      <div class="sec-head">
+        <div class="sec-tag">FUND ALLOCATION</div>
+        <div class="sec-title" data-i18n="alloc_title">资金 <span class="g">分配模型</span></div>
+        <div class="sec-desc" data-i18n="alloc_desc">每笔入金链上自动分配 · <b>50% 用户 · 50% 团队</b> · 公开透明</div>
+      </div>
+      <div class="pie">
+        <div class="pie-item"><div class="pie-pct">50%</div><div class="pie-d"><div class="pt" data-i18n="alloc_p1t">组 LP · 归属用户</div><div class="pd" data-i18n="alloc_p1d">封装成 MMC-LP，归属用户，可随时撤池</div></div></div>
+        <div class="pie-item"><div class="pie-pct">18%</div><div class="pie-d"><div class="pt" data-i18n="alloc_p2t">等级奖励</div><div class="pd" data-i18n="alloc_p2d">6 个级别 · 同级不拿 · 按 M1–M6 发放</div></div></div>
+        <div class="pie-item"><div class="pie-pct">12%</div><div class="pie-d"><div class="pt" data-i18n="alloc_p3t">达标在榜分红</div><div class="pd" data-i18n="alloc_p3d">M1–M6 分别设池 · 达标在榜均分</div></div></div>
+        <div class="pie-item"><div class="pie-pct">9%</div><div class="pie-d"><div class="pt" data-i18n="alloc_p4t">直推奖励</div><div class="pd" data-i18n="alloc_p4d">账号需保持 10 枚 MDC 在投才能拿</div></div></div>
+        <div class="pie-item"><div class="pie-pct">8%</div><div class="pie-d"><div class="pt" data-i18n="alloc_p5t">直推打榜分红</div><div class="pd" data-i18n="alloc_p5d">日榜前 10 名 5% + 周榜前 10 名 3%</div></div></div>
+        <div class="pie-item"><div class="pie-pct">3%</div><div class="pie-d"><div class="pt" data-i18n="alloc_p6t">团队业绩卡牌分红</div><div class="pd" data-i18n="alloc_p6d">回馈团队业绩公约卡牌持有者</div></div></div>
+      </div>
+      <div class="sh-statement" style="margin-top:16px;" data-i18n="alloc_state">用户 50% 全部封装成 <b>MMC-LP 归属用户本人</b>，可随时撤池；团队 50% 链上自动分配。</div>
+
+      <!-- M1-M6 团队等级权益表 -->
+      <div class="sec-head" style="margin-top:44px;margin-bottom:16px;">
+        <div class="sec-tag">TEAM LEVELS · M1–M6</div>
+        <div class="sec-title" data-i18n="lvl_title">团队 <span class="g">等级权益</span></div>
+        <div class="sec-desc" data-i18n="lvl_desc">6 个级别 · 同级不拿 · 达成团队总业绩与直推业绩解锁对应等级奖励与达标在榜分红</div>
+      </div>
+      <div class="mtable-wrap">
+        <table class="mtable">
+          <thead>
+            <tr><th data-i18n="lvl_th1">等级</th><th data-i18n="lvl_th2">团队总业绩</th><th data-i18n="lvl_th3">直推业绩</th><th data-i18n="lvl_th4">等级奖励</th><th data-i18n="lvl_th5">累计</th><th data-i18n="lvl_th6">达标在榜分红</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="lv">M1</td><td><b>1,000</b> MDC</td><td><b>300</b> MDC</td><td class="rate">6%</td><td>6%</td><td class="rate">1%</td></tr>
+            <tr><td class="lv">M2</td><td><b>10,000</b> MDC</td><td><b>3,000</b> MDC</td><td class="rate">5%</td><td>11%</td><td class="rate">2%</td></tr>
+            <tr><td class="lv">M3</td><td><b>30,000</b> MDC</td><td><b>9,000</b> MDC</td><td class="rate">3%</td><td>14%</td><td class="rate">3%</td></tr>
+            <tr><td class="lv">M4</td><td><b>100,000</b> MDC</td><td><b>30,000</b> MDC</td><td class="rate">2%</td><td>16%</td><td class="rate">3%</td></tr>
+            <tr><td class="lv">M5</td><td><b>200,000</b> MDC</td><td><b>60,000</b> MDC</td><td class="rate">1%</td><td>17%</td><td class="rate">2%</td></tr>
+            <tr><td class="lv">M6</td><td><b>300,000</b> MDC</td><td><b>90,000</b> MDC</td><td class="rate">1%</td><td>18%</td><td class="rate">1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="rules" style="margin-top:16px;" data-i18n="lvl_rules">
+        <li><b>等级奖励</b>（合计 18%）：6 个级别 · <b>同级不拿</b>，等级越高、奖励比例越高，逐级加权，累计最高 18%</li>
+        <li><b>达标在榜分红</b>（合计 12%）：M1–M6 分别设池（1% / 2% / 3% / 3% / 2% / 1%）；<b>第一个达到的拿累积全部</b>，之后由达标在榜者平分</li>
+      </ul>
+
+      <!-- 直推打榜分红 8% -->
+      <div class="sec-head" style="margin-top:44px;margin-bottom:16px;">
+        <div class="sec-tag">RANKING BONUS · 8%</div>
+        <div class="sec-title" data-i18n="rank_title">直推 <span class="g">打榜分红</span></div>
+        <div class="sec-desc" data-i18n="rank_desc">直推业绩打榜 · 日榜前 10 名分 5% · 周榜前 10 名分 3%</div>
+      </div>
+      <div class="grid g2">
+        <div class="card">
+          <div class="ct" data-i18n="rank_d_t">日榜 · 前 10 名分 5%</div>
+          <ul class="rules" data-i18n="rank_d_d">
+            <li>第 1 名 <b>2%</b> · 第 2 名 <b>1.2%</b> · 第 3 名 <b>0.8%</b></li>
+            <li>第 4 名 <b>0.4%</b> · 第 5 名 <b>0.2%</b></li>
+            <li>第 6–8 名 各 <b>0.1%</b> · 第 9–10 名 各 <b>0.05%</b></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ct" data-i18n="rank_w_t">周榜 · 前 10 名分 3%</div>
+          <ul class="rules" data-i18n="rank_w_d">
+            <li>第 1 名 <b>1.2%</b> · 第 2 名 <b>0.6%</b> · 第 3 名 <b>0.3%</b></li>
+            <li>第 4 名 <b>0.24%</b> · 第 5 名 <b>0.18%</b></li>
+            <li>第 6–8 名 各 <b>0.12%</b> · 第 9–10 名 各 <b>0.06%</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="sh-statement" style="margin-top:22px;" data-i18n="rank_state">以上<b>业绩均为累计业绩</b> · 直推奖励须账号<b>保持 10 枚 MDC 在投</b>方可领取。</div>
+    </section>
+
+    <!-- 创世卡牌权益 -->
+    <section class="block" id="cards">
+      <div class="sec-head">
+        <div class="sec-tag">GENESIS CARDS · 仅 120 张</div>
+        <div style="text-align:center;margin:10px 0;"><img src="card-genesis.png" alt="创世卡牌" style="max-width:160px;border-radius:14px;box-shadow:0 8px 30px rgba(245,196,81,0.4);"></div>
+        <div class="sec-title" data-i18n="cards_title">创世 <span class="g">卡牌权益</span></div>
+        <div class="sec-desc" data-i18n="cards_desc">全网卖税与撤池分红的最大受益者 · 一次持有 · 终身收租</div>
+      </div>
+      <div class="grid g2" style="margin-bottom:16px;">
+        <div class="card"><div class="ct" data-i18n="cards_c1t">卖税分红 · 终身权益</div><div class="cd" data-i18n="cards_c1d">独享全网每一笔卖出税：<b>买盘开放前分 20%</b>，买盘开放后分 <b>2%</b>。$1000 前只能卖，卖压越大、卡牌分得越多——<b>持卡即被动收租</b>。</div></div>
+        <div class="card"><div class="ct" data-i18n="cards_c2t">全网撤池分红 · 10% MMC</div><div class="cd" data-i18n="cards_c2d">任何人撤出 MMC-LP，创世卡牌持有者共同瓜分其中 <b>10% 的 MMC</b>。越多人撤池、卡牌越赚，稳收全生态红利。</div></div>
+      </div>
+      <div class="sh-statement" style="margin-top:6px;margin-bottom:24px;" data-i18n="cards_state">创世卡牌总量恒定 <b>120 张 · 每地址限 1 张 · 分完即止</b>，稀缺不可复制，越早入局越早锁定终身分红。</div>
+
+      <div class="sec-head" style="margin-bottom:16px;">
+        <div class="sec-tag">120 张 · 获取通道</div>
+        <div class="sec-title" style="font-size:clamp(18px,3vw,24px);" data-i18n="cards_how">如何 <span class="g">获得创世卡牌</span></div>
+      </div>
+      <div class="grid g2" style="margin-bottom:16px;">
+        <div class="card">
+          <div class="ct" data-i18n="cards_h1t">首批 60 张 · 初创股东</div>
+          <div class="cd" data-i18n="cards_h1d"><b>500 美金 / 张</b> 面向初创股东招募，<b>每地址限购 1 张</b>。越早入局越早锁定全生态终身卖税分红权。</div>
+        </div>
+        <div class="card">
+          <div class="ct" data-i18n="cards_h2t">剩余 60 张 · 销毁 / 购买</div>
+          <div class="cd" data-i18n="cards_h2d">分 <b>5 个批次</b>释放，可在官网<b>销毁 MMC</b> 或用 <b>MDC 购买</b>获得，门槛逐批递增，先到先得。</div>
+        </div>
+      </div>
+      <div class="mtable-wrap">
+        <table class="mtable">
+          <thead>
+            <tr><th data-i18n="cards_th1">批次</th><th data-i18n="cards_th2">数量</th><th data-i18n="cards_th3">销毁 MMC 价值</th><th data-i18n="cards_th4">或 MDC 购买价值</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="lv" data-i18n="batch1">第一批</td><td><b>12</b> <span data-i18n="unit_card">张</span></td><td class="rate">$1,000</td><td>$2,000</td></tr>
+            <tr><td class="lv" data-i18n="batch2">第二批</td><td><b>12</b> <span data-i18n="unit_card2">张</span></td><td class="rate">$2,000</td><td>$4,000</td></tr>
+            <tr><td class="lv" data-i18n="batch3">第三批</td><td><b>12</b> <span data-i18n="unit_card3">张</span></td><td class="rate">$4,000</td><td>$6,000</td></tr>
+            <tr><td class="lv" data-i18n="batch4">第四批</td><td><b>12</b> <span data-i18n="unit_card4">张</span></td><td class="rate">$6,000</td><td>$8,000</td></tr>
+            <tr><td class="lv" data-i18n="batch5">第五批</td><td><b>12</b> <span data-i18n="unit_card5">张</span></td><td class="rate">$8,000</td><td>$10,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 业绩卡牌 -->
+    <section class="block" id="perfcards">
+      <div class="sec-head">
+        <div class="sec-tag">PERFORMANCE CARDS · 共 360 张</div>
+        <div style="text-align:center;margin:10px 0;"><img src="card-perf.png" alt="业绩卡牌" style="max-width:160px;border-radius:14px;box-shadow:0 8px 30px rgba(45,212,191,0.4);"></div>
+        <div class="sec-title" data-i18n="perf_title">业绩 <span class="g">公约卡牌</span></div>
+        <div class="sec-desc" data-i18n="perf_desc">凭直推累计业绩领取 · 共 360 张 · 分完即止 · 每地址最多 1 张 · 不可累加</div>
+      </div>
+      <div class="grid g2" style="margin-bottom:16px;">
+        <div class="card"><div class="ct" data-i18n="perf_c1t">进场分红 · 3% MDC</div><div class="cd" data-i18n="perf_c1d">每笔进场入金，业绩公约卡牌持有者按比例分得 <b>3% 的 MDC</b>（以 MDC 结算）。</div></div>
+        <div class="card"><div class="ct" data-i18n="perf_c2t">卖 MMC 滑点 · 2%</div><div class="cd" data-i18n="perf_c2d">每笔卖出 MMC 收取 <b>2% 滑点</b>，分配给业绩公约卡牌持有者（以 MDC 结算）。</div></div>
+      </div>
+      <div class="mtable-wrap">
+        <table class="mtable">
+          <thead>
+            <tr><th data-i18n="perf_th1">批次</th><th data-i18n="perf_th2">数量</th><th data-i18n="perf_th3">领取条件（直推累计业绩）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="lv" data-i18n="pbatch1">第一批</td><td><b>120</b> <span data-i18n="punit1">张</span></td><td data-i18n="pcond1">直推业绩累计达 <b>1,000</b> MDC</td></tr>
+            <tr><td class="lv" data-i18n="pbatch2">第二批</td><td><b>90</b> <span data-i18n="punit2">张</span></td><td data-i18n="pcond2">直推业绩累计达 <b>2,000</b> MDC</td></tr>
+            <tr><td class="lv" data-i18n="pbatch3">第三批</td><td><b>60</b> <span data-i18n="punit3">张</span></td><td data-i18n="pcond3">直推业绩累计达 <b>3,000</b> MDC</td></tr>
+            <tr><td class="lv" data-i18n="pbatch4">第四批</td><td><b>30</b> <span data-i18n="punit4">张</span></td><td data-i18n="pcond4">直推业绩累计达 <b>4,000</b> MDC</td></tr>
+            <tr><td class="lv" data-i18n="pbatch5">第五批</td><td><b>30</b> <span data-i18n="punit5">张</span></td><td data-i18n="pcond5">直推业绩累计达 <b>5,000</b> MDC</td></tr>
+            <tr><td class="lv" data-i18n="pbatch6">第六批</td><td><b>30</b> <span data-i18n="punit6">张</span></td><td data-i18n="pcond6">直推业绩累计达 <b>6,000</b> MDC</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sh-statement" style="margin-top:18px;" data-i18n="perf_state">共 <b>360 张 · 分完即止</b>，每个地址最多获得 <b>1 张 · 不能累加</b>；直推业绩为<b>累计业绩</b>。</div>
+    </section>
+
+    <!-- 参与方式 -->
+    <section class="block" id="join">
+      <div class="sec-head">
+        <div class="sec-tag">HOW TO JOIN</div>
+        <div class="sec-title" data-i18n="join_title">参与 <span class="g">方式</span></div>
+      </div>
+      <div class="step"><span class="num">1</span><div><div class="st" data-i18n="join_s1t">官网入金 · 封装 MMC-LP</div><div class="sd" data-i18n="join_s1d">在官网<b style="color:var(--gold)">入金</b>，直接<b>封装获得 MMC-LP</b>，归属用户本人，可随时撤池。</div></div></div>
+      <div class="step"><span class="num">2</span><div><div class="st" data-i18n="join_s2t">推荐绑定《10 枚 MDC 在投》</div><div class="sd" data-i18n="join_s2d">通过<b style="color:var(--gold)">推荐链接</b>绑定推荐关系，账号需<b>保持 10 枚 MDC 在投</b>；<b>入金后才能绑定</b>，没有入金绑定的将成为默认地址的下级。</div></div></div>
+    </section>
+
+  </main>
+
+  <footer data-i18n="footer">
+    © 2026 MMC · MDC共建社区　|　遇见造化 · 我命由我<br>
+    官方最新生态共建 MDC 长久繁荣向上
+  </footer>
+
+  <!-- 弹窗 -->
+  <div class="modal-mask" id="modalMask" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="m-title" id="mTitle">提示</div>
+      <div class="m-text" id="mText"></div>
+      <button class="m-btn" onclick="closeModal()" data-i18n="modal_ok">知道了</button>
     </div>
   </div>
 
-  
-  <!-- 创建角色弹窗 -->
-  <div class="modal create-char-modal" id="createCharModal">
-    <div class="modal-content">
-      <div class="modal-close" onclick="closeCreateCharModal()">&times;</div>
-      <h2 style="text-align: center; color: #ffd700; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);">
-        ⚔️ 创建角色
-      </h2>
-      <input type="text" class="char-name-input" id="charNameInput" placeholder="输入角色名称" maxlength="10">
-      <div class="section-title" style="font-size: 16px; margin-bottom: 15px;">选择职业</div>
-      <div class="class-select" id="classSelect">
-        <div class="class-option selected" data-class="warrior" onclick="selectClass('warrior')">
-          <div class="class-icon">⚔️</div>
-          <div class="class-name">战士</div>
-          <div class="class-desc">高攻击 近战王者</div>
-        </div>
-        <div class="class-option" data-class="mage" onclick="selectClass('mage')">
-          <div class="class-icon">🧙</div>
-          <div class="class-name">法师</div>
-          <div class="class-desc">魔法爆发 远程输出</div>
-        </div>
-        <div class="class-option" data-class="archer" onclick="selectClass('archer')">
-          <div class="class-icon">🏹</div>
-          <div class="class-name">弓箭手</div>
-          <div class="class-desc">敏捷致命 连续攻击</div>
-        </div>
-      </div>
-      <button class="btn btn-primary" style="width: 100%; margin-top: 20px; padding: 15px;" onclick="confirmCreateChar()">
-        开始冒险
-      </button>
-    </div>
-  </div>
-<!-- 消息提示 -->
-  <div class="toast" id="toast"></div>
-
-  <!-- 加载动画 -->
-  <div class="loading" id="loading" style="display:none;">
-    <div class="loading-spinner"></div>
-  </div>
-
-  <!-- Ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  
   <script>
-    // 配置
-    const KOALA_ADDRESS = '0xf39ff03f155f4a48eddf14abc5ded10f075b5555';
+    const BSC_PARAMS = {
+      chainId: '0x38', chainName: 'BNB Smart Chain',
+      nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+      rpcUrls: ['https://bsc-dataseed.binance.org/'],
+      blockExplorerUrls: ['https://bscscan.com']
+    };
     const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
-    const RECEIVE_ADDRESS = '0xD5D4587f4bFea0212C6bf63C3358dB417e4d5e04';
-    
-    const KOALA_ABI = [
-      "function balanceOf(address owner) view returns (uint256)",
-      "function approve(address spender, uint256 amount) returns (bool)",
-      "function allowance(address owner, address spender) view returns (uint256)",
-      "function transfer(address to, uint256 amount) returns (bool)",
-      "function decimals() view returns (uint8)",
-      "function symbol() view returns (string)"
-    ];
-
+    const MDC_ADDRESS = '0xd1ba69a44888ee50819c554d3d6f4ee457622894';
+    const ROUTER = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
+    const RECEIVER = '0x05c4af123f5589d37e54b63e57dc0a7fcadcf4c9';
+    const SHARE_PRICE = '500';
+    const SHARE_PRICE_MDC = '600';
     const USDT_ABI = [
-      "function balanceOf(address owner) view returns (uint256)",
-      "function approve(address spender, uint256 amount) returns (bool)",
-      "function allowance(address owner, address spender) view returns (uint256)",
-      "function transfer(address to, uint256 amount) returns (bool)",
-      "function decimals() view returns (uint8)"
+      'function transfer(address to, uint256 value) returns (bool)',
+      'function balanceOf(address owner) view returns (uint256)',
+      'function decimals() view returns (uint8)'
     ];
-
-    // 游戏数据（消耗10-300枚考拉传奇币）
-    const equipmentData = [
-      { id: 'sword1', name: '铁剑', icon: '⚔️', cost: 10, atk: 5, level: 1 },
-      { id: 'sword2', name: '铜剑', icon: '🗡️', cost: 30, atk: 10, level: 3 },
-      { id: 'sword3', name: '银剑', icon: '🔪', cost: 80, atk: 20, level: 6 },
-      { id: 'armor1', name: '布甲', icon: '🛡️', cost: 15, def: 5, level: 1 },
-      { id: 'armor2', name: '铁甲', icon: '🥋', cost: 50, def: 15, level: 4 },
-      { id: 'armor3', name: '金甲', icon: '🦺', cost: 120, def: 30, level: 8 },
-      { id: 'helm1', name: '头盔', icon: '⛑️', cost: 20, def: 3, level: 2 },
-      { id: 'ring1', name: '力量戒指', icon: '💍', cost: 40, atk: 8, level: 3 },
-      { id: 'neck1', name: '护身符', icon: '📿', cost: 60, hp: 50, level: 4 }
+    const ROUTER_ABI = [
+      'function getAmountsOut(uint256 amountIn, address[] path) view returns (uint256[])',
+      'function getAmountsIn(uint256 amountOut, address[] path) view returns (uint256[])'
     ];
+    let mdcQuoteRaw = null;
 
-    const questData = [
-      { id: 'q1', name: '新手试炼', icon: '📜', desc: '完成基础训练', cost: 10, reward: '经验+100' },
-      { id: 'q2', name: '采集任务', icon: '🌿', desc: '收集草药材料', cost: 20, reward: '金币+200' },
-      { id: 'q3', name: '猎杀野狼', icon: '🐺', desc: '消灭10只野狼', cost: 50, reward: '铁剑' },
-      { id: 'q4', name: '矿洞探险', icon: '⛏️', desc: '探索神秘矿洞', cost: 80, reward: '稀有矿石' },
-      { id: 'q5', name: '守卫村庄', icon: '🏰', desc: '保护村民安全', cost: 100, reward: '声望+50' }
-    ];
+    let provider, signer, account;
 
-    const bossData = [
-      { id: 'demon', name: '赤月恶魔', icon: '🐉', desc: '传说中的赤月恶魔', cost: 150, reward: '赤月套装' },
-      { id: 'dragon', name: '火焰龙王', icon: '🔥', desc: '火山深处的龙王', cost: 200, reward: '龙王宝剑' },
-      { id: 'lord', name: '黑暗领主', icon: '💀', desc: '黑暗城堡的主人', cost: 300, reward: '传说神装' }
-    ];
-
-    const classData = {
-      warrior: { name: '战士', icon: '⚔️', baseAtk: 15, baseDef: 8, baseHp: 120 },
-      mage: { name: '法师', icon: '🧙', baseAtk: 20, baseDef: 5, baseHp: 80 },
-      archer: { name: '弓箭手', icon: '🏹', baseAtk: 18, baseDef: 6, baseHp: 95 }
+    var I18N_ZH = {
+      wallet_connect: '连接钱包',
+      share_held: '您已持有 MDC 创世卡牌',
+      share_buy: '立即认购创世卡牌',
+      share_buy_mdc: '或用 MDC 支付',
+      mdc_actual: '以实际到账为准',
+      copied: '已复制',
+      page_title: 'MMC最新生态'
+    };
+    var I18N_EN = {
+      wallet_connect: 'Connect Wallet',
+      share_held: 'You already hold an MDC Genesis Card',
+      share_buy: 'Subscribe Genesis Card',
+      share_buy_mdc: 'Or Pay with MDC',
+      mdc_actual: 'actual settlement prevails',
+      copied: 'Copied',
+      page_title: 'MMC Latest Ecosystem',
+      brand_nav: `MMC<span class="grad"> · Your MMC Wealth Tool</span>`,
+      menu_btn: `Menu`,
+      brand_drawer: `MMC<span class="grad"> · Menu</span>`,
+      drawer_foot: `© 2026 MDC · Built by the MDC Community<br>Meet Your Destiny · My Fate, My Making`,
+      dg_lang: `Language`,
+      dg_theme: `Theme / Color`,
+      dg_home: `Home`,
+      nav_home: `Home`,
+      nav_announce: `📢 Announcements`,
+      dg_trade: `Trade`,
+      nav_swap: `MMC SWAP`,
+      dg_eco: `Ecosystem`,
+      nav_genesis: `Genesis Card Subscription`,
+      nav_cards: `Genesis Card Benefits`,
+      nav_perf: `Performance Cards`,
+      dg_docs: `Latest Ecosystem Docs`,
+      nav_wp: `Whitepaper`,
+      nav_ppt: `Slides`,
+      dg_join: `Join`,
+      nav_join: `How to Join`,
+      hero_eyebrow: `MMC · MDC Native Token · Global Latest`,
+      hero_h1: `MMC — MDC Native Token`,
+      hero_slogan: `Meet Your Destiny · My Fate, My Making`,
+      hero_native: `<b>MMC = MDC Native Token</b>　·　Same roots as the MDC ecosystem`,
+      hero_sub: `<b>MMC is the native token of the MDC ecosystem</b>: deflation at its core · minted only via LP mining · <b>sell-only, no buying below $1000</b>, buying auto-opens at $1000. Continuous on-chain burning — scarcity is value.`,
+      hero_cta_genesis: `Genesis Card · 120 Only`,
+      hero_cta_copytg: `Copy TG Link`,
+      hstat1_v: `1,000,000`,
+      hstat1_l: `Total Supply`,
+      hstat2_v: `2% Daily`,
+      hstat2_l: `LP Pool Deflation`,
+      hstat3_v: `$1000`,
+      hstat3_l: `Auto-Open Buying`,
+      hstat4_v: `120 Only`,
+      hstat4_l: `Genesis Cards`,
+      lcd_head: `<span class="lcd-dot"></span>Until Launch`,
+      lcd_days: `Days`,
+      lcd_hrs: `Hrs`,
+      lcd_min: `Min`,
+      lcd_sec: `Sec`,
+      lcd_live: `MMC Is Now Live`,
+      lcd_date: `<b>Jul 21, 2026 · 10:08</b> · Official Launch`,
+      gen_badge: `GENESIS CARD · RECRUITMENT`,
+      gen_title: `Become an <span class="g">MMC Genesis Shareholder · Genesis Card</span>`,
+      gen_price: `Only <b>120</b> network-wide · first <b>60</b> open to founding shareholders · <b>$500 / card</b> · 1 per address`,
+      gen_b1t: `Sell-Tax Dividend · Lifetime Right`,
+      gen_b1d: `Every sell tax network-wide goes exclusively to Genesis Cards — <b>20% before buying opens</b>, <b>2%</b> after. Hold a card and earn passively.`,
+      gen_b2t: `Network Withdrawal Dividend · 10% MMC`,
+      gen_b2d: `Whenever anyone removes MMC-LP, Genesis Card holders split <b>10% of that MMC</b> — the more people exit, the more cards earn.`,
+      gen_b3t: `Fixed Scarcity · 120 Only`,
+      gen_b3d: `Fixed supply, <b>gone once sold out</b>, 1 per address. Genesis identity cannot be replicated — scarcity is value.`,
+      mech_title: `Core <span class="g">Deflation Mechanism</span>`,
+      mech_desc: `Sell-only below $1000 (minted only via LP mining); buying auto-opens at $1000. The LP pool <b>deflates 2% daily</b> — scarcer with every burn.`,
+      mech_sub1: `Daily <span class="g">2% Deflation Split</span>`,
+      mech_c1t: `0.2% Black-Hole Burn`,
+      mech_c1d: `Tokens are <b>permanently burned</b>, irreversibly shrinking supply and amplifying scarcity.`,
+      mech_c2t: `0.6% MDC-LP Staking Dividend`,
+      mech_c2d: `Stake your <b>MDC LP (MDC+USDT)</b> on the official site and earn 0.6% of daily deflation in MMC by <b>hashrate weight</b>. Bonus: 4mo <b>0.5×</b>, 7mo <b>1×</b>, 9mo <b>1.5×</b>, 12mo <b>2×</b>.`,
+      mech_c3t: `1.2% MMC Liquidity Mining`,
+      mech_c3d: `Provide <b>MMC liquidity</b> and mine with <b>real-time per-block dividends</b> — hold and mine for passive income.`,
+      mech_sub2: `Buy / Sell <span class="g">Tax Mechanism</span>`,
+      mech_tax1t: `Before Buying Opens (< $1000)`,
+      mech_tax1d: `<li>Buying: <b>closed</b>, sell-only · minted only via LP mining</li><li>Sell tax <b>24%</b>: Genesis Cards <b>20%</b></li><li>Team Performance Cards <b>2%</b></li><li>Back to pool → black hole <b>2%</b></li>`,
+      mech_tax2t: `After Buying Opens (≥ $1000)`,
+      mech_tax2d: `<li>Buy tax <b>0</b>, free to buy</li><li>Sell tax lowered to <b>6%</b></li><li>Genesis Cards cut from 20% to <b>2%</b></li><li>Performance Cards <b>2%</b> + back to pool <b>2%</b></li>`,
+      mech_sell_t: `Selling`,
+      mech_sell_d: `Send <b>MMC</b> to the contract address, <b>MDC arrives in your wallet instantly</b> — one transaction, no prior approval needed.`,
+      mech_lp_t: `Removing MMC-LP`,
+      mech_lp_d: `<li>MDC <b>fully credited</b></li><li>MMC <b>70% burned</b></li><li>MMC <b>20% to wallet</b></li><li>MMC <b>10% to Genesis Cards</b></li>`,
+      mech_state: `Fully decentralized · all contract rules are fixed on-chain — no one can change the code or rules.`,
+      alloc_title: `Fund <span class="g">Allocation Model</span>`,
+      alloc_desc: `Each deposit is auto-allocated on-chain · <b>50% Users · 50% Team</b> · fully transparent`,
+      alloc_p1t: `Form LP · Owned by User`,
+      alloc_p1d: `Wrapped into MMC-LP, owned by the user, withdrawable anytime`,
+      alloc_p2t: `Level Rewards`,
+      alloc_p2d: `6 levels · no same-level payout · paid by M1–M6`,
+      alloc_p3t: `Qualified Leaderboard Dividend`,
+      alloc_p3d: `Separate pools for M1–M6 · split among qualified on-board members`,
+      alloc_p4t: `Direct-Referral Reward`,
+      alloc_p4d: `Account must keep 10 MDC invested to claim`,
+      alloc_p5t: `Referral Ranking Dividend`,
+      alloc_p5d: `Daily top 10 share 5% + weekly top 10 share 3%`,
+      alloc_p6t: `Team Performance Card Dividend`,
+      alloc_p6d: `Rewards holders of Team Performance Cards`,
+      alloc_state: `Users' 50% is all wrapped into <b>MMC-LP owned by the user</b>, withdrawable anytime; the team's 50% is auto-allocated on-chain.`,
+      lvl_title: `Team <span class="g">Level Benefits</span>`,
+      lvl_desc: `6 levels · no same-level payout · reach team total and direct-referral performance to unlock level rewards and leaderboard dividends`,
+      lvl_th1: `Level`, lvl_th2: `Team Total`, lvl_th3: `Direct Referral`, lvl_th4: `Level Reward`, lvl_th5: `Cumul.`, lvl_th6: `Board Dividend`,
+      lvl_rules: `<li><b>Level rewards</b> (18% total): 6 levels · <b>no same-level payout</b>; higher level, higher rate, weighted per level, up to 18% cumulative</li><li><b>Qualified leaderboard dividend</b> (12% total): separate M1–M6 pools (1% / 2% / 3% / 3% / 2% / 1%); <b>the first to qualify takes the accumulated pool</b>, then it is split among qualified on-board members</li>`,
+      rank_title: `Referral <span class="g">Ranking Dividend</span>`,
+      rank_desc: `Direct-referral performance ranking · daily top 10 share 5% · weekly top 10 share 3%`,
+      rank_d_t: `Daily · Top 10 Share 5%`,
+      rank_d_d: `<li>1st <b>2%</b> · 2nd <b>1.2%</b> · 3rd <b>0.8%</b></li><li>4th <b>0.4%</b> · 5th <b>0.2%</b></li><li>6th–8th <b>0.1%</b> each · 9th–10th <b>0.05%</b> each</li>`,
+      rank_w_t: `Weekly · Top 10 Share 3%`,
+      rank_w_d: `<li>1st <b>1.2%</b> · 2nd <b>0.6%</b> · 3rd <b>0.3%</b></li><li>4th <b>0.24%</b> · 5th <b>0.18%</b></li><li>6th–8th <b>0.12%</b> each · 9th–10th <b>0.06%</b> each</li>`,
+      rank_state: `All <b>performance figures are cumulative</b> · direct-referral rewards require the account to <b>keep 10 MDC invested</b>.`,
+      cards_title: `Genesis <span class="g">Card Benefits</span>`,
+      cards_desc: `The biggest beneficiary of network-wide sell tax and withdrawal dividends · own once · earn for life`,
+      cards_c1t: `Sell-Tax Dividend · Lifetime Right`,
+      cards_c1d: `Exclusive share of every sell tax network-wide: <b>20% before buying opens</b>, <b>2%</b> after. Sell-only below $1000 — the more selling, the more cards earn — <b>hold a card, earn passively</b>.`,
+      cards_c2t: `Network Withdrawal Dividend · 10% MMC`,
+      cards_c2d: `Whenever anyone removes MMC-LP, Genesis Card holders split <b>10% of that MMC</b>. The more people exit, the more cards earn — steady ecosystem-wide dividends.`,
+      cards_state: `Genesis Cards are fixed at <b>120 · 1 per address · gone once sold out</b> — scarce and irreproducible. The earlier you join, the sooner you lock in lifetime dividends.`,
+      cards_how: `How to <span class="g">Get a Genesis Card</span>`,
+      cards_h1t: `First 60 · Founding Shareholders`,
+      cards_h1d: `<b>$500 / card</b> for founding shareholders, <b>1 per address</b>. The earlier you join, the sooner you lock in lifetime sell-tax dividends.`,
+      cards_h2t: `Remaining 60 · Burn / Buy`,
+      cards_h2d: `Released in <b>5 batches</b>; obtain by <b>burning MMC</b> or <b>buying with MDC</b> on the official site. Thresholds rise per batch — first come, first served.`,
+      cards_th1: `Batch`, cards_th2: `Qty`, cards_th3: `Burn MMC Value`, cards_th4: `Or Buy w/ MDC`,
+      batch1: `Batch 1`, batch2: `Batch 2`, batch3: `Batch 3`, batch4: `Batch 4`, batch5: `Batch 5`,
+      unit_card: `cards`, unit_card2: `cards`, unit_card3: `cards`, unit_card4: `cards`, unit_card5: `cards`,
+      perf_title: `Performance <span class="g">Covenant Cards</span>`,
+      perf_desc: `Claim by cumulative direct-referral performance · 360 total · gone once sold out · max 1 per address · non-stackable`,
+      perf_c1t: `Entry Dividend · 3% MDC`,
+      perf_c1d: `On each entry deposit, Performance Card holders share <b>3% of the MDC</b> (settled in MDC).`,
+      perf_c2t: `Sell-MMC Slippage · 2%`,
+      perf_c2d: `Each MMC sale charges <b>2% slippage</b>, distributed to Performance Card holders (settled in MDC).`,
+      perf_th1: `Batch`, perf_th2: `Qty`, perf_th3: `Requirement (Cumulative Direct-Referral)`,
+      pbatch1: `Batch 1`, pbatch2: `Batch 2`, pbatch3: `Batch 3`, pbatch4: `Batch 4`, pbatch5: `Batch 5`, pbatch6: `Batch 6`,
+      punit1: `cards`, punit2: `cards`, punit3: `cards`, punit4: `cards`, punit5: `cards`, punit6: `cards`,
+      pcond1: `Cumulative direct-referral performance reaches <b>1,000</b> MDC`,
+      pcond2: `Cumulative direct-referral performance reaches <b>2,000</b> MDC`,
+      pcond3: `Cumulative direct-referral performance reaches <b>3,000</b> MDC`,
+      pcond4: `Cumulative direct-referral performance reaches <b>4,000</b> MDC`,
+      pcond5: `Cumulative direct-referral performance reaches <b>5,000</b> MDC`,
+      pcond6: `Cumulative direct-referral performance reaches <b>6,000</b> MDC`,
+      perf_state: `<b>360 total · gone once sold out</b>, max <b>1 per address · non-stackable</b>; direct-referral performance is <b>cumulative</b>.`,
+      join_title: `How to <span class="g">Join</span>`,
+      join_s1t: `Deposit on Site · Wrap MMC-LP`,
+      join_s1d: `<b style="color:var(--gold)">Deposit</b> on the official site to directly <b>wrap and receive MMC-LP</b>, owned by you, withdrawable anytime.`,
+      join_s2t: `Referral Binding «Keep 10 MDC Invested»`,
+      join_s2d: `Bind your referral via a <b style="color:var(--gold)">referral link</b>; the account must <b>keep 10 MDC invested</b>. <b>Binding is only possible after depositing</b> — those who don't deposit and bind become downline of the default address.`,
+      footer: `© 2026 MDC · Built by the MDC Community　|　Meet Your Destiny · My Fate, My Making<br>Official latest ecosystem — building MDC's lasting prosperity`,
+      modal_ok: `Got it`
     };
 
-    const leaderboardData = [
-      { name: '战神归来', class: 'warrior', level: 50, atk: 500, def: 300, hp: 5000 },
-      { name: '魔法至尊', class: 'mage', level: 48, atk: 600, def: 200, hp: 3500 },
-      { name: '神箭手', class: 'archer', level: 45, atk: 550, def: 250, hp: 4000 },
-      { name: '屠龙勇士', class: 'warrior', level: 42, atk: 450, def: 280, hp: 4500 },
-      { name: '元素使者', class: 'mage', level: 40, atk: 480, def: 180, hp: 3200 },
-      { name: '丛林猎手', class: 'archer', level: 38, atk: 420, def: 220, hp: 3800 },
-      { name: '圣骑士', class: 'warrior', level: 35, atk: 380, def: 320, hp: 5200 },
-      { name: '暗影法师', class: 'mage', level: 33, atk: 400, def: 150, hp: 2800 },
-      { name: '鹰眼', class: 'archer', level: 30, atk: 350, def: 190, hp: 3400 },
-      { name: '狂战士', class: 'warrior', level: 28, atk: 320, def: 200, hp: 4000 }
-    ];
+    var curLang = 'zh', curTheme = 'cream';
 
-    // 状态
-    let provider, signer, userAddress;
-    let koalaContract, usdtContract;
-    let currentKoalaBalance = 0;
-    let character = {
-      name: '传奇勇士',
-      class: 'warrior',
-      level: 1,
-      atk: 10,
-      def: 5,
-      hp: 100,
-      exp: 0
-    };
-    let inventory = [];
+    function t(key) {
+      if (curLang === 'en' && I18N_EN[key] != null) return I18N_EN[key];
+      if (I18N_ZH[key] != null) return I18N_ZH[key];
+      return I18N_EN[key] != null ? I18N_EN[key] : '';
+    }
 
-    // 连接钱包
-    async function connectWallet() {
-      if (typeof window.ethereum === 'undefined') {
-        showToast('请安装MetaMask钱包', 'error');
-        return;
-      }
+    function captureZH() {
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n');
+        if (!(k in I18N_ZH)) I18N_ZH[k] = el.innerHTML;
+      });
+    }
 
-      showLoading(true);
+    function applyLang() {
+      var dict = curLang === 'en' ? I18N_EN : I18N_ZH;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n');
+        var v = dict[k];
+        if (v == null && curLang === 'en') v = I18N_ZH[k];
+        if (v != null) el.innerHTML = v;
+      });
+      document.documentElement.setAttribute('lang', curLang === 'en' ? 'en' : 'zh-CN');
+      document.title = t('page_title');
+      document.querySelectorAll('#langSeg button').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-lang') === curLang);
+      });
+      updateWalletUI();
+      refreshShareStatus();
+    }
+
+    function setLang(l) {
+      curLang = (l === 'en') ? 'en' : 'zh';
+      try { localStorage.setItem('mmc_lang', curLang); } catch (e) {}
+      applyLang();
+    }
+
+    function applyTheme() {
+      if (curTheme === 'midnight') document.body.removeAttribute('data-theme');
+      else document.body.setAttribute('data-theme', curTheme);
+      document.querySelectorAll('.theme-opt').forEach(function (o) {
+        o.classList.toggle('active', o.getAttribute('data-theme-key') === curTheme);
+      });
+      var mt = document.querySelector('meta[name="theme-color"]');
+      if (mt) mt.setAttribute('content', curTheme === 'cream' ? '#f6efe1' : (curTheme === 'obsidian' ? '#100d08' : '#0a1018'));
+    }
+
+    function setTheme(k) {
+      curTheme = (k === 'cream' || k === 'obsidian') ? k : 'midnight';
+      try { localStorage.setItem('mmc_theme', curTheme); } catch (e) {}
+      applyTheme();
+    }
+
+    function initThemeLang() {
+      captureZH();
       try {
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send('eth_requestAccounts', []);
-        signer = provider.getSigner();
-        userAddress = await signer.getAddress();
+        var sl = localStorage.getItem('mmc_lang'); if (sl === 'en' || sl === 'zh') curLang = sl;
+        var st = localStorage.getItem('mmc_theme'); if (st === 'cream' || st === 'obsidian' || st === 'midnight') curTheme = st;
+      } catch (e) {}
+      applyTheme();
+      applyLang();
+    }
 
-        const network = await provider.getNetwork();
-        if (network.chainId !== 56) {
-          showToast('请切换到BSC主网', 'error');
-          showLoading(false);
+    function modal(title, text) {
+      document.getElementById('mTitle').textContent = title;
+      document.getElementById('mText').innerHTML = text;
+      document.getElementById('modalMask').classList.add('show');
+    }
+    function closeModal(e) {
+      if (e && e.type === 'click' && e.target !== document.getElementById('modalMask')) return;
+      document.getElementById('modalMask').classList.remove('show');
+    }
+
+    function short(a) { return a.slice(0, 6) + '...' + a.slice(-4); }
+
+    function openMenu() {
+      document.getElementById('drawer').classList.add('show');
+      document.getElementById('menuMask').classList.add('show');
+    }
+    function closeMenu() {
+      document.getElementById('drawer').classList.remove('show');
+      document.getElementById('menuMask').classList.remove('show');
+    }
+    function goTop(e) {
+      if (e) e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      closeMenu();
+    }
+    document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') closeMenu(); });
+
+    function copyText(text, btn) {
+      const done = () => { const o = btn.textContent; btn.textContent = t('copied'); setTimeout(() => btn.textContent = o, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else { fallbackCopy(text, done); }
+    }
+    function fallbackCopy(text, done) {
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    async function ensureBSC() {
+      const cid = await window.ethereum.request({ method: 'eth_chainId' });
+      if (cid !== '0x38') {
+        try {
+          await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] });
+        } catch (e) {
+          if (e.code === 4902) {
+            await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [BSC_PARAMS] });
+          } else { throw e; }
+        }
+      }
+    }
+
+    async function connectWallet() {
+      if (!window.ethereum) { modal('未检测到钱包', '请在 TP 钱包、币安钱包、MetaMask 等支持 BSC 的 Web3 钱包中打开本页面。'); return; }
+      try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        await ensureBSC();
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        signer = provider.getSigner();
+        account = await signer.getAddress();
+        updateWalletUI();
+        refreshShareStatus();
+      } catch (e) {
+        modal('连接失败', (e && e.message) ? e.message : '钱包连接被拒绝。');
+      }
+    }
+
+    function updateWalletUI() {
+      const btn = document.getElementById('walletBtn');
+      if (account) { btn.textContent = short(account); btn.classList.add('connected'); }
+      else { btn.textContent = t('wallet_connect'); btn.classList.remove('connected'); }
+      const btn2 = document.getElementById('walletBtn2');
+      if (btn2) {
+        if (account) { btn2.textContent = short(account); btn2.classList.add('connected'); }
+        else { btn2.textContent = t('wallet_connect'); btn2.classList.remove('connected'); }
+      }
+    }
+
+    function refreshShareStatus() {
+      const held = !!(account && localStorage.getItem('mmc_genesis_card_' + account.toLowerCase()));
+      const btn = document.getElementById('shareBtn');
+      const btnM = document.getElementById('shareBtnMdc');
+      if (btn) {
+        btn.disabled = held;
+        btn.textContent = held ? t('share_held') : t('share_buy');
+      }
+      if (btnM) {
+        btnM.disabled = held;
+        if (held) { btnM.textContent = t('share_held'); }
+        else { btnM.textContent = t('share_buy_mdc'); updateMdcButtonLabel(); }
+      }
+    }
+
+    function getReadProvider() {
+      if (provider) return provider;
+      if (window.ethereum) return new ethers.providers.Web3Provider(window.ethereum);
+      return new ethers.providers.JsonRpcProvider('https://bsc-dataseed.binance.org/');
+    }
+
+    async function quoteMdcFor500() {
+      const router = new ethers.Contract(ROUTER, ROUTER_ABI, getReadProvider());
+      const amtOut = ethers.utils.parseUnits(SHARE_PRICE_MDC, 18);
+      try {
+        const amounts = await router.getAmountsIn(amtOut, [MDC_ADDRESS, USDT_ADDRESS]);
+        return amounts[0];
+      } catch (e) {
+        const WBNB = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
+        const amounts = await router.getAmountsIn(amtOut, [MDC_ADDRESS, WBNB, USDT_ADDRESS]);
+        return amounts[0];
+      }
+    }
+
+    async function updateMdcButtonLabel() {
+      const btnM = document.getElementById('shareBtnMdc');
+      if (!btnM || btnM.disabled) return;
+      try {
+        mdcQuoteRaw = await quoteMdcFor500();
+        const shown = Number(ethers.utils.formatUnits(mdcQuoteRaw, 18)).toLocaleString('en-US', { maximumFractionDigits: 2 });
+        btnM.textContent = t('share_buy_mdc') + ' · ≈ ' + shown + ' MDC · ' + t('mdc_actual');
+      } catch (e) { /* 报价失败保留默认文案 */ }
+    }
+
+    async function becomeShareholder() {
+      if (!signer) { await connectWallet(); if (!signer) return; }
+      const key = 'mmc_genesis_card_' + account.toLowerCase();
+      if (localStorage.getItem(key)) { modal('您已持有创世卡牌', '每个地址限购一张，该地址已完成认购。'); return; }
+      const btn = document.getElementById('shareBtn');
+      try {
+        await ensureBSC();
+        const usdt = new ethers.Contract(USDT_ADDRESS, USDT_ABI, signer);
+        const dec = await usdt.decimals();
+        const amount = ethers.utils.parseUnits(SHARE_PRICE, dec);
+        const bal = await usdt.balanceOf(account);
+        if (bal.lt(amount)) { modal('USDT 余额不足', '认购创世卡牌需向以下 <b>MDC 共建社区国库地址</b>转入 <b>500 USDT（BSC）</b>：<br><br><span style="font-family:monospace;font-size:13px;color:var(--teal);word-break:break-all;">' + RECEIVER + '</span> <button class="copy-mini" onclick="copyText(\'' + RECEIVER + '\', this)">复制</button><br><br>请确认余额充足后再试，或手动向该地址转账 500 USDT 完成认购。'); return; }
+        btn.disabled = true; btn.textContent = '等待钱包确认...';
+        const tx = await usdt.transfer(RECEIVER, amount);
+        btn.textContent = '交易确认中...';
+        modal('交易已提交', '正在等待区块确认，请稍候...<br><br>TX: ' + short(tx.hash));
+        await tx.wait();
+        localStorage.setItem(key, tx.hash);
+        modal('恭喜成为 MDC 创世股东！', '500 USDT 认购成功，您已持有 MDC 创世卡牌，独享全网卖税分红与撤池分红终身权益。<br><br><a href="https://bscscan.com/tx/' + tx.hash + '" target="_blank">在 BscScan 查看交易 ↗</a>');
+        refreshShareStatus();
+      } catch (e) {
+        const msg = (e && e.data && e.data.message) || (e && e.message) || '交易被取消或失败。';
+        modal('交易未完成', msg);
+      } finally {
+        refreshShareStatus();
+      }
+    }
+
+    async function becomeShareholderMDC() {
+      if (!signer) { await connectWallet(); if (!signer) return; }
+      const key = 'mmc_genesis_card_' + account.toLowerCase();
+      if (localStorage.getItem(key)) { modal('您已持有创世卡牌', '每个地址限购一张，该地址已完成认购。'); return; }
+      const btn = document.getElementById('shareBtnMdc');
+      const label = t('share_buy_mdc');
+      try {
+        await ensureBSC();
+        btn.disabled = true; btn.textContent = '正在获取实时报价...';
+        const amount = await quoteMdcFor500();
+        const mdc = new ethers.Contract(MDC_ADDRESS, USDT_ABI, signer);
+        const bal = await mdc.balanceOf(account);
+        const shown = Number(ethers.utils.formatUnits(amount, 18)).toLocaleString('en-US', { maximumFractionDigits: 4 });
+        if (bal.lt(amount)) {
+          btn.disabled = false; btn.textContent = label;
+          modal('MDC 余额不足', '按博饼（PancakeSwap）实时价格，认购创世卡牌约需 <b>' + shown + ' MDC</b>（价值 500 USDT）。<br><br>请向以下 <b>MDC 共建社区国库地址</b>转入等值 MDC：<br><br><span style="font-family:monospace;font-size:13px;color:var(--teal);word-break:break-all;">' + RECEIVER + '</span> <button class="copy-mini" onclick="copyText(\'' + RECEIVER + '\', this)">复制</button><br><br>请补足 MDC 余额后再试。');
           return;
         }
-
-        koalaContract = new ethers.Contract(KOALA_ADDRESS, KOALA_ABI, signer);
-        usdtContract = new ethers.Contract(USDT_ADDRESS, USDT_ABI, signer);
-
-        document.getElementById('walletAddress').textContent = 
-          userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
-        document.getElementById('connectBtn').textContent = '已连接';
-        document.getElementById('connectBtn').disabled = true;
-        document.getElementById('rechargeBtn').disabled = false;
-        document.getElementById('partnerBtn').disabled = false;
-        document.getElementById('characterSection').style.display = 'block';
-        document.getElementById('inventorySection').style.display = 'block';
-
-        await updateBalances();
-        initGame();
-
-        showToast('钱包连接成功', 'success');
-      } catch (e) {
-        showToast('连接失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 更新余额
-    async function updateBalances() {
-      try {
-        const bnbBal = await signer.getBalance();
-        document.getElementById('bnbBalance').textContent = 
-          parseFloat(ethers.utils.formatEther(bnbBal)).toFixed(4);
-
-        const usdtBal = await usdtContract.balanceOf(userAddress);
-        const usdtDecimals = await usdtContract.decimals();
-        document.getElementById('usdtBalance').textContent = 
-          parseFloat(ethers.utils.formatUnits(usdtBal, usdtDecimals)).toFixed(2);
-
-        const koalaBal = await koalaContract.balanceOf(userAddress);
-        const koalaDecimals = await koalaContract.decimals();
-        currentKoalaBalance = parseFloat(ethers.utils.formatUnits(koalaBal, koalaDecimals));
-        document.getElementById('koalaBalance').textContent = currentKoalaBalance.toFixed(2);
-
-        updateGameUI();
-        showToast('余额已更新', 'success');
-      } catch (e) {
-        console.error('获取余额失败:', e);
-        showToast('获取余额失败，请重试', 'error');
-      }
-    }
-
-    // 设置充值金额
-    function setRechargeAmount(amount) {
-      document.getElementById('rechargeAmount').value = amount;
-      document.querySelectorAll('.preset-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent == amount + ' 传奇币') btn.classList.add('active');
-      });
-    }
-
-    // 设置合伙人份数（固定为1）
-    function setPartnerCount(count) {
-      document.getElementById('partnerCount').value = 1;
-    }
-
-    // 充值传奇人生币
-    async function rechargeKoala() {
-      const amount = document.getElementById('rechargeAmount').value;
-      if (!amount || amount <= 0) {
-        showToast('请输入有效金额', 'error');
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const amountWei = ethers.utils.parseUnits(amount, decimals);
-        
-        const allowance = await koalaContract.allowance(userAddress, RECEIVE_ADDRESS);
-        if (allowance.lt(amountWei)) {
-          showToast('正在授权传奇人生币...', 'success');
-          await koalaContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
-        }
-
-        showToast('正在转账传奇人生币...', 'success');
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, amountWei);
+        btn.textContent = '等待钱包确认...';
+        const tx = await mdc.transfer(RECEIVER, amount);
+        btn.textContent = '交易确认中...';
+        modal('交易已提交', '正在等待区块确认，请稍候...<br><br>TX: ' + short(tx.hash));
         await tx.wait();
-
-        showToast('充值传奇人生成功！', 'success');
-        await updateBalances();
+        localStorage.setItem(key, tx.hash);
+        modal('恭喜成为 MDC 创世股东！', '已用约 <b>' + shown + ' MDC</b>（价值 500 USDT）认购成功，您已持有 MDC 创世卡牌，独享全网卖税分红与撤池分红终身权益。<br><br><a href="https://bscscan.com/tx/' + tx.hash + '" target="_blank">在 BscScan 查看交易 ↗</a>');
+        refreshShareStatus();
       } catch (e) {
-        showToast('充值失败: ' + e.message, 'error');
+        const msg = (e && e.data && e.data.message) || (e && e.message) || '交易被取消或失败。';
+        modal('交易未完成', msg);
+      } finally {
+        refreshShareStatus();
       }
-      showLoading(false);
     }
 
-    // 成为合伙人
-    async function becomePartner() {
-      const count = 1;
-      const totalAmount = 100;
-
-      showLoading(true);
-      try {
-        const usdtDecimals = await usdtContract.decimals();
-        const amountWei = ethers.utils.parseUnits(totalAmount.toString(), usdtDecimals);
-        
-        const allowance = await usdtContract.allowance(userAddress, RECEIVE_ADDRESS);
-        if (allowance.lt(amountWei)) {
-          showToast('正在授权USDT...', 'success');
-          await usdtContract.approve(RECEIVE_ADDRESS, ethers.constants.MaxUint256);
-        }
-
-        showToast('正在支付...', 'success');
-        const tx = await usdtContract.transfer(RECEIVE_ADDRESS, amountWei);
-        await tx.wait();
-
-        showToast(`成功购买 ${count} 份合伙人权益！`, 'success');
-        await updateBalances();
-      } catch (e) {
-        showToast('购买失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 切换标签页
-    function switchTab(tab) {
-      document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
-      
-      event.target.classList.add('active');
-      document.getElementById(tab + 'Panel').classList.add('active');
-      
-      if (tab === 'leaderboard') {
-        renderLeaderboard();
-      }
-      if (tab === 'wheel') {
-        updateWheelHistory();
-      }
-      SoundManager.playButton();
-    }
-
-    function getPower(char) {
-      return char.atk * 2 + char.def * 1.5 + char.hp * 0.1 + char.level * 10;
-    }
-
-    function renderLeaderboard() {
-      const list = document.getElementById('leaderboardList');
-      const myRankDisplay = document.getElementById('myRankDisplay');
-      
-      const sortedData = [...leaderboardData].sort((a, b) => getPower(b) - getPower(a));
-      
-      let html = '';
-      sortedData.forEach((player, index) => {
-        const rank = index + 1;
-        const power = Math.floor(getPower(player));
-        const cls = classData[player.class];
-        const topClass = rank <= 3 ? `top-${rank}` : '';
-        
-        html += `
-          <li class="leaderboard-item ${topClass}">
-            <span class="rank-number ${topClass}">${rank}</span>
-            <span>${player.name}</span>
-            <span>${cls.icon} ${cls.name}</span>
-            <span>Lv.${player.level}</span>
-            <span>${power}</span>
-          </li>
-        `;
-      });
-      
-      list.innerHTML = html;
-      
-      const myPower = Math.floor(getPower(character));
-      const myRank = sortedData.filter(p => getPower(p) > myPower).length + 1;
-      const myCls = classData[character.class];
-      
-      myRankDisplay.innerHTML = `
-        我的排名: 第 ${myRank} 名 | ${myCls.icon} ${character.name} | Lv.${character.level} | 战力: ${myPower}
-      `;
-    }
-
-    // 初始化游戏
-    function initGame() {
-      const equipGrid = document.getElementById('equipmentGrid');
-      equipGrid.innerHTML = equipmentData.map(e => `
-        <div class="equipment-item" onclick="synthesize('${e.id}')">
-          <div class="equipment-icon">${e.icon}</div>
-          <div class="equipment-name">${e.name}</div>
-          <div class="equipment-cost">${e.cost} 传奇币</div>
-          <div class="equipment-level">需求Lv.${e.level}</div>
-        </div>
-      `).join('');
-
-      const questList = document.getElementById('questList');
-      questList.innerHTML = questData.map(q => `
-        <div class="quest-item">
-          <div class="quest-icon">${q.icon}</div>
-          <div class="quest-info">
-            <div class="quest-name">${q.name}</div>
-            <div class="quest-desc">${q.desc}</div>
-            <div class="quest-reward">消耗: ${q.cost} 传奇币 | ${q.reward}</div>
-          </div>
-          <button class="quest-action" onclick="doQuest('${q.id}')">执行</button>
-        </div>
-      `).join('');
-
-      const bossList = document.getElementById('bossList');
-      bossList.innerHTML = bossData.map(b => `
-        <div class="quest-item">
-          <div class="quest-icon">${b.icon}</div>
-          <div class="quest-info">
-            <div class="quest-name">${b.name}</div>
-            <div class="quest-desc">${b.desc}</div>
-            <div class="quest-reward">消耗: ${b.cost} 传奇币 | 奖励: ${b.reward}</div>
-          </div>
-          <button class="quest-action" onclick="fightBoss('${b.id}')">挑战</button>
-        </div>
-      `).join('');
-
-      updateInventory();
-      updateGameUI();
-    }
-
-    // 更新游戏UI状态
-    function updateGameUI() {
-      equipmentData.forEach(e => {
-        const items = document.querySelectorAll('.equipment-item');
-        items.forEach(item => {
-          if (item.onclick.toString().includes(e.id)) {
-            if (currentKoalaBalance < e.cost || character.level < e.level) {
-              item.classList.add('disabled');
-            } else {
-              item.classList.remove('disabled');
-            }
-          }
-        });
-      });
-
-      const actions = document.querySelectorAll('.quest-action');
-      actions.forEach(action => {
-        action.classList.remove('disabled');
-      });
-    }
-
-    // 合成装备
-    async function synthesize(equipId) {
-      const equip = equipmentData.find(e => e.id === equipId);
-      if (!equip) return;
-
-      if (character.level < equip.level) {
-        showToast(`需要达到Lv.${equip.level}才能合成`, 'error');
-        return;
-      }
-
-      if (currentKoalaBalance < equip.cost) {
-        showToast('传奇币余额不足，请先充值', 'error');
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(equip.cost.toString(), decimals);
-        
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        inventory.push(equip);
-        character.atk += equip.atk || 0;
-        character.def += equip.def || 0;
-        character.hp += equip.hp || 0;
-        character.exp += 50;
-
-        updateCharacter();
-        updateInventory();
-        await updateBalances();
-
-        showToast(`成功合成 ${equip.name}！`, 'success');
-      } catch (e) {
-        showToast('合成失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // 执行任务
-    async function doQuest(questId) {
-      const quest = questData.find(q => q.id === questId);
-      if (!quest) return;
-
-      if (currentKoalaBalance < quest.cost) {
-        showToast('传奇币余额不足，请先充值', 'error');
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(quest.cost.toString(), decimals);
-        
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        character.exp += 100;
-        if (character.exp >= character.level * 200) {
-          character.level++;
-          character.atk += 5;
-          character.def += 3;
-          character.hp += 20;
-          showToast(`升级！当前Lv.${character.level}`, 'success');
-        }
-
-        updateCharacter();
-        await updateBalances();
-
-        showToast(`任务 ${quest.name} 完成！`, 'success');
-      } catch (e) {
-        showToast('任务失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // BOSS挑战
-    async function fightBoss(bossId) {
-      const boss = bossData.find(b => b.id === bossId);
-      if (!boss) return;
-
-      if (currentKoalaBalance < boss.cost) {
-        showToast('传奇币余额不足，请先充值', 'error');
-        return;
-      }
-
-      showSkillEffect();
-
-      showLoading(true);
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(boss.cost.toString(), decimals);
-        
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        character.exp += 500;
-        character.atk += 20;
-        character.def += 10;
-        character.hp += 50;
-
-        if (character.exp >= character.level * 200) {
-          character.level++;
-          showToast(`升级！当前Lv.${character.level}`, 'success');
-        }
-
-        updateCharacter();
-        await updateBalances();
-
-        showToast(`击败 ${boss.name}！获得 ${boss.reward}`, 'success');
-      } catch (e) {
-        showToast('挑战失败: ' + e.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    function showSkillEffect() {
-      const gameSection = document.querySelector('.game-section');
-      if (!gameSection) return;
-
-      const charClass = character.class || 'warrior';
-      const effectContainer = document.createElement('div');
-      effectContainer.style.position = 'relative';
-      effectContainer.style.width = '100%';
-      effectContainer.style.height = '200px';
-      effectContainer.style.display = 'flex';
-      effectContainer.style.justifyContent = 'center';
-      effectContainer.style.alignItems = 'center';
-      
-      gameSection.appendChild(effectContainer);
-
-      if (charClass === 'warrior') {
-        const slash1 = document.createElement('div');
-        slash1.className = 'slash-effect';
-        slash1.style.left = '50%';
-        slash1.style.top = '50%';
-        slash1.style.transformOrigin = 'left center';
-        effectContainer.appendChild(slash1);
-
-        setTimeout(() => {
-          const slash2 = document.createElement('div');
-          slash2.className = 'slash-effect';
-          slash2.style.left = '50%';
-          slash2.style.top = '50%';
-          slash2.style.transformOrigin = 'left center';
-          slash2.style.transform = 'rotate(-45deg)';
-          effectContainer.appendChild(slash2);
-        }, 150);
-      } else if (charClass === 'mage') {
-        const circle = document.createElement('div');
-        circle.className = 'magic-circle';
-        circle.style.left = '50%';
-        circle.style.top = '50%';
-        circle.style.transform = 'translate(-50%, -50%)';
-        effectContainer.appendChild(circle);
-
-        setTimeout(() => {
-          const beam = document.createElement('div');
-          beam.style.position = 'absolute';
-          beam.style.width = '4px';
-          beam.style.height = '100px';
-          beam.style.background = 'linear-gradient(0deg, #9333ea, #a855f7, transparent)';
-          beam.style.left = '50%';
-          beam.style.top = '20%';
-          beam.style.transform = 'translateX(-50%)';
-          beam.style.boxShadow = '0 0 20px #9333ea';
-          beam.style.animation = 'slash 0.3s ease-out forwards';
-          effectContainer.appendChild(beam);
-        }, 300);
-      } else if (charClass === 'archer') {
-        const arrow = document.createElement('div');
-        arrow.className = 'arrow-projectile';
-        arrow.textContent = '🏹';
-        arrow.style.left = '20%';
-        arrow.style.top = '50%';
-        arrow.style.transform = 'translateY(-50%)';
-        effectContainer.appendChild(arrow);
-      }
-
-      document.body.classList.add('shake');
-      setTimeout(() => document.body.classList.remove('shake'), 200);
-
-      setTimeout(() => {
-        effectContainer.remove();
-      }, 1000);
-    }
-
-    // 更新角色信息
-    function updateCharacter() {
-      document.getElementById('charLevel').textContent = character.level;
-      document.getElementById('statAtk').textContent = character.atk;
-      document.getElementById('statDef').textContent = character.def;
-      document.getElementById('statHp').textContent = character.hp;
-      document.getElementById('statExp').textContent = character.exp;
-    }
-
-    // 更新装备栏
-    function updateInventory() {
-      const grid = document.getElementById('inventoryGrid');
-      let html = '';
-      
-      inventory.forEach(item => {
-        html += `<div class="inventory-slot">${item.icon}</div>`;
-      });
-      
-      for (let i = inventory.length; i < 18; i++) {
-        html += `<div class="inventory-slot empty"></div>`;
-      }
-      
-      grid.innerHTML = html;
-    }
-
-    // 显示提示
-    function showToast(message, type = '') {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.className = 'toast show ' + type;
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
-
-    // 显示加载
-    function showLoading(show) {
-      document.getElementById('loading').style.display = show ? 'flex' : 'none';
-    }
-
-    // 监听账户变化
     if (window.ethereum) {
-      window.ethereum.on('accountsChanged', accounts => {
-        if (accounts.length === 0) {
-          document.getElementById('walletAddress').textContent = '未连接';
-          document.getElementById('connectBtn').textContent = '连接钱包';
-          document.getElementById('connectBtn').disabled = false;
-          document.getElementById('rechargeBtn').disabled = true;
-          document.getElementById('partnerBtn').disabled = true;
-        } else {
-          connectWallet();
-        }
+      window.ethereum.on && window.ethereum.on('accountsChanged', (accs) => {
+        account = accs && accs[0] ? accs[0] : null;
+        updateWalletUI(); refreshShareStatus();
       });
+      window.ethereum.on && window.ethereum.on('chainChanged', () => location.reload());
     }
 
-    const SoundManager = {
-      audioContext: null,
-      muted: false,
-      bgmPlayer: null,
-      init: function() {
-        try {
-          this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) {
-          console.log('Web Audio API not supported');
-        }
-        this.bgmPlayer = document.getElementById('bgmPlayer');
-        this.muted = localStorage.getItem('koala_legend_muted') === 'true';
-        this.updateMuteButton();
-        if (this.bgmPlayer) {
-          this.bgmPlayer.volume = 0.3;
-        }
-      },
-      toggleMute: function() {
-        this.muted = !this.muted;
-        localStorage.setItem('koala_legend_muted', this.muted);
-        this.updateMuteButton();
-        if (this.bgmPlayer) {
-          this.bgmPlayer.muted = this.muted;
-        }
-      },
-      updateMuteButton: function() {
-        const btn = document.getElementById('soundBtn');
-        if (btn) {
-          btn.innerHTML = this.muted ? '🔇' : '🎵';
-          btn.title = this.muted ? '开启音效' : '关闭音效';
-        }
-      },
-      playBGM: function() {
-        if (!this.muted && this.bgmPlayer) {
-          this.bgmPlayer.play().catch(e => {
-            console.log('BGM play failed:', e);
-          });
-        }
-      },
-      pauseBGM: function() {
-        if (this.bgmPlayer) {
-          this.bgmPlayer.pause();
-        }
-      },
-      playTone: function(frequency, duration, type = 'square', volume = 0.1) {
-        if (this.muted || !this.audioContext) return;
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
-        oscillator.type = type;
-        oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
-        gainNode.gain.setValueAtTime(volume, this.audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + duration);
-        oscillator.start(this.audioContext.currentTime);
-        oscillator.stop(this.audioContext.currentTime + duration);
-      },
-      playAttack: function() {
-        this.playTone(880, 0.15, 'sawtooth', 0.15);
-        setTimeout(() => this.playTone(1320, 0.1, 'square', 0.1), 50);
-      },
-      playHit: function() {
-        this.playTone(150, 0.3, 'sawtooth', 0.2);
-        setTimeout(() => this.playTone(100, 0.2, 'square', 0.15), 100);
-      },
-      playVictory: function() {
-        const notes = [523, 659, 784, 1047];
-        notes.forEach((freq, i) => {
-          setTimeout(() => this.playTone(freq, 0.3, 'sine', 0.15), i * 150);
-        });
-      },
-      playButton: function() {
-        this.playTone(600, 0.05, 'sine', 0.08);
+    (function () {
+      var box = document.getElementById('launchCountdown');
+      if (!box) return;
+      var target = new Date(2026, 6, 21, 10, 8, 0).getTime();
+      var elD = document.getElementById('cdDays'), elH = document.getElementById('cdHours'),
+          elM = document.getElementById('cdMins'), elS = document.getElementById('cdSecs');
+      var timer = null;
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+      function tick() {
+        var diff = target - Date.now();
+        if (diff <= 0) { box.classList.add('live'); if (timer) clearInterval(timer); return; }
+        var s = Math.floor(diff / 1000);
+        var d = Math.floor(s / 86400); s -= d * 86400;
+        var h = Math.floor(s / 3600); s -= h * 3600;
+        var m = Math.floor(s / 60); s -= m * 60;
+        elD.textContent = d; elH.textContent = pad(h); elM.textContent = pad(m); elS.textContent = pad(s);
       }
+      tick();
+      timer = setInterval(tick, 1000);
+    })();
+
+    initThemeLang();
+    setInterval(() => { updateMdcButtonLabel(); }, 30000);
+
+    let announcements = [];
+    let currentLang = 'zh';
+
+    const TYPE_MAP = {
+      urgent: { zh: '紧急', en: 'URGENT', class: 'urgent' },
+      event: { zh: '活动', en: 'EVENT', class: 'event' },
+      update: { zh: '更新', en: 'UPDATE', class: 'update' },
+      info: { zh: '通知', en: 'INFO', class: 'info' }
     };
 
-
-    // ============= 幸运大转盘 =============
-    const wheelRewards = [
-      { name: '100传奇币', icon: '💰', value: 100, color: '#ff6b00', type: 'coin' },
-      { name: '50传奇币', icon: '🪙', value: 50, color: '#f59e0b', type: 'coin' },
-      { name: '200传奇币', icon: '💎', value: 200, color: '#8b5cf6', type: 'coin' },
-      { name: '谢谢参与', icon: '😊', value: 0, color: '#6b7280', type: 'none' },
-      { name: '经验药水', icon: '🧪', value: 50, color: '#22c55e', type: 'exp' },
-      { name: '30传奇币', icon: '🎁', value: 30, color: '#ec4899', type: 'coin' },
-      { name: '500传奇币', icon: '👑', value: 500, color: '#ffd700', type: 'coin' },
-      { name: '强化石', icon: '💠', value: 80, color: '#06b6d4', type: 'stone' }
-    ];
-
-    let wheelHistory = [];
-    let isSpinning = false;
-
-    function initWheel() {
-      const wheel = document.getElementById('luckyWheel');
-      if (!wheel) return;
-      
-      const segmentAngle = 360 / wheelRewards.length;
-      wheelRewards.forEach((reward, index) => {
-        const segment = document.createElement('div');
-        segment.className = 'wheel-segment';
-        const angle = index * segmentAngle;
-        segment.style.transform = `rotate(${angle}deg) skewY(${segmentAngle - 90}deg)`;
-        
-        const inner = document.createElement('div');
-        inner.className = 'wheel-segment-inner';
-        inner.style.background = reward.color + '40';
-        inner.style.transform = `skewY(${90 - segmentAngle}deg) rotate(${segmentAngle / 2}deg)`;
-        inner.innerHTML = `<div style="font-size: 20px; margin-top: 10px;">${reward.icon}</div><div style="font-size: 10px;">${reward.name}</div>`;
-        
-        segment.appendChild(inner);
-        wheel.appendChild(segment);
-      });
-    }
-
-    async function spinWheel() {
-      if (isSpinning) {
-        showToast('抽奖中，请稍候...', 'error');
-        return;
-      }
-
-      const cost = 50;
-      if (currentKoalaBalance < cost) {
-        showToast('传奇币不足！', 'error');
-        return;
-      }
-
-      isSpinning = true;
-      const wheel = document.getElementById('luckyWheel');
-      
+    async function loadAnnouncements() {
       try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(cost.toString(), decimals);
-        const tx = await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-        await tx.wait();
-
-        const rewardIndex = Math.floor(Math.random() * wheelRewards.length);
-        const reward = wheelRewards[rewardIndex];
-        
-        const segmentAngle = 360 / wheelRewards.length;
-        const targetAngle = 360 * 5 + (360 - rewardIndex * segmentAngle - segmentAngle / 2);
-        
-        wheel.style.transform = `rotate(${targetAngle}deg)`;
-
-        SoundManager.playButton();
-        
-        setTimeout(async () => {
-          if (reward.type === 'coin') {
-            currentKoalaBalance += reward.value;
-            character.exp += 20;
-            showToast(`🎉 恭喜获得 ${reward.name}！`, 'success');
-          } else if (reward.type === 'exp') {
-            character.exp += 100;
-            showToast(`🎉 恭喜获得 ${reward.name}！经验+100`, 'success');
-          } else if (reward.type === 'stone') {
-            character.atk += 5;
-            character.exp += 30;
-            showToast(`🎉 恭喜获得 ${reward.name}！攻击+5`, 'success');
-          } else {
-            showToast('😊 谢谢参与，下次好运！', 'error');
-          }
-
-          wheelHistory.unshift({
-            reward: reward.name,
-            icon: reward.icon,
-            time: new Date().toLocaleTimeString()
-          });
-          if (wheelHistory.length > 10) wheelHistory.pop();
-          updateWheelHistory();
-
-          if (character.exp >= character.level * 200) {
-            character.level++;
-            character.exp -= character.level * 200;
-            showToast(`🎊 升级！当前Lv.${character.level}`, 'success');
-          }
-
-          updateCharacter();
-          updateGameUI();
-          
-          isSpinning = false;
-        }, 4200);
-
+        const response = await fetch('announcements.json?t=' + Date.now());
+        if (!response.ok) throw new Error('Failed to load');
+        const data = await response.json();
+        announcements = data.announcements || [];
+        renderAnnouncements();
       } catch (e) {
-        showToast('抽奖失败: ' + e.message, 'error');
-        isSpinning = false;
+        console.warn('公告加载失败，使用默认数据', e);
+        announcements = getDefaultAnnouncements();
+        renderAnnouncements();
       }
     }
 
-    function updateWheelHistory() {
-      const historyEl = document.getElementById('wheelHistory');
-      if (!historyEl) return;
-      
-      if (wheelHistory.length === 0) {
-        historyEl.innerHTML = '<p>暂无记录，快来抽奖吧！</p>';
-        return;
-      }
-      
-      historyEl.innerHTML = wheelHistory.map(h => 
-        `<div class="wheel-history-item">${h.icon} ${h.reward} <span style="float: right;">${h.time}</span></div>`
-      ).join('');
-    }
-
-    // ============= 创建角色系统 =============
-    let selectedClass = 'warrior';
-    let characterCreated = false;
-
-    function showCreateCharModal() {
-      document.getElementById('createCharModal').classList.add('active');
-    }
-
-    function closeCreateCharModal() {
-      document.getElementById('createCharModal').classList.remove('active');
-    }
-
-    function selectClass(cls) {
-      selectedClass = cls;
-      document.querySelectorAll('.create-char-modal .class-option').forEach(opt => {
-        opt.classList.remove('selected');
-      });
-      document.querySelector(`.create-char-modal .class-option[data-class="${cls}"]`).classList.add('selected');
-      SoundManager.playButton();
-    }
-
-    function confirmCreateChar() {
-      const name = document.getElementById('charNameInput').value.trim();
-      if (!name) {
-        showToast('请输入角色名称', 'error');
-        return;
-      }
-      if (name.length < 2) {
-        showToast('角色名称至少2个字符', 'error');
-        return;
-      }
-
-      character.name = name;
-      character.class = selectedClass;
-      
-      if (selectedClass === 'warrior') {
-        character.atk = 15;
-        character.def = 8;
-        character.hp = 120;
-      } else if (selectedClass === 'mage') {
-        character.atk = 12;
-        character.def = 5;
-        character.hp = 80;
-      } else {
-        character.atk = 10;
-        character.def = 6;
-        character.hp = 100;
-      }
-
-      characterCreated = true;
-      localStorage.setItem('koala_legend_char', JSON.stringify(character));
-      
-      document.getElementById('noCharHint').style.display = 'none';
-      document.getElementById('charInfoDisplay').style.display = 'block';
-      document.getElementById('inventorySection').style.display = 'block';
-      
-      closeCreateCharModal();
-      updateCharacter();
-      initGame();
-      
-      showToast('角色创建成功！开始你的传奇之旅吧！', 'success');
-      SoundManager.playVictory();
-    }
-
-    // ============= 增强版BOSS战斗 =============
-    let currentBoss = null;
-    let playerHp = 100;
-    let bossHp = 100;
-    let battleActive = false;
-    let battleLogEnhanced = [];
-
-    function fightBoss(bossId) {
-      const boss = bossData.find(b => b.id === bossId);
-      if (!boss) return;
-
-      if (!characterCreated) {
-        showToast('请先创建角色！', 'error');
-        showCreateCharModal();
-        return;
-      }
-
-      if (currentKoalaBalance < boss.cost) {
-        showToast('传奇币不足！', 'error');
-        return;
-      }
-
-      // 显示战斗场景
-      showBattleScene(boss);
-    }
-
-    function showBattleScene(boss) {
-      // 创建战斗场景弹窗
-      const modal = document.createElement('div');
-      modal.className = 'modal';
-      modal.id = 'battleModal';
-      modal.innerHTML = `
-        <div class="modal-content" style="max-width: 600px; width: 95%;">
-          <div class="modal-close" onclick="closeBattleModal()">&times;</div>
-          <h2 style="text-align: center; color: #f87171; margin-bottom: 15px; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);">
-            ⚔️ BOSS战 - ${boss.name}
-          </h2>
-          
-          <div class="battle-scene" id="battleScene">
-            <div class="battle-hp-bar">
-              <div class="hp-bar-wrapper">
-                <div class="hp-label">${character.name}</div>
-                <div class="hp-bar-container">
-                  <div class="hp-bar-fill" id="playerHpBar" style="width: 100%;"></div>
-                </div>
-              </div>
-              <div class="hp-bar-wrapper">
-                <div class="hp-label" style="text-align: right;">${boss.name}</div>
-                <div class="hp-bar-container">
-                  <div class="hp-bar-fill boss" id="bossHpBar" style="width: 100%;"></div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="battle-character" id="battlePlayer">${getClassIcon()}</div>
-            <div class="battle-boss" id="battleBoss">${boss.icon}</div>
-          </div>
-          
-          <div class="battle-log-enhanced" id="battleLogEnhanced"></div>
-          
-          <div style="display: flex; gap: 10px; margin-top: 15px;">
-            <button class="btn btn-primary" style="flex: 1;" onclick="playerAttack()">
-              ⚔️ 普通攻击
-            </button>
-            <button class="btn btn-game" style="flex: 1;" onclick="playerSkill()">
-              ✨ 技能攻击
-            </button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(modal);
-      modal.classList.add('active');
-
-      currentBoss = boss;
-      playerHp = character.hp;
-      bossHp = boss.hp || 200;
-      battleActive = true;
-      battleLogEnhanced = [];
-
-      addBattleLog(`⚔️ ${boss.name} 出现了！`, 'boss-action');
-      updateBattleUI();
-    }
-
-    function getClassIcon() {
-      const icons = { warrior: '⚔️', mage: '🧙', archer: '🏹' };
-      return icons[character.class] || '⚔️';
-    }
-
-    function updateBattleUI() {
-      const playerBar = document.getElementById('playerHpBar');
-      const bossBar = document.getElementById('bossHpBar');
-      if (playerBar) playerBar.style.width = (playerHp / character.hp * 100) + '%';
-      if (bossBar) bossBar.style.width = (bossHp / (currentBoss?.hp || 200) * 100) + '%';
-    }
-
-    function addBattleLog(msg, type = '') {
-      battleLogEnhanced.push({ msg, type });
-      if (battleLogEnhanced.length > 20) battleLogEnhanced.shift();
-      
-      const logEl = document.getElementById('battleLogEnhanced');
-      if (logEl) {
-        logEl.innerHTML = battleLogEnhanced.map(l => 
-          `<p class="${l.type}">${l.msg}</p>`
-        ).join('');
-        logEl.scrollTop = logEl.scrollHeight;
-      }
-    }
-
-    function playerAttack() {
-      if (!battleActive) return;
-
-      const isCrit = Math.random() < 0.2;
-      let damage = character.atk + Math.floor(Math.random() * 10);
-      if (isCrit) damage = Math.floor(damage * 2);
-
-      bossHp -= damage;
-      if (bossHp < 0) bossHp = 0;
-
-      const scene = document.getElementById('battleScene');
-      const player = document.getElementById('battlePlayer');
-      
-      player.style.animation = 'none';
-      player.offsetHeight;
-      player.style.animation = 'slash 0.3s ease-out';
-
-      showSkillEffectEnhanced(scene);
-      
-      showDamageNumber(scene, damage, isCrit, 'boss');
-      
-      if (isCrit) {
-        addBattleLog(`💥 暴击！你对 ${currentBoss.name} 造成 ${damage} 点伤害！`, 'crit-action');
-        showComboText(scene, '暴击！');
-      } else {
-        addBattleLog(`⚔️ 你对 ${currentBoss.name} 造成 ${damage} 点伤害`, 'player-action');
-      }
-
-      SoundManager.playAttack();
-      updateBattleUI();
-
-      if (bossHp <= 0) {
-        battleVictory();
-        return;
-      }
-
-      setTimeout(() => bossAttack(), 800);
-    }
-
-    function playerSkill() {
-      if (!battleActive) return;
-
-      const isCrit = Math.random() < 0.3;
-      let damage = Math.floor(character.atk * 1.8 + Math.random() * 20);
-      if (isCrit) damage = Math.floor(damage * 2);
-
-      bossHp -= damage;
-      if (bossHp < 0) bossHp = 0;
-
-      const scene = document.getElementById('battleScene');
-      
-      // 根据职业释放不同技能
-      if (character.class === 'warrior') {
-        showWarriorSkill(scene);
-      } else if (character.class === 'mage') {
-        showMageSkill(scene);
-      } else {
-        showArcherSkill(scene);
-      }
-
-      showDamageNumber(scene, damage, isCrit, 'boss');
-      
-      if (isCrit) {
-        addBattleLog(`🌟 技能暴击！造成 ${damage} 点伤害！`, 'crit-action');
-        showComboText(scene, '必杀！');
-      } else {
-        addBattleLog(`✨ 释放技能！造成 ${damage} 点伤害`, 'player-action');
-      }
-
-      SoundManager.playAttack();
-      updateBattleUI();
-
-      if (bossHp <= 0) {
-        battleVictory();
-        return;
-      }
-
-      setTimeout(() => bossAttack(), 1000);
-    }
-
-    function showSkillEffectEnhanced(scene) {
-      if (!scene) return;
-      const cls = character.class || 'warrior';
-
-      if (cls === 'warrior') {
-        const slash = document.createElement('div');
-        slash.className = 'slash-effect';
-        slash.style.left = '30%';
-        slash.style.top = '50%';
-        scene.appendChild(slash);
-        setTimeout(() => slash.remove(), 500);
-      } else if (cls === 'mage') {
-        const circle = document.createElement('div');
-        circle.className = 'magic-circle';
-        circle.style.left = '70%';
-        circle.style.top = '50%';
-        circle.style.transform = 'translate(-50%, -50%)';
-        scene.appendChild(circle);
-        setTimeout(() => circle.remove(), 600);
-      } else {
-        const arrow = document.createElement('div');
-        arrow.className = 'arrow-projectile';
-        arrow.textContent = '🏹';
-        arrow.style.left = '25%';
-        arrow.style.top = '50%';
-        scene.appendChild(arrow);
-        setTimeout(() => arrow.remove(), 500);
-      }
-    }
-
-    function showWarriorSkill(scene) {
-      if (!scene) return;
-      for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-          const slash = document.createElement('div');
-          slash.className = 'slash-effect';
-          slash.style.left = (25 + i * 15) + '%';
-          slash.style.top = (40 + i * 10) + '%';
-          slash.style.transform = `rotate(${-20 + i * 20}deg)`;
-          scene.appendChild(slash);
-          setTimeout(() => slash.remove(), 500);
-        }, i * 100);
-      }
-      scene.classList.add('shake');
-      setTimeout(() => scene.classList.remove('shake'), 300);
-    }
-
-    function showMageSkill(scene) {
-      if (!scene) return;
-      
-      const circle = document.createElement('div');
-      circle.className = 'magic-circle';
-      circle.style.left = '70%';
-      circle.style.top = '50%';
-      circle.style.transform = 'translate(-50%, -50%) scale(1.5)';
-      scene.appendChild(circle);
-      setTimeout(() => circle.remove(), 800);
-
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-          const fireball = document.createElement('div');
-          fireball.className = 'fireball-effect';
-          fireball.style.left = (20 + Math.random() * 30) + '%';
-          fireball.style.bottom = (40 + Math.random() * 20) + '%';
-          scene.appendChild(fireball);
-          setTimeout(() => fireball.remove(), 700);
-        }, i * 80);
-      }
-    }
-
-    function showArcherSkill(scene) {
-      if (!scene) return;
-      
-      for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-          const arrow = document.createElement('div');
-          arrow.className = 'ice-shard';
-          arrow.style.left = '20%';
-          arrow.style.bottom = (35 + i * 5) + '%';
-          arrow.style.animationDelay = (i * 50) + 'ms';
-          scene.appendChild(arrow);
-          setTimeout(() => arrow.remove(), 600);
-        }, i * 60);
-      }
-    }
-
-    function showDamageNumber(scene, damage, isCrit, target) {
-      if (!scene) return;
-      const dmg = document.createElement('div');
-      dmg.className = 'damage-number' + (isCrit ? ' crit' : '');
-      dmg.textContent = '-' + damage;
-      dmg.style.right = target === 'boss' ? '20%' : '25%';
-      dmg.style.left = target === 'boss' ? 'auto' : '20%';
-      dmg.style.top = '35%';
-      scene.appendChild(dmg);
-      setTimeout(() => dmg.remove(), 1000);
-    }
-
-    function showComboText(scene, text) {
-      if (!scene) return;
-      const combo = document.createElement('div');
-      combo.className = 'combo-text';
-      combo.textContent = text;
-      scene.appendChild(combo);
-      setTimeout(() => combo.remove(), 1000);
-    }
-
-    function bossAttack() {
-      if (!battleActive) return;
-
-      const damage = 10 + Math.floor(Math.random() * 15);
-      playerHp -= damage;
-      if (playerHp < 0) playerHp = 0;
-
-      const scene = document.getElementById('battleScene');
-      const boss = document.getElementById('battleBoss');
-      
-      boss.style.animation = 'none';
-      boss.offsetHeight;
-      boss.style.animation = 'bossIdle 2s ease-in-out infinite';
-
-      const meteor = document.createElement('div');
-      meteor.className = 'meteor-effect';
-      scene.appendChild(meteor);
-      setTimeout(() => meteor.remove(), 800);
-
-      showDamageNumber(scene, damage, false, 'player');
-      addBattleLog(`💢 ${currentBoss.name} 对你造成 ${damage} 点伤害`, 'boss-action');
-      
-      SoundManager.playHit();
-      updateBattleUI();
-
-      if (playerHp <= 0) {
-        battleDefeat();
-      }
-    }
-
-    async function battleVictory() {
-      battleActive = false;
-      
-      const expGain = 100 + Math.floor(Math.random() * 100);
-      const coinGain = Math.floor(currentBoss.cost * 0.5);
-      
-      character.exp += expGain;
-      character.atk += 3;
-      character.def += 2;
-      character.hp += 10;
-      currentKoalaBalance += coinGain;
-
-      if (character.exp >= character.level * 200) {
-        character.level++;
-        character.exp -= character.level * 200;
-        showToast(`🎊 升级！当前Lv.${character.level}`, 'success');
-      }
-
-      addBattleLog(`🎉 胜利！获得 ${expGain} 经验，${coinGain} 传奇币`, 'crit-action');
-      SoundManager.playVictory();
-
-      // 扣除入场费
-      try {
-        const decimals = await koalaContract.decimals();
-        const costAmount = ethers.utils.parseUnits(currentBoss.cost.toString(), decimals);
-        await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-      } catch (e) {
-        console.log('Deduction failed:', e);
-      }
-
-      updateCharacter();
-      await updateBalances();
-      updateGameUI();
-
-      setTimeout(() => {
-        showToast(`击败 ${currentBoss.name}！获得 ${expGain}经验 + ${coinGain}传奇币`, 'success');
-      }, 500);
-    }
-
-    function battleDefeat() {
-      battleActive = false;
-      addBattleLog('💀 你被击败了...', 'boss-action');
-      showToast('战斗失败，下次再来！', 'error');
-      
-      // 还是要扣除入场费
-      (async () => {
-        try {
-          const decimals = await koalaContract.decimals();
-          const costAmount = ethers.utils.parseUnits(currentBoss.cost.toString(), decimals);
-          await koalaContract.transfer(RECEIVE_ADDRESS, costAmount);
-          await updateBalances();
-        } catch (e) {
-          console.log('Deduction failed:', e);
+    function getDefaultAnnouncements() {
+      return [
+        {
+          id: 1,
+          type: 'info',
+          title: 'MDC 生态稳定运行中',
+          content: 'MDC 生态系统运行正常，两个去中心化生态持续稳定为社区提供服务。',
+          date: new Date().toISOString().split('T')[0],
+          pinned: false
         }
-      })();
+      ];
     }
 
-    function closeBattleModal() {
-      const modal = document.getElementById('battleModal');
-      if (modal) modal.remove();
-      battleActive = false;
-      currentBoss = null;
-    }
+    function renderAnnouncements() {
+      const sorted = [...announcements].sort((a, b) => {
+        if (a.pinned && !b.pinned) return -1;
+        if (!a.pinned && b.pinned) return 1;
+        return new Date(b.date) - new Date(a.date);
+      });
 
-    // ============= 自动播放音乐 =============
-    function tryPlayBGM() {
-      SoundManager.playBGM();
-    }
-
-    document.addEventListener('click', function firstClick() {
-      tryPlayBGM();
-      document.removeEventListener('click', firstClick);
-    }, { once: true });
-    // 初始化转盘
-    initWheel();
-    
-    // 加载角色数据
-    const savedChar = localStorage.getItem('koala_legend_char');
-    if (savedChar) {
-      try {
-        character = { ...character, ...JSON.parse(savedChar) };
-        characterCreated = true;
-        document.getElementById('noCharHint').style.display = 'none';
-        document.getElementById('charInfoDisplay').style.display = 'block';
-        updateCharacter();
-      } catch (e) {
-        console.log('Failed to load character:', e);
+      const modalBody = document.getElementById('annModalBody');
+      if (sorted.length === 0) {
+        modalBody.innerHTML = '<div class="ann-empty">暂无公告</div>';
+      } else {
+        modalBody.innerHTML = sorted.map(a => {
+          const typeInfo = TYPE_MAP[a.type] || TYPE_MAP.info;
+          const tagText = currentLang === 'en' ? typeInfo.en : typeInfo.zh;
+          const titleText = currentLang === 'en' ? a.title : a.title;
+          const contentText = currentLang === 'en' ? a.content : a.content;
+          const dateStr = formatDate(a.date);
+          return `<div class="ann-card ${a.pinned ? 'pinned' : ''}">
+            <div class="ann-card-header">
+              <div class="ann-card-title">
+                ${a.pinned ? '<span class="ann-card-pin">📌 置顶</span> ' : ''}
+                <span class="ann-tag ${typeInfo.class}">${tagText}</span>
+                ${escapeHtml(titleText)}
+              </div>
+              <div class="ann-card-date">${dateStr}</div>
+            </div>
+            <div class="ann-card-content">${escapeHtml(contentText)}</div>
+          </div>`;
+        }).join('');
       }
     }
 
-    SoundManager.init();
-    
-    // 尝试自动播放（需要用户交互）
-    setTimeout(tryPlayBGM, 1000);
-    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      if (isNaN(date)) return dateStr;
+      return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    }
+
+    function showAnnouncementList() {
+      document.getElementById('annModal').classList.add('show');
+      renderAnnouncements();
+    }
+
+    function hideAnnouncementList() {
+      document.getElementById('annModal').classList.remove('show');
+    }
+
+    document.getElementById('annModal').addEventListener('click', function(e) {
+      if (e.target === this) hideAnnouncementList();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') hideAnnouncementList();
+    });
+
+    loadAnnouncements();
+    setInterval(loadAnnouncements, 5 * 60 * 1000);
+
+    window._annOrigSetLang = window.setLang;
+    window.setLang = function(l) {
+      window._annOrigSetLang(l);
+      currentLang = l;
+      renderAnnouncements();
+    };
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'mmc_lang') {
+        currentLang = e.newValue || 'zh';
+        renderAnnouncements();
+      }
+    });
   </script>
-  
-  <audio id="bgmPlayer" loop>
-    <source src="https://music.163.com/song/media/outer/url?id=186297.mp3" type="audio/mpeg">
-  </audio>
-  
 </body>
 </html>
